@@ -34,7 +34,7 @@ Kate (text editor).
 
 %description -l pl
 Wtyczki dla niektórych aplikacji KDE, rozszerzaj±ce funkcjonalno¶æ
-Konquerora (przegl±darki WWW i menad¿era plików), noatun (odtwarzacza
+Konquerora (przegl±darki WWW i zarz±dcy plików), noatun (odtwarzacza
 plików multimedialnych), Kate (edytora tekstu).
 
 %description -l pt_BR
@@ -59,7 +59,7 @@ Este paquete prove plugins de KDE para kdebase-kate.
 
 %description kate -l pl
 Ten pakiet zawiera wtyczki rozszerzaj±ce funkcjonalno¶æ Kate (KDE
-Advanced Text Editor - Zaawansowanego Edytora Tekstów KDE). Dodaje
+Advanced Text Editor - zaawansowanego edytora tekstów KDE). Dodaje
 m.in. obs³ugê DCOP, mo¿liwo¶æ zarz±dzania projektami i filtrowania
 tekstu.
 
@@ -115,7 +115,7 @@ Este paquete prove plugins de KDE para kdebase-konqueror.
 %description konqueror -l pl
 Pakiet zawiera wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora.
 Zawiera m.in. wtyczki do t³umaczenia stron WWW, sprawdzania
-poprawno¶ci HTML, ogl±dania drzewa DOM dokumentów.
+poprawno¶ci HTML, ogl±dania drzewa DOM stron WWW.
 
 %description konqueror -l pt_BR
 Este pacote fornece plugins KDE para kdebase-konqueror.
@@ -134,7 +134,7 @@ Plugins extending the functionality of the noatun media player.
 Este paquete prove plugins de KDE para kdemultimedia-noatun.
 
 %description noatun -l pl
-Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza plików
+Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza plików 
 multimedialnych noatun.
 
 %description noatun -l pt_BR
