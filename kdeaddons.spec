@@ -3,7 +3,7 @@
 # Splitting konqueror subpackage
 
 %define		_state		stable
-%define		_ver		3.1.4
+%define		_ver		3.1.5
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -11,14 +11,14 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	1e9e3159994583a38e2451380bccdae2
+# Source0-md5:	789f4ff2037a9ce1ae0219f7e2fc4db6
 # generated from kde-i18n
-Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	42df196ef97e06aabc4145fdaa144e54
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+# Source1-md5:	edbce651684941ab44d5560143bd8c9c
 Source2:	%{name}-atlantikdesigner.png
 #Source3:	%{name}-editcopy.png
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
