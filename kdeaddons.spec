@@ -1,7 +1,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040511
+%define		_snap		040516
 %define		_packager	adgor
 
 Summary:	K Desktop Environment - Plugins
@@ -31,7 +31,7 @@ BuildRequires:	kdepim-devel >= 3:%{_ver}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	unsermake
+BuildRequires:	unsermake >= 040511
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -267,13 +267,6 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
-# Workaround for doc caches (unsermake bug?)
-cd doc
-for i in `find . -name index.cache.bz2`; do
-	install -c -p -m 644 $i $RPM_BUILD_ROOT%{_kdedocdir}/en/$i
-done
-cd -	 
-
 # Debian manpages
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
@@ -283,29 +276,6 @@ mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 %find_lang kate-plugins		--with-kde
 %find_lang kicker-applets	--with-kde
 %find_lang konq-plugins		--with-kde
-
-files="\
-	kate-plugins \
-	kicker-applets \
-	konq-plugins"
-
-for i in $files; do
-	> ${i}_en.lang
-	echo "%defattr(644,root,root,755)" > ${i}_en.lang
-	grep en\/ ${i}.lang|grep -v apidocs >> ${i}_en.lang
-	grep -v apidocs $i.lang|grep -v en\/ > ${i}.lang.1
-	mv ${i}.lang.1 ${i}.lang
-done
-
-durne=`ls -1 *.lang|grep -v _en`
-
-for i in $durne; do
-	echo $i >> control
-	grep -v en\/ $i|grep -v apidocs >> ${i}.1
-	if [ -f ${i}.1 ] ; then
-		mv ${i}.1 ${i}
-	fi
-done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -340,7 +310,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kaddressbook/geo_xxportui.rc
 %{_datadir}/services/kaddressbook/geo_xxport.desktop
 
-%files kate -f kate-plugins_en.lang
+%files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kate*.la
 %attr(755,root,root) %{_libdir}/kde3/kate*.so
@@ -353,7 +323,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kate*
 %{_datadir}/applnk/.hidden/katefll.desktop
 
-%files kicker -f kicker-applets_en.lang
+%files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kbinaryclock_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/kbinaryclock_panelapplet.so
@@ -388,7 +358,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/knewsticker/scripts/sportscores.py
 %{_datadir}/apps/knewsticker/scripts/stock.pl
 
-%files konqueror -f konq-plugins_en.lang
+%files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/exif.py
 %attr(755,root,root) %{_bindir}/jpegorient
