@@ -191,20 +191,20 @@ poprawno¶ci HTML-a, ogl±dania drzewa DOM stron WWW.
 %description konqueror -l pt_BR
 Este pacote fornece plugins KDE para kdebase-konqueror.
 
-%package kontact
-Summary:	Plugins extending the functionality of Kontact
-Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
-Group:		X11/Applications
-Requires:	kdepim >= 3:%{_ver}
-Requires:	kdenetwork-knewsticker >= 10:%{_ver}
-
-%description kontact
-Plugins extending the functionality of Kontact. This includes an rss
-feeds module.
-
-%description kontact -l pl
-Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera modu³
-wy¶wietlaj±cy ¼ród³a rss.
+#%package kontact
+#Summary:	Plugins extending the functionality of Kontact
+#Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
+#Group:		X11/Applications
+#Requires:	kdepim >= 3:%{_ver}
+#Requires:	kdenetwork-knewsticker >= 10:%{_ver}
+#
+#%description kontact
+#Plugins extending the functionality of Kontact. This includes an rss
+#feeds module.
+#
+#%description kontact -l pl
+#Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera modu³
+#wy¶wietlaj±cy ¼ród³a rss.
 
 %package ksig
 Summary:	A signature creator and manager
@@ -278,6 +278,11 @@ echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 	atlantikdesigner/atlantikdesigner.desktop
 %{__sed} -i -e 's/Terminal=0/Terminal=false/' \
 	ksig/ksig.desktop
+for f in `find . -name \*.desktop`; do
+	if grep -q '^Categories=.*[^;]$' $f; then
+		sed -i -e 's/\(^Categories=.*$\)/\1;/' $f
+	fi
+done
 
 %build
 cp -f %{_datadir}/automake/config.sub admin
