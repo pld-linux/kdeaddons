@@ -11,7 +11,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -245,6 +245,15 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %setup -q 
 %patch0 -p1
 %patch1 -p1
+
+for f in `find . -name *.desktop | xargs grep -l '^Terminal=0'`; do
+	%{__sed} -i -e 's/^Terminal=0/Terminal=false/' $f
+done
+for f in `find . -name *.desktop | xargs grep -l '^Type=Application'`; do
+	if ! grep '^Encoding=' $f >/dev/null; then
+		%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' $f
+	fi
+done
 
 %build
 cp -f /usr/share/automake/config.sub admin
