@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2
-%define		_snap		030502
+%define		_snap		030509
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
