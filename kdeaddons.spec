@@ -1,6 +1,6 @@
 %bcond_without  kdegames        # no kdegames dep
 %define		_state		stable
-%define		_ver		3.3.0
+%define		_ver		3.3.1
 
 
 Summary:	K Desktop Environment - Plugins
@@ -9,13 +9,12 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	2
+Release:	0.1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/3.3/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	6ba019d8b3ce0811ae2c861d6819aaab
-#Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}-%{_snap}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	69ec1deff7ae2d0c3602bb141ed4c546
 Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
 BuildRequires:	automake
@@ -267,7 +266,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
 %setup -q
-%patch100 -p1
+#%patch100 -p1
 
 echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 
@@ -482,7 +481,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqlistview/kpartplugins/kimgalleryplugin.rc
 %{_datadir}/apps/konqlistview/kpartplugins/smbmounterplugin.rc
 %{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop
-%{_datadir}/apps/konqsidebartng/entries/mplayer.desktop
+#%{_datadir}/apps/konqsidebartng/entries/mplayer.desktop
 %{_datadir}/apps/konqsidebartng/kicker_entries/mplayer.desktop
 %{_datadir}/apps/konqueror/servicemenus/imageconverter.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
@@ -526,7 +525,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/konq_sidebarnews.la
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
 %{_datadir}/apps/konqsidebartng/add/news_add.desktop
-%{_datadir}/apps/konqsidebartng/entries/news.desktop
+#%{_datadir}/apps/konqsidebartng/entries/news.desktop
 %{_datadir}/apps/konqueror/icons/crystalsvg/16x16/actions/google.png
 %{_datadir}/config.kcfg/konq_sidebarnews.kcfg
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_news.png
