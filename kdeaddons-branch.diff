@@ -1,168 +1,1591 @@
-diff -urN -x CVS kdeaddons.orig/kate/tabbarextension/plugin_katetabbarextension.cpp kdeaddons/kate/tabbarextension/plugin_katetabbarextension.cpp
---- kdeaddons.orig/kate/tabbarextension/plugin_katetabbarextension.cpp	Fri May 14 18:51:04 2004
-+++ kdeaddons/kate/tabbarextension/plugin_katetabbarextension.cpp	Tue Aug 17 19:04:12 2004
-@@ -191,7 +191,8 @@
-   if (d) {
-     setIconSet(SmallIconSet("cancel"));
-   } else {
--    setIconSet(QIconSet());
-+    if (modified) setIconSet(SmallIconSet("modified"));
-+    else setIconSet(QIconSet());
+diff -urN -x CVS kdeaddons.orig/atlantikdesigner/atlantikdesigner.desktop kdeaddons/atlantikdesigner/atlantikdesigner.desktop
+--- kdeaddons.orig/atlantikdesigner/atlantikdesigner.desktop	Thu Sep 30 16:00:51 2004
++++ kdeaddons/atlantikdesigner/atlantikdesigner.desktop	Mon Oct  4 15:22:20 2004
+@@ -80,7 +80,7 @@
+ Comment[sk]=Návrhár pre hru Atlantik
+ Comment[sl]=Snovalnik igralnih miz za Atlantik
+ Comment[sr]=Дизајнер табли за игру Atlantik
+-Comment[sr@Latn]=Dizajner tabli za igru za Atlantik
++Comment[sr@Latn]=Dizajner tabli za igru Atlantik
+ Comment[sv]=Atlantik spelplanskonstruktion
+ Comment[ta]=அட்லாண்டிக்கிற்கான மேஜை விளையாட்டு வடிவமைப்பாளர்
+ Comment[tg]=Коркарди дизайн барои бозии Atlantik
+diff -urN -x CVS kdeaddons.orig/debian/atlantikdesigner.1 kdeaddons/debian/atlantikdesigner.1
+--- kdeaddons.orig/debian/atlantikdesigner.1	Thu Feb  5 10:49:36 2004
++++ kdeaddons/debian/atlantikdesigner.1	Wed Oct 13 16:07:47 2004
+@@ -2,7 +2,7 @@
+ .\" First parameter, NAME, should be all caps
+ .\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+ .\" other parameters are allowed: see man(7), man(1)
+-.TH ATLANTIKDESIGNER 1 "February 17, 2003"
++.TH ATLANTIKDESIGNER 1 "October 14, 2004"
+ .\" Please adjust this date whenever revising the manpage.
+ .\"
+ .\" Some roff macros, for reference:
+@@ -24,9 +24,10 @@
+ \fBAtlantik Designer\fP is a game board designer for Atlantik.
+ .PP
+ Atlantik is a KDE client for playing Monopoly-like board games on the
+-monopd network.  The purpose of Atlantik is to acquire land in
+-major cities in North America and Europe while being a transatlantic
+-traveller.
++monopd network.  It can play any board supported by the network
++server, including the classic Monopoly game as well as the Atlantik
++game in which the properties include several major cities in North
++America and Europe.
+ .PP
+ This application is part of the official KDE add-ons module.
+ .SH OPTIONS
+diff -urN -x CVS kdeaddons.orig/debian/changelog kdeaddons/debian/changelog
+--- kdeaddons.orig/debian/changelog	Sun Aug  1 10:43:20 2004
++++ kdeaddons/debian/changelog	Sat Oct 23 11:54:01 2004
+@@ -1,8 +1,27 @@
+-kdeaddons (4:3.2.92-1) experimental; urgency=low
++kdeaddons (4:3.3.1-1) unstable; urgency=medium
+ 
+-  * New upstream release.
++  * New upstream bugfix release.
++  * Patched .lnk kfile plugin and /usr/bin/lnkforward so that they can
++    distinguish between drive and path information.  Previously, lnkforward
++    would lose path information altogether (and thus fail to work).
++  * Removed the rellinks plugin, which is terribly broken at this stage
++    (see Debian bug #276633 and KDE bugs #84966 and #86113).
++  * Force a rerun of admin/Makefile.common when building (not just after a
++    clean), since the debian patches affect Makefile.ams.
++  * Build-conflict with autoconf2.13, since admin/Makefile.common does not
++    operate correctly in its presence.
+ 
+- -- Ben Burton <bab@debian.org>  Sun,  1 Aug 2004 18:41:10 +1000
++ -- Ben Burton <bab@debian.org>  Sat, 23 Oct 2004 15:17:56 +1000
++
++kdeaddons (4:3.3.0-1) unstable; urgency=low
++
++  * New upstream release (closes: #270161).
++  * Package kontact-plugins no longer exists (closes: #268892, #238971).
++  * Now includes a konqueror search bar (closes: #103073, #269106).
++  * Changed kate-plugins to depend on tidy instead of just suggest it.
++  * Happy anniversarymits!
++
++ -- Ben Burton <bab@debian.org>  Thu, 14 Oct 2004 00:10:01 +1000
+ 
+ kdeaddons (4:3.2.3-2) unstable; urgency=low
+ 
+diff -urN -x CVS kdeaddons.orig/debian/control kdeaddons/debian/control
+--- kdeaddons.orig/debian/control	Sun Aug  1 10:51:09 2004
++++ kdeaddons/debian/control	Sat Oct 23 10:40:49 2004
+@@ -2,13 +2,14 @@
+ Section: kde
+ Priority: optional
+ Maintainer: Ben Burton <bab@debian.org>
+-Build-Depends: atlantik-dev (>> 4:3.2.92), automake1.7, debhelper (>> 4.0.0), gawk, gettext, kdebase-dev (>> 4:3.2.92), kdelibs4-dev (>> 4:3.2.92), kdemultimedia-dev (>> 4:3.2.92), libdb4.0++-dev, libkdegames-dev (>> 4:3.2.92), libkonq4-dev (>> 4:3.2.92), kdepim-dev (>> 4:3.2.92), libsdl1.2-dev (>= 1.2.2-3.3), libxine-dev, xlibs-pic, xmms-dev
++Build-Depends: atlantik-dev (>> 4:3.3.0), automake1.7, debhelper (>> 4.0.0), gawk, gettext, kdebase-dev (>> 4:3.3.0), kdelibs4-dev (>> 4:3.3.0), kdemultimedia-dev (>> 4:3.3.0), libdb4.2++-dev, libkdegames-dev (>> 4:3.3.0), libkonq4-dev (>> 4:3.3.0), kdepim-dev (>> 4:3.3.0), libsdl1.2-dev (>= 1.2.2-3.3), libxine-dev, xlibs-pic, xmms-dev
++Build-Conflicts: autoconf2.13
+ Standards-Version: 3.6.1
+ 
+ Package: kdeaddons
+ Architecture: all
+ Section: kde
+-Depends: atlantikdesigner (>= ${Source-Version}), kaddressbook-plugins (>= ${Source-Version}), kate-plugins (>= ${Source-Version}), kdeaddons-kfile-plugins (>= ${Source-Version}), kicker-applets (>= ${Source-Version}), knewsticker-scripts (>= ${Source-Version}), konq-plugins (>= ${Source-Version}), kontact-plugins (>= ${Source-Version}), ksig (>= ${Source-Version}), noatun-plugins (>= ${Source-Version}), vimpart (>= ${Source-Version})
++Depends: atlantikdesigner (>= ${Source-Version}), kaddressbook-plugins (>= ${Source-Version}), kate-plugins (>= ${Source-Version}), kdeaddons-kfile-plugins (>= ${Source-Version}), kicker-applets (>= ${Source-Version}), knewsticker-scripts (>= ${Source-Version}), konq-plugins (>= ${Source-Version}), ksig (>= ${Source-Version}), noatun-plugins (>= ${Source-Version}), vimpart (>= ${Source-Version})
+ Suggests: kdeaddons-doc-html
+ Description: add-on plugins and applets provided with KDE
+  This is a collection of add-on plugins and applets provided with the official
+@@ -41,8 +42,10 @@
+  Atlantik Designer is a game board designer for Atlantik.
+  .
+  Atlantik is a KDE client for playing Monopoly-like board games on the
+- monopd network.  The purpose of Atlantik is to acquire land in major
+- cities in North America and Europe while being a transatlantic traveller.
++ monopd network.  It can play any board supported by the network
++ server, including the classic Monopoly game as well as the Atlantik
++ game in which the properties include several major cities in North
++ America and Europe.
+  .
+  This package is part of the KDE add-ons module.
+ 
+@@ -50,9 +53,9 @@
+ Architecture: any
+ Section: kde
+ Depends: ${shlibs:Depends}
+-Suggests: kworldclock, kontact-plugins, khelpcenter, kdeaddons-doc-html
++Suggests: kworldclock, khelpcenter, kdeaddons-doc-html
+ Enhances: kaddressbook
+-Description: plugins for Kaddressbook, the KDE address book
++Description: plugins for KAddressBook, the KDE address book
+  This package contains a variety of useful plugins for the KDE address
+  book.  These plugins can be loaded through the KDE address book settings.
+  .
+@@ -63,8 +66,8 @@
+ Package: kate-plugins
+ Architecture: any
+ Section: editors
+-Depends: ${shlibs:Depends}
+-Suggests: khelpcenter, kdeaddons-doc-html, tidy
++Depends: ${shlibs:Depends}, tidy
++Suggests: khelpcenter, kdeaddons-doc-html
+ Enhances: kate
+ Description: plugins for Kate, the KDE Advanced Text Editor
+  This package contains a variety of useful plugins for Kate, the KDE
+@@ -72,9 +75,8 @@
+  manager in Kate settings.
+  .
+  Highlights include spell checking, text filtering, HTML/XML construction
+- and validation, insertion of shell command output, vim/emacs modeline
+- handling, opening of C/C++ headers, extraction of C/C++ symbols, a Python
+- browser and even more.
++ and validation, vim/emacs modeline handling, opening of C/C++ headers,
++ extraction of C/C++ symbols, a tab bar, a Python browser and even more.
+  .
+  This package is part of the KDE add-ons module.
+ 
+@@ -88,7 +90,7 @@
+ Description: KDE file dialog plugins for text files and folders
+  This is a collection of plugins for the KDE file dialog.  These plugins
+  extend the file dialog to offer advanced meta-information for text,
+- HTML and desktop files, as well as for folders.
++ HTML and desktop files, as well as for folders and Windows .lnk files.
+  .
+  This package also includes plugins for the KDE file rename dialog,
+  allowing a user to more easily decide what to do when faced with a
+@@ -111,8 +113,8 @@
+  This package contains a variety of applets for Kicker, the KDE panel.
+  These applets will appear in the panel's Add--Applet menu.
+  .
+- Included are a system monitor, a colour picker, a media player controller
+- and a binary clock.
++ Included are a system monitor, a colour picker, a media player controller,
++ a mathematical evaluator and a binary clock.
+  .
+  This package is part of the KDE add-ons module.
+ 
+@@ -135,37 +137,23 @@
+ Package: konq-plugins
+ Architecture: any
+ Section: kde
+-Depends: ${shlibs:Depends}, imagemagick, libjpeg-progs, python
++Depends: ${shlibs:Depends}, ark, imagemagick, libjpeg-progs, python
+ Suggests: khelpcenter, kdeaddons-doc-html
+ Enhances: konqueror
+ Description: plugins for Konqueror, the KDE file/web/doc browser
+  This package contains a variety of useful plugins for Konqueror, the
+- file manager, web browser and document viewer for KDE.  These plugins
+- will appear in Konqueror's Tools menu.
++ file manager, web browser and document viewer for KDE.  Many of these
++ plugins will appear in Konqueror's Tools menu.
+  .
+  Highlights for web browsing include web page translation, web page archiving,
+- auto-refreshing, HTML and CSS structural analysis, fast access to common
+- options, bookmarklets and a crash monitor.
++ auto-refreshing, HTML and CSS structural analysis, a search toolbar, a
++ sidebar news ticker, fast access to common options, bookmarklets and a
++ crash monitor.
+  .
+  Highlights for directory browsing include directory filters, image gallery
+- creation, samba share mounting, quick copy/move, a sidebar media player,
+- a graphical disk usage viewer and image conversions and transformations.
+- .
+- This package is part of the KDE add-ons module.
+-
+-Package: kontact-plugins
+-Architecture: any
+-Section: kde
+-Depends: ${shlibs:Depends}, dcoprss
+-Recommends: kaddressbook-plugins
+-Suggests: khelpcenter, kdeaddons-doc-html
+-Enhances: kontact
+-Description: plugins for Kontact, the KDE groupware client
+- This package contains a variety of useful plugins for Kontact, the
+- groupware client for KDE.  These plugins can be loaded through the
+- Kontact settings.
+- .
+- Highlights include a news ticker plugin.
++ creation, archive compression and extraction, samba share mounting, quick
++ copy/move, a sidebar media player, a graphical disk usage viewer and image
++ conversions and transformations.
+  .
+  This package is part of the KDE add-ons module.
+ 
+diff -urN -x CVS kdeaddons.orig/debian/copyright kdeaddons/debian/copyright
+--- kdeaddons.orig/debian/copyright	Mon Mar  8 00:59:23 2004
++++ kdeaddons/debian/copyright	Wed Oct 13 10:53:37 2004
+@@ -1,4 +1,4 @@
+-This package was debianized by Ben Burton <bab@debian.org> on
++This package was debianised by Ben Burton <bab@debian.org> on
+ Mon, 18 Jun 2001 02:52:26 -0500.
+ Thanks to Mickael Marchand for originally packaging vimpart.
+ 
+@@ -9,14 +9,19 @@
+ 
+ Upstream authors:
+ 
+-  Many and varied; this package is simply a collection of plugins.
+-  See http://www.kde.org/ for further details.
++  Many and varied; this package is simply a collection of add-ons and
++  plugins.  See http://www.kde.org/ for further details.
+ 
+ Copyright:
+ 
+   All components of this package are released under the GPL (GNU General
+   Public License), with the following exceptions:
+ 
++  Kate Plugins:
++
++    KJS Wrapper:
++      LGPL (GNU Library General Public License)
++
+   Kicker Applets:
+ 
+     KBinaryClock:
+@@ -43,6 +48,33 @@
+       CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+       WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
++    Math Expression Evaluator:
++      Mixture of GPL and the following:
++
++      Based on code 'Run' applet code, copyright (c) 2000 Matthias Elter
++      <elter@kde.org>
++
++      Modifications made by Andrew Coles, 2004 <andrew_coles@yahoo.co.uk>
++
++      Permission is hereby granted, free of charge, to any person
++      obtaining a copy of this software and associated documentation
++      files (the "Software"), to deal in the Software without
++      restriction, including without limitation the rights to use, copy,
++      modify, merge, publish, distribute, sublicense, and/or sell copies
++      of the Software, and to permit persons to whom the Software is
++      furnished to do so, subject to the following conditions:
++
++      The above copyright notice and this permission notice shall be
++      included in all copies or substantial portions of the Software.
++
++      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++      EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++      MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++      NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
++      CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
++      CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
++      WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++
+   KNewsTicker Scripts:
+ 
+     All scripts surrendered to the knewsticker scripts section which are
+@@ -71,15 +103,15 @@
+   Konqueror Plugins:
+ 
+     Babelfish, crash monitor, directory filter, image gallery,
+-    minitools bookmarklets, SMB mounter, user agent changer,
+-    HTML/CSS validators:
++    minitools bookmarklets, sidebar news ticker, SMB mounter,
++    user agent changer, HTML/CSS validators:
+       LGPL (GNU Lesser General Public License)
+ 
+     Kuick copy and move, web archiver:
+       Mixture of GPL and LGPL
+ 
+     Sidebar media player:
+-      Mixture of GPL and the following:
++      Mixture of GPL, LGPL and the following:
+ 
+       Copyright (c) 2000-2001 the noatun authors. See file AUTHORS.
+ 
+@@ -102,14 +134,38 @@
+       FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+       DEALINGS IN THE SOFTWARE.
+ 
+-  Kontact Plugins:
++  Noatun Plugins:
+ 
+-    Newsticker plugin:
+-      Mixture of GPL and LGPL (GNU Lesser General Public License)
++    Alarm:
++      Mixture of GPL and the following:
+ 
+-  Noatun Plugins:
++      Copyright (C) 2001 Neil Stevens <multivac@fcmail.com>
++
++      Permission is hereby granted, free of charge, to any person
++      obtaining a copy of this software and associated documentation
++      files (the "Software"), to deal in the Software without
++      restriction, including without limitation the rights to use, copy,
++      modify, merge, publish, distribute, sublicense, and/or sell copies
++      of the Software, and to permit persons to whom the Software is
++      furnished to do so, subject to the following conditions:
+ 
+-    AlsaPlayer, Blurscope, Dead Man's Interface, Jefferson, Lucky Tag Reader:
++      The above copyright notice and this permission notice shall be
++      included in all copies or substantial portions of the Software.
++
++      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++      EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++      MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++      NONINFRINGEMENT.  IN NO EVENT SHALL THE THE AUTHOR(S) BE LIABLE
++      FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
++      CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
++      WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++
++      Except as contained in this notice, the name(s) of the author(s)
++      shall not be used in advertising or otherwise to promote the sale,
++      use or other dealings in this Software without prior written
++      authorization from the author(s).
++
++    AlsaPlayer, Blurscope, Dead Man's Interface, Lucky Tag Reader:
+       Permission is hereby granted, free of charge, to any person obtaining
+       a copy of this software and associated documentation files (the
+       "Software"), to deal in the Software without restriction, including
+@@ -158,7 +214,71 @@
+       BSD License
+ 
+     NexScope:
+-      LGPL (GNU Lesser General Public License)
++      Mixture of GPL and LGPL (GNU Lesser General Public License)
++
++    Oblique:
++      Mixture of LGPL and the following:
++
++      This file is hereby licensed under the GNU General Public License
++      version 2 or later at your option.
++
++      This file is licensed under the Qt Public License version 1 with
++      the condition that the licensed will be governed under the Laws of
++      California (USA) instead of Norway.  Disputes will be settled in
++      Santa Clara county courts.
++
++      This file is licensed under the following additional license.  Be
++      aware that it is identical to the BSD license, except for the
++      added clause 3:
++
++        Redistribution and use in source and binary forms, with or
++        without modification, are permitted provided that the following
++        conditions are met:
++
++        1. Redistributions of source code must retain the above copyright
++           notice, this list of conditions and the following disclaimer.
++        2. Redistributions in binary form must reproduce the above copyright
++           notice, this list of conditions and the following disclaimer in the
++           documentation and/or other materials provided with the distribution.
++        3. By integrating this software into any other software codebase, you
++           waive all rights to any patents associated with the stated codebase.
++
++        THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY
++        EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
++        THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
++        PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR
++        BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
++        EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
++        TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++        DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
++        ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++        LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
++        IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
++        THE POSSIBILITY OF SUCH DAMAGE.
++
++    Synaescope:
++      Mixture of GPL and the following:
++
++      Copyright (c) 2001 Neil Stevens <multivac@fcmail.com>
++
++      Permission is hereby granted, free of charge, to any person
++      obtaining a copy of this software and associated documentation
++      files (the "Software"), to deal in the Software without
++      restriction, including without limitation the rights to use, copy,
++      modify, merge, publish, distribute, sublicense, and/or sell copies
++      of the Software, and to permit persons to whom the Software is
++      furnished to do so, subject to the following conditions:
++
++      The above copyright notice and this permission notice shall be
++      included in all copies or substantial portions of the Software.
++
++      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++      EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++      MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++      NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY
++      CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
++      CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
++      WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+   On Debian GNU/Linux systems, the complete texts of these licenses can be
+   found in `/usr/share/common-licenses/GPL', `/usr/share/common-licenses/LGPL'
+diff -urN -x CVS kdeaddons.orig/debian/jpegorient.1 kdeaddons/debian/jpegorient.1
+--- kdeaddons.orig/debian/jpegorient.1	Thu Feb  5 10:49:36 2004
++++ kdeaddons/debian/jpegorient.1	Wed Oct 13 12:24:53 2004
+@@ -2,7 +2,7 @@
+ .\" First parameter, NAME, should be all caps
+ .\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+ .\" other parameters are allowed: see man(7), man(1)
+-.TH JPEGORIENT 1 "February 4, 2004"
++.TH JPEGORIENT 1 "October 13, 2004"
+ .\" Please adjust this date whenever revising the manpage.
+ .\"
+ .\" Some roff macros, for reference:
+@@ -16,42 +16,52 @@
+ .\" .sp <n>    insert n+1 empty lines
+ .\" for manpage-specific macros, see man(7)
+ .SH NAME
+-jpegorient \- change the orientation of a JPEG image
++jpegorient \- change the orientations of JPEG images
+ .SH SYNOPSIS
+ .B jpegorient
+ { \fB\-90\fP | \fB\-180\fP | \fB\-270\fP | \fB\-v\fP | \fB\-h\fP }
+-\fIimage-file\fP
++\fIimage-file\fP ...
+ .SH DESCRIPTION
+-This is a simple utility for changing the orientation of a JPEG image.
++This is a simple utility for changing the orientations of one or more
++JPEG images.
+ It is provided as part of the image conversion and transformation
+ plugins for Konqueror.
+ .PP
+-A single option must be passed to specify how the orientation is to be
+-changed.  The new image will be saved over the old one.
++A single option must be passed before any filenames to specify how the
++orientations of the images are to be changed.  Each new image will be
++saved over the old one.
++.PP
++This utility makes use of
++.BR orient.py (1),
++which is designed to work with certain types of digital camera image
++files.  Instead of modifying the image data, it alters the EXIF
++tags stored with the image to reflect the new orientation.  For this
++reason only images with the correct types of EXIF tags can be changed
++using this tool.
+ .PP
+ This utility is part of the official KDE add-ons module.
+ .SH OPTIONS
+ .TP
+ \fB\-90\fP
+-Rotate the image by 90 degrees clockwise.
++Rotate each image by 90 degrees clockwise.
+ .TP
+ \fB\-180\fP
+-Rotate the image by a half turn (i.e., 180 degrees).
++Rotate each image by a half turn (i.e., 180 degrees).
+ .TP
+ \fB\-270\fP
+-Rotate the image by 270 degrees clockwise (i.e., 90 degrees counter-clockwise).
++Rotate each image by 270 degrees clockwise (i.e., 90 degrees counter-clockwise).
+ .TP
+ \fB\-v\fP
+-Flip the image vertically.
++Flip each image vertically.
+ .TP
+ \fB\-h\fP
+-Flip the image horizontally.
++Flip each image horizontally.
+ .SH SEE ALSO
+ .BR exif.py (1),
+ .BR konqueror (1),
+ .BR orient.py (1).
+ .SH AUTHOR
+-The image conversion and transformation plugins were written by
++The image transformation plugins were written by
+ Leif Jensen <jensen@math.columbia.edu>.
+ .br
+ This manual page was prepared by Ben Burton <bab@debian.org>
+diff -urN -x CVS kdeaddons.orig/debian/kate-plugins.install kdeaddons/debian/kate-plugins.install
+--- kdeaddons.orig/debian/kate-plugins.install	Thu Feb  5 10:49:36 2004
++++ kdeaddons/debian/kate-plugins.install	Wed Oct 13 10:53:24 2004
+@@ -1,4 +1,5 @@
+ usr/lib/kde3/kate*
++usr/lib/kde3/libkate*
+ usr/share/applnk/.hidden/katefll.desktop
+ usr/share/apps/kate
+ usr/share/apps/katexmltools
+@@ -6,3 +7,4 @@
+ usr/share/doc/kde/HTML/en/kate-plugins/index.cache.bz2
+ usr/share/doc/kde/HTML/en/kate-plugins/*.docbook
+ usr/share/services/kate*
++../../kate/xmltools/README usr/share/doc/kate-plugins/xmltools
+diff -urN -x CVS kdeaddons.orig/debian/kdeaddons-kfile-plugins.install kdeaddons/debian/kdeaddons-kfile-plugins.install
+--- kdeaddons.orig/debian/kdeaddons-kfile-plugins.install	Thu Feb  5 10:49:36 2004
++++ kdeaddons/debian/kdeaddons-kfile-plugins.install	Wed Oct 13 10:53:24 2004
+@@ -1,5 +1,9 @@
++usr/bin/lnkforward
+ usr/lib/kde3/kfile_*
+ usr/lib/kde3/libren*
++usr/share/applications/kde/lnkforward.desktop
++usr/share/mimelnk/application/x-win-lnk.desktop
+ usr/share/services/kfile_*
+ usr/share/services/ren*
+ usr/share/doc/kdeaddons-kfile-plugins
++../../kfile-plugins/lnk/README usr/share/doc/kdeaddons-kfile-plugins/lnk
+diff -urN -x CVS kdeaddons.orig/debian/kdeaddons-kfile-plugins.manpages kdeaddons/debian/kdeaddons-kfile-plugins.manpages
+--- kdeaddons.orig/debian/kdeaddons-kfile-plugins.manpages	Thu Jan  1 01:00:00 1970
++++ kdeaddons/debian/kdeaddons-kfile-plugins.manpages	Sat Oct 23 12:29:43 2004
+@@ -0,0 +1 @@
++debian/lnkforward.1
+diff -urN -x CVS kdeaddons.orig/debian/kicker-applets.install kdeaddons/debian/kicker-applets.install
+--- kdeaddons.orig/debian/kicker-applets.install	Sat Dec  6 18:06:45 2003
++++ kdeaddons/debian/kicker-applets.install	Wed Oct 13 10:53:24 2004
+@@ -1,5 +1,6 @@
+ usr/lib/kde3/kolourpicker_panelapplet.*
+ usr/lib/kde3/ktimemon_panelapplet.*
++usr/lib/kde3/math_panelapplet.*
+ usr/lib/kde3/mediacontrol_panelapplet.*
+ usr/lib/kde3/kbinaryclock_panelapplet.*
+ usr/share/apps/kicker/applets
+@@ -12,3 +13,10 @@
+ usr/share/icons/locolor/32x32/apps/ktimemon.png
+ usr/share/icons/crystalsvg/16x16/apps/ktimemon.png
+ usr/share/icons/crystalsvg/32x32/apps/ktimemon.png
++../../kicker-applets/kolourpicker/TODO usr/share/doc/kicker-applets/kolourpicker
++../../kicker-applets/mediacontrol/AUTHORS usr/share/doc/kicker-applets/mediacontrol
++../../kicker-applets/mediacontrol/ChangeLog usr/share/doc/kicker-applets/mediacontrol
++../../kicker-applets/mediacontrol/README usr/share/doc/kicker-applets/mediacontrol
++../../kicker-applets/mediacontrol/TODO usr/share/doc/kicker-applets/mediacontrol
++../../kicker-applets/ktimemon/README usr/share/doc/kicker-applets/ktimemon
++../../kicker-applets/ktimemon/TODO usr/share/doc/kicker-applets/ktimemon
+diff -urN -x CVS kdeaddons.orig/debian/konq-plugins.install kdeaddons/debian/konq-plugins.install
+--- kdeaddons.orig/debian/konq-plugins.install	Thu Feb  5 10:49:36 2004
++++ kdeaddons/debian/konq-plugins.install	Wed Oct 13 10:53:24 2004
+@@ -1,11 +1,16 @@
++etc/kde3/translaterc
+ usr/bin/exif.py
+ usr/bin/fsview
+ usr/bin/jpegorient
+ usr/bin/orient.py
++usr/lib/kde3/konq_sidebarnews.la
++usr/lib/kde3/konq_sidebarnews.so
+ usr/lib/kde3/konq_smbmounterplugin.la
+ usr/lib/kde3/konq_smbmounterplugin.so
+ usr/lib/kde3/konqsidebar_mediaplayer.la
+ usr/lib/kde3/konqsidebar_mediaplayer.so
++usr/lib/kde3/libarkplugin.la
++usr/lib/kde3/libarkplugin.so
+ usr/lib/kde3/libautorefresh.la
+ usr/lib/kde3/libautorefresh.so
+ usr/lib/kde3/libbabelfishplugin.la
+@@ -28,6 +33,10 @@
+ usr/lib/kde3/libkuickplugin.so
+ usr/lib/kde3/libminitoolsplugin.la
+ usr/lib/kde3/libminitoolsplugin.so
++usr/lib/kde3/librellinksplugin.la
++usr/lib/kde3/librellinksplugin.so
++usr/lib/kde3/libsearchbarplugin.la
++usr/lib/kde3/libsearchbarplugin.so
+ usr/lib/kde3/libuachangerplugin.la
+ usr/lib/kde3/libuachangerplugin.so
+ usr/lib/kde3/libvalidatorsplugin.la
+@@ -36,6 +45,7 @@
+ usr/lib/kde3/libwebarchiverplugin.so
+ usr/lib/kde3/webarchivethumbnail.la
+ usr/lib/kde3/webarchivethumbnail.so
++usr/share/applnk/.hidden/arkplugin.desktop
+ usr/share/applnk/.hidden/babelfishplugin.desktop
+ usr/share/applnk/.hidden/crashesplugin.desktop
+ usr/share/applnk/.hidden/dirfilterplugin.desktop
+@@ -46,6 +56,7 @@
+ usr/share/applnk/.hidden/kuickplugin.desktop
+ usr/share/applnk/.hidden/mediaplayerplugin.desktop
+ usr/share/applnk/.hidden/minitoolsplugin.desktop
++usr/share/applnk/.hidden/searchbarplugin.desktop
+ usr/share/applnk/.hidden/smbmounterplugin.desktop
+ usr/share/applnk/.hidden/uachangerplugin.desktop
+ usr/share/applnk/.hidden/validatorsplugin.desktop
+@@ -55,7 +66,10 @@
+ usr/share/apps/konqiconview
+ usr/share/apps/konqlistview
+ usr/share/apps/konqsidebartng
++usr/share/apps/konqueror/icons
++usr/share/apps/konqueror/kpartplugins
+ usr/share/apps/konqueror/servicemenus
++usr/share/config.kcfg/konq_sidebarnews.kcfg
+ usr/share/doc/kde/HTML/en/konq-plugins/babel/common
+ usr/share/doc/kde/HTML/en/konq-plugins/babel/index.cache.bz2
+ usr/share/doc/kde/HTML/en/konq-plugins/babel/index.docbook
+@@ -76,6 +90,7 @@
+ usr/share/doc/kde/HTML/en/konq-plugins/imgallery/common
+ usr/share/doc/kde/HTML/en/konq-plugins/imgallery/index.cache.bz2
+ usr/share/doc/kde/HTML/en/konq-plugins/imgallery/index.docbook
++usr/share/doc/kde/HTML/en/konq-plugins/imgallery/*.png
+ usr/share/doc/kde/HTML/en/konq-plugins/index.cache.bz2
+ usr/share/doc/kde/HTML/en/konq-plugins/index.docbook
+ usr/share/doc/kde/HTML/en/konq-plugins/khtmlsettings/common
+@@ -118,11 +133,23 @@
+ usr/share/icons/crystalsvg/22x22/apps/konqsidebar_mediaplayer.png
+ usr/share/icons/crystalsvg/32x32/apps/konqsidebar_mediaplayer.png
+ usr/share/icons/crystalsvg/48x48/apps/konqsidebar_mediaplayer.png
++usr/share/icons/crystalsvg/16x16/apps/konqsidebar_news.png
++usr/share/icons/crystalsvg/32x32/apps/konqsidebar_news.png
++usr/share/icons/crystalsvg/48x48/apps/konqsidebar_news.png
+ usr/share/icons/hicolor/22x22/apps/fsview.png
+ usr/share/icons/hicolor/32x32/apps/fsview.png
+ usr/share/icons/locolor/32x32/apps/konqsidebar_mediaplayer.png
+ usr/share/mimelnk/application/x-webarchive.desktop
++usr/share/services/ark_plugin.desktop
+ usr/share/services/fsview_part.desktop
+ usr/share/services/kuick_plugin.desktop
+ usr/share/services/webarchivethumbnail.desktop
+ ../fsview.xpm usr/share/pixmaps
++../../konq-plugins/fsview/README usr/share/doc/konq-plugins/fsview
++../../konq-plugins/rellinks/AUTHORS usr/share/doc/konq-plugins/rellinks
++../../konq-plugins/rellinks/ChangeLog usr/share/doc/konq-plugins/rellinks
++../../konq-plugins/rellinks/README usr/share/doc/konq-plugins/rellinks
++../../konq-plugins/rellinks/TODO usr/share/doc/konq-plugins/rellinks
++../../konq-plugins/sidebar/mediaplayer/AUTHORS usr/share/doc/konq-plugins/sidebar-mediaplayer
++../../konq-plugins/sidebar/newsticker/README usr/share/doc/konq-plugins/sidebar-newsticker
++../../konq-plugins/smbmounter/Readme usr/share/doc/konq-plugins/smbmounter
+diff -urN -x CVS kdeaddons.orig/debian/lnkforward.1 kdeaddons/debian/lnkforward.1
+--- kdeaddons.orig/debian/lnkforward.1	Thu Jan  1 01:00:00 1970
++++ kdeaddons/debian/lnkforward.1	Sat Oct 23 12:29:43 2004
+@@ -0,0 +1,60 @@
++.\"                                      Hey, EMACS: -*- nroff -*-
++.\" First parameter, NAME, should be all caps
++.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
++.\" other parameters are allowed: see man(7), man(1)
++.TH LNKFORWARD 1 "October 23, 2004"
++.\" Please adjust this date whenever revising the manpage.
++.\"
++.\" Some roff macros, for reference:
++.\" .nh        disable hyphenation
++.\" .hy        enable hyphenation
++.\" .ad l      left justify
++.\" .ad b      justify to both left and right margins
++.\" .nf        disable filling
++.\" .fi        enable filling
++.\" .br        insert line break
++.\" .sp <n>    insert n+1 empty lines
++.\" for manpage-specific macros, see man(7)
++.SH NAME
++lnkforward \- open an URL in a Windows .lnk file under KDE
++.SH SYNOPSIS
++.B lnkforward
++[ \fIgeneric-options\fP ]
++[ \fB\-\-map\fP \fIdrive\fP=\fIpath\fP ... ]
++\fIURL\fP
++.SH DESCRIPTION
++\fBlnkforward\fP examines a Windows .lnk file, determines its target and
++then opens this target file.  In deciding how to open the target file,
++the usual KDE file associations will be used.
++.PP
++The given URL must include a protocol.  Specifically, if it is simply a
++file on the local filesystem, it must be given in the form
++\fIfile:/path/to/file.lnk\fP.
++.PP
++Drive mappings must be supplied (via \-\-map) for any Windows drive
++referred to in the .lnk file.  See the OPTIONS section below for details.
++.PP
++This utility is used by the .lnk kfile plugin, and is
++part of the official KDE add-ons module.
++.SH OPTIONS
++Below are the lnkforward-specific options.
++For a full summary of options, run \fIlnkforward \-\-help\fP.
++.TP
++\fB\-\-map\fP \fIdrive\fP=\fIpath\fP
++Map the given Windows drive to the given path on the local filesystem
++(generally its mount point).
++This option may be passed multiple times.
++.SH EXAMPLE
++Suppose that the Windows file \fIc:\\readme.txt.lnk\fP is a link to
++\fId:\\foo\\bar.txt\fP.  Then the following command will open the file
++\fI/mnt/data/foo/bar.txt\fP in the usual KDE text editor:
++.PP
++.RS
++\fIprompt$\fP
++lnkforward \-\-map c=/mnt/windows \-\-map d=/mnt/data /mnt/windows/readme.lnk
++.RE
++.SH AUTHOR
++This utility was written by Martin Koller <m.koller@surfeu.at>.
++.br
++This manual page was prepared by Ben Burton <bab@debian.org>
++for the Debian GNU/Linux system (but may be used by others).
+diff -urN -x CVS kdeaddons.orig/debian/noatun-plugins.install kdeaddons/debian/noatun-plugins.install
+--- kdeaddons.orig/debian/noatun-plugins.install	Thu Feb  5 10:49:36 2004
++++ kdeaddons/debian/noatun-plugins.install	Wed Oct 13 10:53:24 2004
+@@ -20,3 +20,13 @@
+ usr/share/apps/noatun/wakeup.plugin
+ usr/share/apps/noatun/wavecapture.plugin
+ usr/share/icons/crystalsvg/16x16/apps/synaescope.png
++../../noatun-plugins/dub/AUTHORS usr/share/doc/noatun-plugins/dub
++../../noatun-plugins/dub/BUGS usr/share/doc/noatun-plugins/dub
++../../noatun-plugins/dub/ChangeLog usr/share/doc/noatun-plugins/dub
++../../noatun-plugins/dub/design.txt usr/share/doc/noatun-plugins/dub
++../../noatun-plugins/dub/NEWS usr/share/doc/noatun-plugins/dub
++../../noatun-plugins/dub/README usr/share/doc/noatun-plugins/dub
++../../noatun-plugins/dub/TODO usr/share/doc/noatun-plugins/dub
++../../noatun-plugins/lyrics/TODO usr/share/doc/noatun-plugins/lyrics
++../../noatun-plugins/tyler/AUTHORS usr/share/doc/noatun-plugins/tyler
++../../noatun-plugins/tyler/README usr/share/doc/noatun-plugins/tyler
+diff -urN -x CVS kdeaddons.orig/debian/orient.py.1 kdeaddons/debian/orient.py.1
+--- kdeaddons.orig/debian/orient.py.1	Thu Feb  5 10:49:36 2004
++++ kdeaddons/debian/orient.py.1	Wed Oct 13 12:24:53 2004
+@@ -2,7 +2,7 @@
+ .\" First parameter, NAME, should be all caps
+ .\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+ .\" other parameters are allowed: see man(7), man(1)
+-.TH ORIENT.PY 1 "February 4, 2004"
++.TH ORIENT.PY 1 "October 13, 2004"
+ .\" Please adjust this date whenever revising the manpage.
+ .\"
+ .\" Some roff macros, for reference:
+@@ -81,7 +81,7 @@
+ .BR jpegorient (1),
+ .BR konqueror (1).
+ .SH AUTHOR
+-The image conversion and transformation plugins were written by
++The image transformation plugins were written by
+ Leif Jensen <jensen@math.columbia.edu>.
+ .br
+ This manual page was prepared by Ben Burton <bab@debian.org>
+diff -urN -x CVS kdeaddons.orig/debian/rules kdeaddons/debian/rules
+--- kdeaddons.orig/debian/rules	Thu Feb  5 10:49:36 2004
++++ kdeaddons/debian/rules	Sat Oct 23 13:17:02 2004
+@@ -55,9 +55,13 @@
+ 	fi
+ 
+ 	# KDE CVS does not have aclocal.m4 or configure
+-	if test ! -f configure; then \
+-		$(MAKE) -f admin/Makefile.common ;\
+-	fi
++	# if test ! -f configure; then \
++	# 	$(MAKE) -f admin/Makefile.common ;\
++	# fi
++
++	# Force a rerun of automake/etc since this is required by the
++	# debian patches.
++	$(MAKE) -f admin/Makefile.common ;\
+ 
+ 	# ensure configure is executable
+ 	chmod +x configure
+@@ -142,6 +146,9 @@
+ 	# Split into separate binary packages.
+ 	dh_install --sourcedir=debian/tmp --list-missing
+ 
++	# Remove the rellinks plugin until it becomes unbroken.
++	rm -vr `find debian/konq-plugins -name "*rellinks*"`
++
+ 	# Install standard documentation links.
+ 	for pkg in `dh_listpackages`; do \
+ 	  if test -d debian/$$pkg/usr/share/doc/kde/HTML/en/$$pkg; then \
+diff -urN -x CVS kdeaddons.orig/debian/source.lintian-overrides kdeaddons/debian/source.lintian-overrides
+--- kdeaddons.orig/debian/source.lintian-overrides	Sun Aug  1 10:28:28 2004
++++ kdeaddons/debian/source.lintian-overrides	Wed Oct 13 03:34:57 2004
+@@ -1,2 +1,2 @@
+-kdeaddons source: cvsignore-file-in-source
+-kdeaddons source: source-contains-CVS-dir
++cvsignore-file-in-source
++source-contains-CVS-dir
+diff -urN -x CVS kdeaddons.orig/kate/cppsymbolviewer/katecppsymbolviewer.desktop kdeaddons/kate/cppsymbolviewer/katecppsymbolviewer.desktop
+--- kdeaddons.orig/kate/cppsymbolviewer/katecppsymbolviewer.desktop	Fri Oct  1 15:53:16 2004
++++ kdeaddons/kate/cppsymbolviewer/katecppsymbolviewer.desktop	Sun Oct 24 09:06:17 2004
+@@ -21,9 +21,10 @@
+ Name[pt]=Visualizador de Símbolos C/C++ do Kate
+ Name[pt_BR]=Visualizador de símbolos C/C++ do Kate
+ Name[ru]=Вывод идентификаторов C/C++
++Name[sk]=Prehliadač symbolov C/C++ pre Kate
+ Name[sl]=Pregledovalnik simbolov C/C++ v Kate
+ Name[sr]=Kate C/C++ прегледање симбола
+-Name[sr@Latn]=Kate C/C++ прегледање симбола
++Name[sr@Latn]=Kate C/C++ pregledanje simbola
+ Name[sv]=Kate C/C++-symbolvisning
+ Name[ta]=Kate C/C++ குறி பார்வையாளர்
+ Name[tg]=Хориҷи нишондиҳандаҳои C/C++
+diff -urN -x CVS kdeaddons.orig/kate/filelistloader/katefll.desktop kdeaddons/kate/filelistloader/katefll.desktop
+--- kdeaddons.orig/kate/filelistloader/katefll.desktop	Thu Sep 30 16:00:56 2004
++++ kdeaddons/kate/filelistloader/katefll.desktop	Mon Oct  4 15:22:23 2004
+@@ -37,7 +37,7 @@
+ GenericName[sk]=Textový editor /FLL
+ GenericName[sl]=Urejevalnik besedil /FLL
+ GenericName[sr]=Уређивач текста /FLL
+-GenericName[sr@Latn]=Izmenjivač teksta /FLL
++GenericName[sr@Latn]=Uređivač teksta /FLL
+ GenericName[sv]=Texteditor /FLL
+ GenericName[ta]=உரைதொகுப்பான்/FLL
+ GenericName[tg]=Муҳаррири матнӣ/FLL
+diff -urN -x CVS kdeaddons.orig/kate/filelistloader/katefll_initplugin.desktop kdeaddons/kate/filelistloader/katefll_initplugin.desktop
+--- kdeaddons.orig/kate/filelistloader/katefll_initplugin.desktop	Fri Oct  1 15:53:16 2004
++++ kdeaddons/kate/filelistloader/katefll_initplugin.desktop	Tue Oct  5 15:19:29 2004
+@@ -20,9 +20,10 @@
+ Name[pt]='Plugin' de Lista de Ficheiros do Kate
+ Name[pt_BR]=Plugin FLL Init do Kate
+ Name[ru]=Модуль инициализации Kate FLL
++Name[sk]=Kate FLL inicializačný modul
+ Name[sl]=Vstavek za FLL v Kate
+ Name[sr]=Kate FLL почетни прикључак
+-Name[sr@Latn]=Kate FLL почетни прикључак
++Name[sr@Latn]=Kate FLL početni priključak
+ Name[sv]=Kate FLL-initieringsinsticksprogram
+ Name[ta]=Kate FLL init சொருகுப்பொருள்
+ Name[tg]=Модули инисиализатсиякунонии Kate FLL
+diff -urN -x CVS kdeaddons.orig/kate/filetemplates/plugin/katefiletemplates.desktop kdeaddons/kate/filetemplates/plugin/katefiletemplates.desktop
+--- kdeaddons.orig/kate/filetemplates/plugin/katefiletemplates.desktop	Fri Oct  1 15:53:16 2004
++++ kdeaddons/kate/filetemplates/plugin/katefiletemplates.desktop	Sun Oct 24 09:06:18 2004
+@@ -21,9 +21,10 @@
+ Name[pt]=Modelos de Ficheiro do Kate
+ Name[pt_BR]=Modelos de Arquivo do Kate
+ Name[ru]=Шаблоны Kate
++Name[sk]=Šablóny súborov pre Kate
+ Name[sl]=Datotečne predloge za Kate
+ Name[sr]=Kate-ови шаблони фајлова
+-Name[sr@Latn]=Kate-ови шаблони фајлова
++Name[sr@Latn]=Kate-ovi šabloni fajlova
+ Name[sv]=Kate-filmallar
+ Name[ta]=கேட் உரை வார்ப்புரு
+ Name[tg]=Нусхаҳои Kate
+@@ -47,9 +48,10 @@
+ Comment[pt]=Criar novos ficheiro a partir de modelos no editor de texto Kate
+ Comment[pt_BR]=Cria arquivos através dos modelos no editor de textos Kate
+ Comment[ru]=Создание новых файлов из шаблонов в Kate
++Comment[sk]=Vytváranie nových súborov zo štablón v textovom editore Kate
+ Comment[sl]=Ustvari nove datoteke iz predlog v urejevalniku besedil Kate
+ Comment[sr]=Прави нове фајлове по шаблону из Kate уређивача текста
+-Comment[sr@Latn]=Прави нове фајлове по шаблону из Kate уређивача текста
++Comment[sr@Latn]=Pravi nove fajlove po šablonu iz Kate uređivača teksta
+ Comment[sv]=Skapa nya filer från mallar i texteditorn Kate
+ Comment[ta]=புதிய கோப்பினை கேட் உரை தொகுப்பியின் வார்ப்புருவில் இருந்து உருவாக்கவும்
+ Comment[tg]=Эҷод кардани файлҳои нав аз нусхаҳо ба Kate 
+diff -urN -x CVS kdeaddons.orig/kate/helloworld/katehelloworld.desktop kdeaddons/kate/helloworld/katehelloworld.desktop
+--- kdeaddons.orig/kate/helloworld/katehelloworld.desktop	Thu Sep 23 16:00:28 2004
++++ kdeaddons/kate/helloworld/katehelloworld.desktop	Mon Oct  4 15:22:24 2004
+@@ -39,7 +39,7 @@
+ Name[sk]=Môj prvý modul pre Kate
+ Name[sl]=Moj prvi vstavek za Kate
+ Name[sr]=Мој први Kate прикључак
+-Name[sr@Latn]=Moj prvi kate priključak
++Name[sr@Latn]=Moj prvi Kate priključak
+ Name[sv]=Mitt första insticksprogram för Kate
+ Name[ta]= என் முதல் கேட் சொருகு பொருள்
+ Name[tg]=Модули аввали ман ба Kate 
+@@ -85,7 +85,7 @@
+ Comment[sk]=Tu by mal byť popis o module
+ Comment[sl]=Vaš kratek opis o vstavku je tukaj
+ Comment[sr]=Ваш кратак опис прикључка иде овде
+-Comment[sr@Latn]=Ovde ide Vaš kratak opis priključka
++Comment[sr@Latn]=Vaš kratak opis priključka ide ovde
+ Comment[sv]=Kort beskrivning av vad insticksprogrammet gör
+ Comment[ta]= உங்கள் சொருகு பொருளைப் பற்றிய சிறு விவரிப்பு இங்கே போகும்
+ Comment[tg]=Дар инҷо бояд тасвири модул бошад
+diff -urN -x CVS kdeaddons.orig/kate/kjswrapper/samples/katekjstest1.desktop kdeaddons/kate/kjswrapper/samples/katekjstest1.desktop
+--- kdeaddons.orig/kate/kjswrapper/samples/katekjstest1.desktop	Fri Oct  1 15:53:16 2004
++++ kdeaddons/kate/kjswrapper/samples/katekjstest1.desktop	Mon Oct  4 15:22:25 2004
+@@ -18,7 +18,7 @@
+ Name[pt_BR]=Teste Kate KJS 1
+ Name[sl]=Kate KJS preizkus 1
+ Name[sr]=Kate KJS тест 1
+-Name[sr@Latn]=Kate KJS тест 1
++Name[sr@Latn]=Kate KJS test 1
+ Name[ta]=கேட் KJS சோதனை 1
+ Name[tr]=Kate KJS Deneme1
+ Name[zh_CN]=Kate KJS 测试 1
+diff -urN -x CVS kdeaddons.orig/kate/make/katemake.desktop kdeaddons/kate/make/katemake.desktop
+--- kdeaddons.orig/kate/make/katemake.desktop	Thu Sep 30 16:00:58 2004
++++ kdeaddons/kate/make/katemake.desktop	Mon Oct  4 15:22:25 2004
+@@ -72,7 +72,7 @@
+ Comment[sk]=Kompilovať a parsovať chybové hlášky
+ Comment[sl]=Prevede in razčleni sporočila napak
+ Comment[sr]=Компајлира и анализира поруке о грешкама
+-Comment[sr@Latn]=Kompajliraj i analiziraj poruke o greškama
++Comment[sr@Latn]=Kompajlira i analizira poruke o greškama
+ Comment[sv]=Kompilera och tolka felmeddelanden
+ Comment[ta]= தொகுப்பு மற்றும் பாகுபடுத்தல் பிழை செய்திகள்
+ Comment[tg]=Васл ва коркарди маълумотҳо дар бораи хатогиҳо
+diff -urN -x CVS kdeaddons.orig/kate/scripts/html-tidy.desktop kdeaddons/kate/scripts/html-tidy.desktop
+--- kdeaddons.orig/kate/scripts/html-tidy.desktop	Wed Sep  8 15:58:03 2004
++++ kdeaddons/kate/scripts/html-tidy.desktop	Sun Oct 24 09:06:18 2004
+@@ -11,6 +11,7 @@
+ Name[ta]=HTML சுத்தமாக்கம்
+ Name[tr]=HTML Düzenleme
+ Comment=Validates the current document via HTML Tidy
++Comment[ar]=التأكد من صالحية وثيقة HTML الحالية عن طريق HTML Tidy
+ Comment[bg]=Валидиране на текущия документ чрез HTML Tidy
+ Comment[bs]=Provjerava trenutni dokument sa HTML Tidy
+ Comment[ca]=Valida el document actual mitjançant HTML Tidy
+diff -urN -x CVS kdeaddons.orig/kate/tabbarextension/katetabbarextension.desktop kdeaddons/kate/tabbarextension/katetabbarextension.desktop
+--- kdeaddons.orig/kate/tabbarextension/katetabbarextension.desktop	Fri Oct  1 15:53:17 2004
++++ kdeaddons/kate/tabbarextension/katetabbarextension.desktop	Sun Oct 24 09:06:18 2004
+@@ -20,8 +20,9 @@
+ Name[pt]=Extensão de Barra de Página do Kate
+ Name[pt_BR]=Extensão da Barra de Abas do Kate
+ Name[ru]=Вкладки для Kate
++Name[sk]=Rozšírenie pre pruh kariet v Kate
+ Name[sr]=Kate Tab Bar проширење
+-Name[sr@Latn]=Kate Tab Bar проширење
++Name[sr@Latn]=Kate Tab Bar proširenje
+ Name[sv]=Kate flikradsutökning
+ Name[ta]=கேட் தத்தல் பட்டி விரிவாக்கம்
+ Name[tg]=Воридотҳо барои Kate 
+@@ -45,8 +46,9 @@
+ Comment[pt]=Adiciona uma barra de páginas à janela principal do Kate
+ Comment[pt_BR]=Adiciona uma barra de abas na janela principal do Kate
+ Comment[ru]=Добавляет панель вкладок в окно Kate
++Comment[sk]=Pridá pruh kariet do hlavného okna Kate
+ Comment[sr]=Додаје траку са језичцима у Kate-ов главни прозор
+-Comment[sr@Latn]=Додаје траку са језичцима у Kate-ов главни прозор
++Comment[sr@Latn]=Dodaje traku sa jezičcima u Kate-ov glavni prozor
+ Comment[sv]=Lägger till en flikrad i Kates huvudfönster
+ Comment[ta]=கேட்ஸ்ன் முக்கிய சாளரத்தில் ஒரு தத்தல் பட்டியைச் சேர்க்கிறது
+ Comment[tg]=Панели воридотҳоро ба тирезаи Kate илова мекунад
+diff -urN -x CVS kdeaddons.orig/kfile-plugins/lnk/kfile_lnk.cpp kdeaddons/kfile-plugins/lnk/kfile_lnk.cpp
+--- kdeaddons.orig/kfile-plugins/lnk/kfile_lnk.cpp	Mon Jun 28 14:09:54 2004
++++ kdeaddons/kfile-plugins/lnk/kfile_lnk.cpp	Sun Oct 24 13:11:18 2004
+@@ -76,7 +76,7 @@
+   if ( ! lnkInfo.isNetworkPath )
+   {
+     appendItem(group, "Where", i18n("on Windows disk: %1").arg(lnkInfo.volumeName));  // volume label
+-    appendItem(group, "PointsTo", QString("%1\\%2").arg(lnkInfo.driveName).arg(lnkInfo.path));
++    appendItem(group, "PointsTo", QString("%1%2").arg(lnkInfo.driveName).arg(lnkInfo.path));
    }
- }
+   else
+   {
+diff -urN -x CVS kdeaddons.orig/kfile-plugins/lnk/kfile_lnk.desktop kdeaddons/kfile-plugins/lnk/kfile_lnk.desktop
+--- kdeaddons.orig/kfile-plugins/lnk/kfile_lnk.desktop	Fri Oct  1 15:53:19 2004
++++ kdeaddons/kfile-plugins/lnk/kfile_lnk.desktop	Sun Oct 24 09:06:19 2004
+@@ -19,8 +19,9 @@
+ Name[pt]=Informações de Ficheiros lnk de Windows
+ Name[pt_BR]=Informações de Arquivo do Windows
+ Name[ru]=Сведения о ярлыке Windows
++Name[sk]=Informácie o súbore Windows lnk
+ Name[sr]=Подаци о Windows lnk фајлу
+-Name[sr@Latn]=Подаци о Windows lnk фајлу
++Name[sr@Latn]=Podaci o Windows lnk fajlu
+ Name[sv]=Information om Windows länkfil
+ Name[ta]=விண்டோஸ் இங்க் கோப்பு தகவல்
+ Name[tg]=Маълумотҳо дар бораи ярлиқи Windows
+diff -urN -x CVS kdeaddons.orig/kfile-plugins/lnk/lnkforward.desktop kdeaddons/kfile-plugins/lnk/lnkforward.desktop
+--- kdeaddons.orig/kfile-plugins/lnk/lnkforward.desktop	Fri Oct  1 15:53:19 2004
++++ kdeaddons/kfile-plugins/lnk/lnkforward.desktop	Sun Oct 24 09:06:19 2004
+@@ -19,8 +19,9 @@
+ Comment[pt]=Iniciar a ligação dada num ficheiro .lnk do Windows
+ Comment[pt_BR]=Inicia um link fornecido de um arquivo .lnk do Windows
+ Comment[ru]=Перейти по ссылке из ярлыка Windows (.lnk)
++Comment[sk]=Spustenie zadaného odkazu v súbore Windows .lnk
+ Comment[sr]=покреће везу дату у Windows .lnk фајлу
+-Comment[sr@Latn]=покреће везу дату у Windows .lnk фајлу
++Comment[sr@Latn]=pokreće vezu datu u Windows .lnk fajlu
+ Comment[sv]=Starta länk given i en Windows länkfil
+ Comment[ta]=விண்டோஸ் .lnk fileசில் கொடுக்கப்பட்டதற்கு இணைப்பை துவக்கவும்
+ Comment[tg]=Гузаштан бо истинод аз ярлиқи Windows (.lnk)
+@@ -46,8 +47,9 @@
+ Name[pt]=Reenvio através de Ficheiros Windows lnk
+ Name[pt_BR]=Informações de Aplicativos do Windows
+ Name[ru]=Перенаправление по ярлыку Windows
++Name[sk]=Presmerovač súborov Windows lnk
+ Name[sr]=Прослеђивач Windows lnk фајлова
+-Name[sr@Latn]=Прослеђивач Windows lnk фајлова
++Name[sr@Latn]=Prosleđivač Windows lnk fajlova
+ Name[sv]=Följ Windows länkfil
+ Name[ta]=விண்டோஸ் மை கோப்பு திருப்புபவன்
+ Name[tg]=Равона бо ярлиқи Windows
+diff -urN -x CVS kdeaddons.orig/kfile-plugins/lnk/read_lnk.cpp kdeaddons/kfile-plugins/lnk/read_lnk.cpp
+--- kdeaddons.orig/kfile-plugins/lnk/read_lnk.cpp	Sun Jun  6 19:05:21 2004
++++ kdeaddons/kfile-plugins/lnk/read_lnk.cpp	Sun Oct 24 13:11:18 2004
+@@ -156,10 +156,28 @@
+     {
+       info.volumeName = (start + loc.localVolume + 0x10);  // volume label
  
-@@ -223,9 +224,11 @@
-   if (modified) {
-     QColor c(255, 0, 0);
-     setPaletteForegroundColor( c );
-+    setIconSet(SmallIconSet("modified"));
-   } else {
-     QColor c(KGlobalSettings::textColor());
-     setPaletteForegroundColor( c );
-+    setIconSet(QIconSet());
-   }
- }
- 
-diff -urN -x CVS kdeaddons.orig/konq-plugins/searchbar/searchbar.cpp kdeaddons/konq-plugins/searchbar/searchbar.cpp
---- kdeaddons.orig/konq-plugins/searchbar/searchbar.cpp	Fri Jul 16 12:32:16 2004
-+++ kdeaddons/konq-plugins/searchbar/searchbar.cpp	Sat Aug 21 17:17:12 2004
-@@ -36,7 +36,7 @@
- #include <kstandarddirs.h>
- #include <kurifilter.h>
- 
--#include <kparts/mainwindow.h> 
-+#include <kparts/mainwindow.h>
- #include <kparts/partmanager.h>
- 
- #include <qpopupmenu.h>
-@@ -60,7 +60,7 @@
- 	m_searchCombo = new SearchBarCombo(0L, "search combo");
- 	m_searchCombo->setDuplicatesEnabled(false);
- 	m_searchCombo->setMaxCount(5);
--	m_searchCombo->setMinimumWidth(180);
-+	m_searchCombo->setFixedWidth(180);
- 
- 	m_popupMenu = new QPopupMenu(m_searchCombo, "search selection menu");
- 	m_popupMenu->insertItem(SmallIcon("find"), i18n("Find in This Page"), this, SLOT(useFindInThisPage()),  0, 0);
-@@ -81,14 +81,14 @@
- 	                                    "Enter a search term."));
- 
- 	configurationChanged();
--	
+-      info.driveName = (start + loc.basePath);
++      info.path = QString::null;
 +
- 	KParts::MainWindow *mainWin = static_cast<KParts::MainWindow*>(parent);
- 
- 	//Grab the part manager. Don't know of any other way, and neither does Tronical, so..
- 	KParts::PartManager *partMan = static_cast<KParts::PartManager*>(mainWin->child(0, "KParts::PartManager"));
- 	if (partMan)
- 	{
--		connect(partMan, SIGNAL(activePartChanged(KParts::Part*)), 
-+		connect(partMan, SIGNAL(activePartChanged(KParts::Part*)),
- 		                 SLOT  (partChanged      (KParts::Part*)));
- 		partChanged(partMan->activePart());
- 	}
-@@ -243,7 +243,7 @@
- void SearchBarPlugin::partChanged(KParts::Part *newPart)
- {
- 	m_part = ::qt_cast<KHTMLPart*>(newPart);
--	
++      if ( *(start + loc.basePath) )
++      {
++        // Don't put any more than "X:" into info.driveName.
++        info.driveName = *(start + loc.basePath);
++        info.driveName += ':';
 +
- 	//Delay since when destroying tabs part 0 gets activated for a bit, before the proper part
- 	QTimer::singleShot(0, this, SLOT(updateComboVisibility()));
- }
-@@ -251,13 +251,20 @@
- void SearchBarPlugin::updateComboVisibility()
- {
- 	if (m_part.isNull() || !m_searchComboAction->isPlugged())
-+	{
-+		m_searchCombo->setPluginActive(false);
- 		m_searchCombo->hide();
-+	}
- 	else
-+	{
-+		m_searchCombo->setPluginActive(true);
- 		m_searchCombo->show();
-+	}
- }
++        // If we in fact do have more than just "X:", store any additional
++        // path information separately in info.path.
++        if ( *(start + loc.basePath + 1) == ':' &&
++             *(start + loc.basePath + 2) != 0)
++          info.path = (start + loc.basePath + 2);
++      }
  
- SearchBarCombo::SearchBarCombo(QWidget *parent, const char *name) :
--  KHistoryCombo(parent, name)
-+  KHistoryCombo(parent, name),
-+  m_pluginActive(true)
- {
- 	connect(this, SIGNAL(cleared()), SLOT(historyCleared()));
- }
-@@ -318,4 +325,17 @@
- 	setIcon(m_icon);
- }
- 
-+void SearchBarCombo::setPluginActive(bool pluginActive)
-+{
-+	m_pluginActive = pluginActive;
+       if ( *(start + loc.pathname) != 0 )
+-        info.path = (start + loc.pathname);
++      {
++        if ( info.path.isNull() )
++          info.path = (start + loc.pathname);
++        else
++          info.path = info.path + "\\" + (start + loc.pathname);
++      }
+     }
+     else  // network path
+     {
+diff -urN -x CVS kdeaddons.orig/kfile-plugins/lnk/x-win-lnk.desktop kdeaddons/kfile-plugins/lnk/x-win-lnk.desktop
+--- kdeaddons.orig/kfile-plugins/lnk/x-win-lnk.desktop	Fri Oct  1 15:53:19 2004
++++ kdeaddons/kfile-plugins/lnk/x-win-lnk.desktop	Sun Oct 24 09:06:19 2004
+@@ -19,8 +19,9 @@
+ Comment[pt]=Ficheiro Windows Link
+ Comment[pt_BR]=Arquivo Link do Windows
+ Comment[ru]=Ярлык Windows
++Comment[sk]=Odkaz Windows
+ Comment[sr]=Windows-ов Link-фајл
+-Comment[sr@Latn]=Windows-ов Link-фајл
++Comment[sr@Latn]=Windows-ov Link-fajl
+ Comment[sv]=Windows länkfil
+ Comment[ta]=விண்டோஸ் இணைப்பு-கோப்பு
+ Comment[tg]=Ярлиқи Windows
+diff -urN -x CVS kdeaddons.orig/kicker-applets/math/mathapplet.cpp kdeaddons/kicker-applets/math/mathapplet.cpp
+--- kdeaddons.orig/kicker-applets/math/mathapplet.cpp	Fri May 21 15:34:49 2004
++++ kdeaddons/kicker-applets/math/mathapplet.cpp	Tue Oct 19 15:53:10 2004
+@@ -139,14 +139,14 @@
+ 	mContextMenu->setItemChecked(1, false);
+ 	Parser dummy;
+ 	dummy.setAngleMode(1);
+-};
 +}
-+
-+void SearchBarCombo::show()
-+{
-+	if(m_pluginActive)
-+	{
-+		KHistoryCombo::show();
-+	}
+ 
+ void MathApplet::useRadians() {
+ 	mContextMenu->setItemChecked(0, false);
+ 	mContextMenu->setItemChecked(1, true);
+ 	Parser dummy;
+ 	dummy.setAngleMode(0);
+-};
 +}
-+
- #include "searchbar.moc"
-diff -urN -x CVS kdeaddons.orig/konq-plugins/searchbar/searchbar.h kdeaddons/konq-plugins/searchbar/searchbar.h
---- kdeaddons.orig/konq-plugins/searchbar/searchbar.h	Thu Jul  1 18:20:48 2004
-+++ kdeaddons/konq-plugins/searchbar/searchbar.h	Sat Aug 21 17:05:17 2004
-@@ -62,6 +62,20 @@
- 		 */
- 		int findHistoryItem(const QString &text);
  
-+		/**
-+		 * Sets whether the plugin is active. It can be inactive
-+		 * in case the current Konqueror part isn't a KHTML part.
-+		 */
-+		void setPluginActive(bool pluginActive);
-+
-+
-+	public slots:
-+		/**
-+		 * Reimplement the show function so it only shows in the right
-+		 * profiles.
-+		 */
-+		virtual void show();
-+
- 	signals:
- 		/**
- 		 * Emitted when the icon was clicked.
-@@ -80,6 +94,7 @@
  
- 	private:
- 		QPixmap m_icon;
-+		bool    m_pluginActive;
- };
+ bool MathApplet::eventFilter( QObject *o, QEvent * e)
+diff -urN -x CVS kdeaddons.orig/kicker-applets/math/mathapplet.desktop kdeaddons/kicker-applets/math/mathapplet.desktop
+--- kdeaddons.orig/kicker-applets/math/mathapplet.desktop	Fri Oct  1 15:53:21 2004
++++ kdeaddons/kicker-applets/math/mathapplet.desktop	Sun Oct 24 09:06:19 2004
+@@ -20,8 +20,9 @@
+ Name[pt]=Avaliação de Expressões Matemáticas
+ Name[pt_BR]=Validador de Expressões Matemáticas
+ Name[ru]=Проверка математичсеких выражений
++Name[sk]=Vyhodnotenie matematického výrazu
+ Name[sr]=Рачунаљка математичких израза
+-Name[sr@Latn]=Рачунаљка математичких израза
++Name[sr@Latn]=Računaljka matematičkih izraza
+ Name[sv]=Utvärdering av matematiska uttryck
+ Name[ta]=கணிதத் தொடர் மதிப்பிடு
+ Name[tg]=Тафтиши ифодаҳои математикӣ
+@@ -46,8 +47,9 @@
+ Comment[pt]=Um avaliador de expressões matemáticas
+ Comment[pt_BR]=Um validador de expressões
+ Comment[ru]=Проверка математиечских выражений
++Comment[sk]=Program pre vyhodnotenie matematických výrazov
+ Comment[sr]=Израчунава задате математичке изразе
+-Comment[sr@Latn]=Израчунава задате математичке изразе
++Comment[sr@Latn]=Izračunava zadate matematičke izraze
+ Comment[sv]=Ett verktyg för utvärdering av matematiska uttryck
+ Comment[ta]=கணிதத் தொடர் மதிப்பிடு
+ Comment[tg]=Тафтиши ифодаҳои математикӣ
+diff -urN -x CVS kdeaddons.orig/konq-plugins/arkplugin/ark_plugin.desktop kdeaddons/konq-plugins/arkplugin/ark_plugin.desktop
+--- kdeaddons.orig/konq-plugins/arkplugin/ark_plugin.desktop	Fri Oct  1 15:53:24 2004
++++ kdeaddons/konq-plugins/arkplugin/ark_plugin.desktop	Sun Oct 24 09:06:19 2004
+@@ -20,9 +20,10 @@
+ Name[pt]=Comprimir/Extrair Ficheiros
+ Name[pt_BR]=Compactar/Extrair Arquivos
+ Name[ru]=Сжатие/распаковка файлов
++Name[sk]=Zabaliť/rozbaliť súbory
+ Name[sl]=Stisni/Izvleci datoteke
+ Name[sr]=Компресуј/Издвој фајлове
+-Name[sr@Latn]=Компресуј/Издвој фајлове
++Name[sr@Latn]=Kompresuj/Izdvoj fajlove
+ Name[sv]=Komprimera eller packa upp filer
+ Name[ta]=கோப்பினை சுருக்கு/எடு
+ Name[tg]=Фишурдан/кушодани файлҳо
+diff -urN -x CVS kdeaddons.orig/konq-plugins/arkplugin/arkplugin.cpp kdeaddons/konq-plugins/arkplugin/arkplugin.cpp
+--- kdeaddons.orig/konq-plugins/arkplugin/arkplugin.cpp	Sat Sep  4 23:55:10 2004
++++ kdeaddons/konq-plugins/arkplugin/arkplugin.cpp	Tue Oct 19 16:31:09 2004
+@@ -38,7 +38,7 @@
+ #include <qobject.h>
  
- /**
-@@ -88,7 +103,7 @@
-  * provider it will use.
-  *
-  * @author Arend van Beelen jr. <arend@auton.nl>
-- * @version $Id$
-+ * @version $Id$
-  */
- class SearchBarPlugin : public KParts::Plugin
- {
-@@ -124,12 +139,12 @@
- 		void selectSearchEngine();
- 		void searchEngineSelected(KProcess *process);
- 		void configurationChanged();
--		
+ typedef KGenericFactory<ArkMenu, KonqPopupMenu> ArkMenuFactory;
+-K_EXPORT_COMPONENT_FACTORY( libarkplugin, ArkMenuFactory("arkplugin") );
++K_EXPORT_COMPONENT_FACTORY( libarkplugin, ArkMenuFactory("arkplugin") )
+ 
+ ArkMenu::ArkMenu( KonqPopupMenu * popupmenu, const char *name, const QStringList& /* list */ )
+                 : KonqPopupMenuPlugin( popupmenu, name),
+diff -urN -x CVS kdeaddons.orig/konq-plugins/arkplugin/arkplugin.desktop kdeaddons/konq-plugins/arkplugin/arkplugin.desktop
+--- kdeaddons.orig/konq-plugins/arkplugin/arkplugin.desktop	Fri Oct  1 15:53:24 2004
++++ kdeaddons/konq-plugins/arkplugin/arkplugin.desktop	Sun Oct 24 09:06:19 2004
+@@ -19,9 +19,10 @@
+ Name[pt]=Comprimir/Extrair Ficheiros com o Ark
+ Name[pt_BR]=Compactar/Extrair arquivos com o Ark
+ Name[ru]=Сжатие/распаковка файлов в Ark
++Name[sk]=Zabaliť/rozbaliť súbory pomocou Ark
+ Name[sl]=Stisni/Izvleci datoteke z Arkom
+ Name[sr]=Компресуј/Издвој фајлове са Ark-ом
+-Name[sr@Latn]=Компресуј/Издвој фајлове са Ark-ом
++Name[sr@Latn]=Kompresuj/Izdvoj fajlove sa Ark-om
+ Name[sv]=Komprimera eller packa upp filer med Ark
+ Name[ta]=கோப்பினை Ark உடன் சுருக்கு/எடு
+ Name[tg]=Фишурдан/кушодани файлҳо дар Ark
+diff -urN -x CVS kdeaddons.orig/konq-plugins/babelfish/babelfishplugin.desktop kdeaddons/konq-plugins/babelfish/babelfishplugin.desktop
+--- kdeaddons.orig/konq-plugins/babelfish/babelfishplugin.desktop	Fri Oct  1 15:53:24 2004
++++ kdeaddons/konq-plugins/babelfish/babelfishplugin.desktop	Sun Oct 24 09:06:20 2004
+@@ -19,9 +19,10 @@
+ Name[pt]='Plugin' Babel
+ Name[pt_BR]=Plug-in Babel
+ Name[ru]=Модуль машинного переводчика
++Name[sk]=Modul Babel
+ Name[sl]=Vstavek Babel
+ Name[sr]=Babel прикључак
+-Name[sr@Latn]=Babel прикључак
++Name[sr@Latn]=Babel priključak
+ Name[sv]=Babel-insticksprogram
+ Name[ta]=பாபேல் சொருகுப் பொருள்
+ Name[tg]=Модули тарҷумакунадаи мошинӣ
+diff -urN -x CVS kdeaddons.orig/konq-plugins/crashes/crashesplugin.desktop kdeaddons/konq-plugins/crashes/crashesplugin.desktop
+--- kdeaddons.orig/konq-plugins/crashes/crashesplugin.desktop	Fri Oct  1 15:53:24 2004
++++ kdeaddons/konq-plugins/crashes/crashesplugin.desktop	Sun Oct 24 09:06:20 2004
+@@ -19,9 +19,10 @@
+ Name[pt]=Monitor de Estoiros
+ Name[pt_BR]=Monitor de Travamentos
+ Name[ru]=Монитор сбоев
++Name[sk]=Monitor pádov
+ Name[sl]=Nadzornik zrušenj
+ Name[sr]=Монитор падова
+-Name[sr@Latn]=Монитор падова
++Name[sr@Latn]=Monitor padova
+ Name[sv]=Kraschövervakare
+ Name[ta]=திரை செயல் இழந்தது
+ Name[tg]=Нуқсонҳои монитор
+diff -urN -x CVS kdeaddons.orig/konq-plugins/dirfilter/dirfilterplugin.desktop kdeaddons/konq-plugins/dirfilter/dirfilterplugin.desktop
+--- kdeaddons.orig/konq-plugins/dirfilter/dirfilterplugin.desktop	Fri Oct  1 15:53:25 2004
++++ kdeaddons/konq-plugins/dirfilter/dirfilterplugin.desktop	Sun Oct 24 09:06:20 2004
+@@ -19,9 +19,10 @@
+ Name[pt]='Plugin' de Filtragem de Directorias
+ Name[pt_BR]=Pasta do Plug-in de Filtro
+ Name[ru]=Фильтр каталогов
++Name[sk]=Modul adresárového filtra
+ Name[sl]=Vstavek za filtriranje imenikov
+ Name[sr]=Прикључак за филтрирање директоријума
+-Name[sr@Latn]=Прикључак за филтрирање директоријума
++Name[sr@Latn]=Priključak za filtriranje direktorijuma
+ Name[sv]=Insticksprogram för katalogfilter
+ Name[ta]=அகராதி வடிகட்டி சொருகுப் பொருள்
+ Name[tg]=Филтри каталогҳо
+diff -urN -x CVS kdeaddons.orig/konq-plugins/domtreeviewer/domtreeviewerplugin.desktop kdeaddons/konq-plugins/domtreeviewer/domtreeviewerplugin.desktop
+--- kdeaddons.orig/konq-plugins/domtreeviewer/domtreeviewerplugin.desktop	Fri Oct  1 15:53:25 2004
++++ kdeaddons/konq-plugins/domtreeviewer/domtreeviewerplugin.desktop	Sun Oct 24 09:06:21 2004
+@@ -19,9 +19,10 @@
+ Name[pt]=Visualizador da Árvore DOM
+ Name[pt_BR]=Visão em Árvore DOM
+ Name[ru]=Дерево DOM
++Name[sk]=Prehliadač pre strom DOM
+ Name[sl]=Drevesni pogled DOM
+ Name[sr]=DOM програм за прегледање стабла директоријума
+-Name[sr@Latn]=DOM програм за прегледање стабла директоријума
++Name[sr@Latn]=DOM program za pregledanje stabla direktorijuma
+ Name[sv]=DOM-trädvisaren
+ Name[ta]=DOM மரக் காட்சியமைப்பு
+ Name[tg]=Дарахти DOM
+diff -urN -x CVS kdeaddons.orig/konq-plugins/fsview/fsview.desktop kdeaddons/konq-plugins/fsview/fsview.desktop
+--- kdeaddons.orig/konq-plugins/fsview/fsview.desktop	Fri Oct  1 15:53:25 2004
++++ kdeaddons/konq-plugins/fsview/fsview.desktop	Sun Oct 24 09:06:21 2004
+@@ -26,15 +26,17 @@
+ Name[pt]=Visualizador do Tamanho de Ficheiros
+ Name[pt_BR]=Visão do Tam. do arquivo
+ Name[ru]=Размер файла
++Name[sk]=Prehliadač veľkosti súborov
+ Name[sl]=Pregledovalnik velikosti datotek
+ Name[sr]=Приказивач величине фајла
+-Name[sr@Latn]=Приказивач величине фајла
++Name[sr@Latn]=Prikazivač veličine fajla
+ Name[sv]=Filstorleksvisning
+ Name[ta]=கோப்பு அளவு காட்சியாளன்
+ Name[tg]=Андозаи файл
+ Name[tr]=Dosya Boyut Göstericisi
+ Name[zh_CN]=文件大小查看器
+ Comment=View your filesystem as a TreeMap
++Comment[ar]=عرض لنظام الملفات بنمط شجري
+ Comment[bg]=Преглед на файловата система
+ Comment[ca]=Visualitza el vostre sistema de fitxers com a un mapa arbrolat
+ Comment[cs]=Zobrazení souborového systému ve stylu stromové mapy
+diff -urN -x CVS kdeaddons.orig/konq-plugins/fsview/fsview_part.desktop kdeaddons/konq-plugins/fsview/fsview_part.desktop
+--- kdeaddons.orig/konq-plugins/fsview/fsview_part.desktop	Fri Oct  1 15:53:25 2004
++++ kdeaddons/konq-plugins/fsview/fsview_part.desktop	Sun Oct 24 09:06:21 2004
+@@ -18,9 +18,10 @@
+ Name[pt]=Vista de Tamanho de Ficheiros
+ Name[pt_BR]=Visão do Tam. do arquivo
+ Name[ru]=Размер файла
++Name[sk]=Veľkosť súborov
+ Name[sl]=Pregledovalnik velikosti datotek
+ Name[sr]=Приказивач величине фајла
+-Name[sr@Latn]=Приказивач величине фајла
++Name[sr@Latn]=Prikazivač veličine fajla
+ Name[sv]=Filstorleksvisning
+ Name[ta]=கோப்பு அளவு காட்சி
+ Name[tg]=Андозаи файл
+diff -urN -x CVS kdeaddons.orig/konq-plugins/kimgalleryplugin/kimgalleryplugin.desktop kdeaddons/konq-plugins/kimgalleryplugin/kimgalleryplugin.desktop
+--- kdeaddons.orig/konq-plugins/kimgalleryplugin/kimgalleryplugin.desktop	Fri Oct  1 15:53:26 2004
++++ kdeaddons/konq-plugins/kimgalleryplugin/kimgalleryplugin.desktop	Sun Oct 24 09:06:22 2004
+@@ -4,6 +4,7 @@
+ Name[br]=Garidell ar skeudennoù
+ Name[ca]=Galeria d'imatges
+ Name[cs]=Obrázková galerie
++Name[cy]=Oriel Ddelweddau
+ Name[da]=Billedgalleri
+ Name[de]=Bildergallerie
+ Name[es]=Galería de imágenes
+@@ -19,9 +20,10 @@
+ Name[pt]=Galeria de Imagens
+ Name[pt_BR]=Galeria de Imagens
+ Name[ru]=Галерея изображений
++Name[sk]=Galéria obrázkov
+ Name[sl]=Galerija slik
+ Name[sr]=Галерија слика
+-Name[sr@Latn]=Галерија слика
++Name[sr@Latn]=Galerija slika
+ Name[sv]=Bildgalleri
+ Name[ta]=பிம்ப படத் தொகுப்பு
+ Name[tg]=Силсилаи тасвирҳо
+diff -urN -x CVS kdeaddons.orig/konq-plugins/kuick/kdirmenu.cpp kdeaddons/konq-plugins/kuick/kdirmenu.cpp
+--- kdeaddons.orig/konq-plugins/kuick/kdirmenu.cpp	Sun Mar 14 17:20:24 2004
++++ kdeaddons/konq-plugins/kuick/kdirmenu.cpp	Thu Oct 21 06:31:14 2004
+@@ -23,6 +23,7 @@
+ 
+ #include <kaction.h>
+ #include <kiconloader.h>
++#include <kio/global.h>
+ #include <klocale.h>
+ #include <kurl.h>
+ 
+@@ -77,31 +78,35 @@
+         action->plug( this );
+     else
+ 	setItemEnabled( insertItem( name ), false );
+-    insertSeparator( );
+ 
+     // all dirs writeable and readable
+     QDir dir(path, QString::null,
+              QDir::Name | QDir::DirsFirst | QDir::IgnoreCase,
+              QDir::Dirs | QDir::Readable | QDir::Executable);
+ 
+-    QFileInfoList dirList = QFileInfoList(*(dir.entryInfoList()));
++    const QFileInfoList* dirList = dir.entryInfoList();
++    if ( !dirList || dirList->isEmpty() ) {
++        action->setEnabled( false );
++	return;
++    }
+ 
+-    if (dirList.count() == 2) {
++    insertSeparator( );
 +
- 		/**
- 		 * We keep track of part activations to know when to show or hide ourselves
- 		 */
- 		void partChanged(KParts::Part *newPart);
--		
++    if (dirList->count() == 2) {
+         insertItem(i18n("No Sub-Folders"), 0);
+         setItemEnabled(0, false);
+         return;
+     }
+ 
+-    QFileInfo* fi;
+-    QString fileName;
+     static const QString& dot = KGlobal::staticQString( "." );
+     static const QString& dotdot = KGlobal::staticQString( ".." );
+-    for (fi = dirList.first(); fi; fi = dirList.next()) {
+-        fileName = fi->fileName();
 +
- 		/**
- 		 * Show or hide the combo box
- 		 */
++    for ( QFileInfoListIterator it( *dirList ); *it; ++it ) {
++        QString fileName = (*it)->fileName();
+         if ( fileName == dot || fileName == dotdot )
+             continue;
+-        insert(new KDirMenu(this, src, fi->absFilePath(), name),
+-               fileName);
++        insert(new KDirMenu(this, src, (*it)->absFilePath(), name),
++			KIO::decodeFileName( fileName ));
+     }
+ }
+ void KDirMenu::slotAboutToHide( ) {
+diff -urN -x CVS kdeaddons.orig/konq-plugins/rellinks/plugin_rellinks.cpp kdeaddons/konq-plugins/rellinks/plugin_rellinks.cpp
+--- kdeaddons.orig/konq-plugins/rellinks/plugin_rellinks.cpp	Wed Jul 14 10:18:31 2004
++++ kdeaddons/konq-plugins/rellinks/plugin_rellinks.cpp	Mon Oct 25 14:12:53 2004
+@@ -57,9 +57,9 @@
+ #if KDE_IS_VERSION(3,2,90)
+ #include <kaboutdata.h>
+ static const KAboutData aboutdata("rellinks", I18N_NOOP("Rellinks") , "1.0" );
+-K_EXPORT_COMPONENT_FACTORY( librellinksplugin, RelLinksFactory(&aboutdata) );
++K_EXPORT_COMPONENT_FACTORY( librellinksplugin, RelLinksFactory(&aboutdata) )
+ #else
+-K_EXPORT_COMPONENT_FACTORY( librellinksplugin, RelLinksFactory("rellinks") );
++K_EXPORT_COMPONENT_FACTORY( librellinksplugin, RelLinksFactory("rellinks") )
+ #endif
+ 
+ /** Constructor of the plugin. */
+@@ -217,7 +217,7 @@
+ 
+ /** Destructor */
+ RelLinksPlugin::~RelLinksPlugin() {
+-    if (m_toolBar != 0)
++    if (m_toolBar && dynamic_cast<QMainWindow*>(m_toolBar->parent()))
+         m_toolBar->saveSettings(kconfig, "Position");
+     delete kconfig;
+     delete m_conf;
+@@ -277,7 +277,7 @@
+     }
+     m_toolBar->setText(i18n("Document Relations"));
+     QObject::connect(m_toolBar, SIGNAL(moved(BarPosition)), this, SLOT(toolbarMoved()));
+-    
++
+     // be sure to know when m_toolBar is no longer usable in case it is destroyed by its parent
+     QObject::connect(m_toolBar, SIGNAL(destroyed()), this, SLOT(toolbarDestroyed()));
+ 
+@@ -327,8 +327,9 @@
+     //kdDebug(90210) << "Rellinks: Link nodes =" << linkNodes.length() << endl;
+ 
+     bool showBar = false;
++    int linkNodesLength = linkNodes.length();
+ 
+-    for ( unsigned int i=0; i < linkNodes.length(); i++ ) {
++    for ( unsigned int i=0; i < linkNodesLength; i++ ) {
+         // create a entry for each one
+         DOM::Element e( linkNodes.item( i ) );
+ 
+diff -urN -x CVS kdeaddons.orig/konq-plugins/searchbar/searchbarplugin.desktop kdeaddons/konq-plugins/searchbar/searchbarplugin.desktop
+--- kdeaddons.orig/konq-plugins/searchbar/searchbarplugin.desktop	Fri Oct  1 15:53:26 2004
++++ kdeaddons/konq-plugins/searchbar/searchbarplugin.desktop	Sun Oct 24 09:06:22 2004
+@@ -19,9 +19,10 @@
+ Name[pt]='Plugin' de Barra de Procura
+ Name[pt_BR]=Plug-in de Barra de Busca
+ Name[ru]=Модуль панели поиска
++Name[sk]=Modul pre vyhľadávací pruh
+ Name[sl]=Vstavek iskalne vrstice
+ Name[sr]=Прикључак траке претраживања
+-Name[sr@Latn]=Прикључак траке претраживања
++Name[sr@Latn]=Priključak trake pretraživanja
+ Name[sv]=Sökradsinsticksprogram
+ Name[ta]=பட்டி சொருகு சாதனத்தைத் தேடு
+ Name[tg]=Модули панели ҷустуҷӯ
+@@ -46,8 +47,9 @@
+ Comment[pt]=Dá-lhe uma caixa de texto para acesso directo a motores de procura com o Google.
+ Comment[pt_BR]=Apresenta a você uma caixa de texto para o acesso direto a mecanismos de busca como o Google.
+ Comment[ru]=Маленькое поле ввода для быстрого поиска в Google.
++Comment[sk]=Zobrazí textové pole pre priamy prístup k vyhľadávačom ako je Google.
+ Comment[sr]=Приказује текстуално поље за директан приступ претраживачима као што је Google.
+-Comment[sr@Latn]=Приказује текстуално поље за директан приступ претраживачима као што је Google.
++Comment[sr@Latn]=Prikazuje tekstualno polje za direktan pristup pretraživačima kao što je Google.
+ Comment[sv]=Visar en textruta för direktåtkomst av söktjänster som Google.
+ Comment[ta]=கூகுலில் இருப்பது போன்று தேடு இயந்திரங்களின் நேரடியான அணுகலுக்கு ஒரு உரைப்பெட்டியுடன் வழங்கும்.
+ Comment[tg]=Фосидаи хурди воридот барои ҷустуҷуйи тез дар Google.
+diff -urN -x CVS kdeaddons.orig/konq-plugins/sidebar/mediaplayer/Makefile.am kdeaddons/konq-plugins/sidebar/mediaplayer/Makefile.am
+--- kdeaddons.orig/konq-plugins/sidebar/mediaplayer/Makefile.am	Tue Sep 21 14:11:46 2004
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/Makefile.am	Sun Oct 10 21:17:04 2004
+@@ -17,10 +17,6 @@
+ konqsidebar_mediaplayer_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
+ konqsidebar_mediaplayer_la_LIBADD  = $(LIB_KPARTS) $(LIB_KFILE) -lkonqsidebarplugin -lqtmcop -lkmedia2_idl -lsoundserver_idl -lartskde 
+ 
+-globalkickerentriesdir   = $(kde_datadir)/konqsidebartng/kicker_entries
+-globalkickerentries_DATA = mplayer.desktop
+-
+-
+ globaladddir   = $(kde_datadir)/konqsidebartng/add
+ globaladd_DATA = mplayer_add.desktop
+ 
+diff -urN -x CVS kdeaddons.orig/konq-plugins/sidebar/mediaplayer/mplayer.desktop kdeaddons/konq-plugins/sidebar/mediaplayer/mplayer.desktop
+--- kdeaddons.orig/konq-plugins/sidebar/mediaplayer/mplayer.desktop	Fri Oct  1 15:53:26 2004
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/mplayer.desktop	Thu Jan  1 01:00:00 1970
+@@ -1,33 +0,0 @@
+-[Desktop Entry]
+-Encoding=UTF-8
+-Type=Link
+-URL=
+-Icon=konqsidebar_mediaplayer
+-Name=Media Player
+-Name[br]=C'hoarier liesvedia
+-Name[ca]=Reproductor Multimèdia
+-Name[cs]=Přehrávač médií
+-Name[da]=Medieafspiller
+-Name[de]=Medienabspieler
+-Name[el]=Αναπαραγωγέας μέσων
+-Name[et]=Meediafailide mängija
+-Name[fr]=Lecteur multimédia
+-Name[he]=נגן מדיה
+-Name[hu]=Médialejátszó
+-Name[is]=Margmiðlunarspilari
+-Name[it]=Lettore multimediale
+-Name[ja]=メディア プレイヤー
+-Name[nl]=Mediaspeler
+-Name[pl]=Odtwarzacz multimedialny
+-Name[pt]=Reprodutor Multimédia
+-Name[pt_BR]=Reprodutor de Mídia
+-Name[ru]=Медиапроигрыватель
+-Name[sl]=Večpredstavnostni predvajalnik
+-Name[sv]=Mediaspelare
+-Name[ta]=ஊடகங்கள் இயக்கி
+-Name[tg]=Медиаплеер
+-Name[tr]=Çokluortam Oynatıcı
+-Name[zh_CN]=媒体播放器
+-
+-Open=false
+-X-KDE-KonqSidebarModule=konqsidebar_mediaplayer
+diff -urN -x CVS kdeaddons.orig/konq-plugins/sidebar/mediaplayer/mplayer_add.desktop kdeaddons/konq-plugins/sidebar/mediaplayer/mplayer_add.desktop
+--- kdeaddons.orig/konq-plugins/sidebar/mediaplayer/mplayer_add.desktop	Fri Oct  1 15:53:26 2004
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/mplayer_add.desktop	Sun Oct 24 09:06:22 2004
+@@ -7,6 +7,7 @@
+ Name[br]=C'hoarier liesvedia
+ Name[ca]=Reproductor Multimèdia
+ Name[cs]=Přehrávač médií
++Name[cy]=Chwaraewr Cyfryngau
+ Name[da]=Medieafspiller
+ Name[de]=Medienabspieler
+ Name[el]=Αναπαραγωγέας μέσων
+@@ -22,6 +23,7 @@
+ Name[pt]=Reprodutor Multimédia
+ Name[pt_BR]=Reprodutor de Mídia
+ Name[ru]=Медиапроигрыватель
++Name[sk]=Prehrávač médií
+ Name[sl]=Večpredstavnostni predvajalnik
+ Name[sv]=Mediaspelare
+ Name[ta]=ஊடகங்கள் இயக்கி
+diff -urN -x CVS kdeaddons.orig/konq-plugins/sidebar/newsticker/news_add.desktop kdeaddons/konq-plugins/sidebar/newsticker/news_add.desktop
+--- kdeaddons.orig/konq-plugins/sidebar/newsticker/news_add.desktop	Fri Oct  1 15:53:26 2004
++++ kdeaddons/konq-plugins/sidebar/newsticker/news_add.desktop	Sun Oct 31 14:20:03 2004
+@@ -1,4 +1,5 @@
+ [Desktop Entry]
++Encoding=UTF-8
+ Type=Link
+ URL=
+ Icon=konqsidebar_news
+@@ -15,6 +16,7 @@
+ Name[ja]=ニュース ティッカー
+ Name[pt]=Notícias
+ Name[pt_BR]=Mostrador de Notícias
++Name[sk]=Sledovanie správ
+ Name[sl]=Prikazovalnik novic
+ Name[sv]=Nyhetsövervakare
+ Name[ta]=புதிய நகரும் செய்தி
+diff -urN -x CVS kdeaddons.orig/konq-plugins/uachanger/uachangerplugin.desktop kdeaddons/konq-plugins/uachanger/uachangerplugin.desktop
+--- kdeaddons.orig/konq-plugins/uachanger/uachangerplugin.desktop	Fri Oct  1 15:53:27 2004
++++ kdeaddons/konq-plugins/uachanger/uachangerplugin.desktop	Sun Oct 24 09:06:23 2004
+@@ -18,9 +18,10 @@
+ Name[pt]=Mudança de Agente do Utilizador
+ Name[pt_BR]=Modificar de Agente de Usuários
+ Name[ru]=Смена идентификации обозревателя (UserAgent)
++Name[sk]=Zmena identifikácie prehliadača
+ Name[sl]=Spreminjanje uporabniškega agenta
+ Name[sr]=Програм за мењање корисничког агента
+-Name[sr@Latn]=Програм за мењање корисничког агента
++Name[sr@Latn]=Program za menjanje korisničkog agenta
+ Name[sv]=Ändring av användaragent
+ Name[ta]=பயனர் முகவர் மாற்றி
+ Name[tg]=Ивазкунии нишондиҳандаҳои воқеанигор (UserAgent)
+diff -urN -x CVS kdeaddons.orig/konq-plugins/validators/validatorsplugin.desktop kdeaddons/konq-plugins/validators/validatorsplugin.desktop
+--- kdeaddons.orig/konq-plugins/validators/validatorsplugin.desktop	Fri Oct  1 15:53:27 2004
++++ kdeaddons/konq-plugins/validators/validatorsplugin.desktop	Sun Oct 24 09:06:23 2004
+@@ -18,9 +18,10 @@
+ Name[pt]=Validação de Páginas Web
+ Name[pt_BR]=Validadores de Sites Web
+ Name[ru]=Проверка правильности сайтов
++Name[sk]=Kontrola web stránky
+ Name[sl]=Potrdilniki spletnih strani
+ Name[sr]=Програми за оверавање веб сајтова
+-Name[sr@Latn]=Програми за оверавање веб сајтова
++Name[sr@Latn]=Programi za overavanje veb sajtova
+ Name[sv]=Validering av webbplatser
+ Name[ta]=வலைதள மதிப்பீடுகள்
+ Name[tg]=Тафтиши дурустии сайтҳо
+diff -urN -x CVS kdeaddons.orig/konq-plugins/webarchiver/webarchiverplugin.desktop kdeaddons/konq-plugins/webarchiver/webarchiverplugin.desktop
+--- kdeaddons.orig/konq-plugins/webarchiver/webarchiverplugin.desktop	Fri Oct  1 15:53:27 2004
++++ kdeaddons/konq-plugins/webarchiver/webarchiverplugin.desktop	Sun Oct 24 09:06:23 2004
+@@ -4,6 +4,7 @@
+ Name[br]=Dieller ar gwiad
+ Name[ca]=Arxivador de webs
+ Name[cs]=Archivátor webu
++Name[cy]=Archifydd Gwe
+ Name[da]=Netarkivør
+ Name[de]=Web-Archivierung
+ Name[es]=Archivador Web
+@@ -19,9 +20,10 @@
+ Name[pt]=Arquivos Web
+ Name[pt_BR]=Arquivador Web
+ Name[ru]=Web-архиватор
++Name[sk]=Web archívy
+ Name[sl]=Spletni arhivirnik
+ Name[sr]=Веб архивер
+-Name[sr@Latn]=Веб архивер
++Name[sr@Latn]=Veb arhiver
+ Name[sv]=Webbarkiv
+ Name[ta]=வலை காப்பு
+ Name[tg]=Веб-архивчӣ
+diff -urN -x CVS kdeaddons.orig/ksig/ksig.desktop kdeaddons/ksig/ksig.desktop
+--- kdeaddons.orig/ksig/ksig.desktop	Thu Sep 30 16:01:07 2004
++++ kdeaddons/ksig/ksig.desktop	Sun Oct 24 09:06:23 2004
+@@ -9,6 +9,7 @@
+ Name[hi]=के-सिग
+ Name[sv]=Ksig
+ GenericName=Signature Editor
++GenericName[ar]=محرر التوقيعات
+ GenericName[bg]=Редактор на подписи
+ GenericName[br]=Aozer ar sinadurioù
+ GenericName[ca]=Editor per la signatura
+diff -urN -x CVS kdeaddons.orig/noatun-plugins/dub/dub/dub.plugin kdeaddons/noatun-plugins/dub/dub/dub.plugin
+--- kdeaddons.orig/noatun-plugins/dub/dub/dub.plugin	Fri Oct  1 15:53:29 2004
++++ kdeaddons/noatun-plugins/dub/dub/dub.plugin	Sun Oct 24 09:06:24 2004
+@@ -28,9 +28,10 @@
+ Comment[pt]='Plugin' da lista Dub
+ Comment[pt_BR]=Plug-in de Lista de reprodução do Dub
+ Comment[ru]=Модуль списка произведений Dub
++Comment[sk]=Modul pre Dub playlist
+ Comment[sl]=Vstavek predvajalnega seznama za Dub
+ Comment[sr]=Прикључак за Dub-ову листу нумера
+-Comment[sr@Latn]=Прикључак за Dub-ову листу нумера
++Comment[sr@Latn]=Priključak za Dub-ovu listu numera
+ Comment[sv]=Spellistan Dub
+ Comment[ta]= இயங்குபட்டியல் சொருகுப்பொருளை பதிவு செய்
+ Comment[tg]=Модули рӯйхати баровардҳои Dub
+diff -urN -x CVS kdeaddons.orig/noatun-plugins/ffrs/ffrs.plugin kdeaddons/noatun-plugins/ffrs/ffrs.plugin
+--- kdeaddons.orig/noatun-plugins/ffrs/ffrs.plugin	Thu Sep 23 16:00:37 2004
++++ kdeaddons/noatun-plugins/ffrs/ffrs.plugin	Sun Oct 24 09:06:24 2004
+@@ -56,8 +56,9 @@
+ Comment[pt]=Osciloscópios flutuantes
+ Comment[pt_BR]=Escopos Flutuantes
+ Comment[ru]=Плавающие кривые
++Comment[sk]=Plávajúce rámce
+ Comment[sr]=Плутајући опсези
+-Comment[sr@Latn]=Плутајући опсези
++Comment[sr@Latn]=Plutajući opsezi
+ Comment[sv]=Flytande oscilloskop
+ Comment[ta]=மிதவு வரையெல்லைகள்
+ Comment[tg]=Мавҷҳои каҷ
+diff -urN -x CVS kdeaddons.orig/noatun-plugins/lyrics/lyrics.plugin kdeaddons/noatun-plugins/lyrics/lyrics.plugin
+--- kdeaddons.orig/noatun-plugins/lyrics/lyrics.plugin	Wed Sep  8 15:58:26 2004
++++ kdeaddons/noatun-plugins/lyrics/lyrics.plugin	Mon Oct  4 15:22:40 2004
+@@ -29,6 +29,7 @@
+ Name[sk]=Texty
+ Name[sl]=Besedila pesmi
+ Name[sr]=Текстови
++Name[sr@Latn]=Tekstovi
+ Name[sv]=Sångtext
+ Name[ta]= பாடல்வரிகள்
+ Name[tg]=Матни сурудҳо
+@@ -70,7 +71,7 @@
+ Comment[sk]=Zobrazí text aktuálnej skladby
+ Comment[sl]=Prikaže besedilo trenutne pesmi
+ Comment[sr]=Приказује текстове за текућу песму
+-Comment[sr@Latn]=Prikaži tekstove za tekuću pesmu
++Comment[sr@Latn]=Prikazuje tekstove za tekuću pesmu
+ Comment[sv]=Visar texten för den aktuella sången
+ Comment[ta]=இப்போதைய பாடலின் வரிகளை காட்டு
+ Comment[tg]=Нишон додани матни суруд дар вақти ба кор андохтани ӯ
+diff -urN -x CVS kdeaddons.orig/noatun-plugins/oblique/oblique.plugin kdeaddons/noatun-plugins/oblique/oblique.plugin
+--- kdeaddons.orig/noatun-plugins/oblique/oblique.plugin	Fri Oct  1 15:53:30 2004
++++ kdeaddons/noatun-plugins/oblique/oblique.plugin	Sun Oct 24 09:06:24 2004
+@@ -32,9 +32,10 @@
+ Comment[pt]=Lista de músicas autocolante
+ Comment[pt_BR]=Lista de reprodução de colagem automática
+ Comment[ru]=Автоматически собирающийся список воспроизведения
++Comment[sk]=Automaticky triedený playlist
+ Comment[sl]=Samodejno zlagajoč predvajalni seznam
+ Comment[sr]=Самосређујућа листа нумера
+-Comment[sr@Latn]=Самосређујућа листа нумера
++Comment[sr@Latn]=Samosređujuća lista numera
+ Comment[sv]=Spellista med automatiskt ordning
+ Comment[ta]=தானாகாவே-சேர்க்கும் வாசிப்புப் பட்டியல்
+ Comment[tg]=Худкорона ҷамъ кардани рӯйхати баровардҳо
+diff -urN -x CVS kdeaddons.orig/vimpart/kcmvim/kcmvim.desktop kdeaddons/vimpart/kcmvim/kcmvim.desktop
+--- kdeaddons.orig/vimpart/kcmvim/kcmvim.desktop	Sat Oct  2 16:29:31 2004
++++ kdeaddons/vimpart/kcmvim/kcmvim.desktop	Sun Oct 24 09:06:25 2004
+@@ -64,9 +64,10 @@
+ Comment[pt]=Configuração do componente de edição vim
+ Comment[pt_BR]=Configuração do editor vim
+ Comment[ru]=Настройка компонента vim
++Comment[sk]=Nastavenie komponentu editora vim
+ Comment[sl]=Nastavitve za komponento urejevalnika vim
+ Comment[sr]=Подешавање компоненти vim уређивача
+-Comment[sr@Latn]=Подешавање компоненти vim уређивача
++Comment[sr@Latn]=Podešavanje komponenti vim uređivača
+ Comment[sv]=Inställning av Vim-editorkomponenten
+ Comment[ta]=விம் திருத்தி பகுதியின் வடிவமைப்பு
+ Comment[tg]=Танзими қисмати Vim
+diff -urN -x CVS kdeaddons.orig/vimpart/src/vimpart.desktop kdeaddons/vimpart/src/vimpart.desktop
+--- kdeaddons.orig/vimpart/src/vimpart.desktop	Wed Sep  8 15:58:34 2004
++++ kdeaddons/vimpart/src/vimpart.desktop	Mon Oct  4 15:22:43 2004
+@@ -28,7 +28,7 @@
+ Name[sk]=Vložený komponent Vim
+ Name[sl]=Vključena komponenta Vim
+ Name[sr]=Уграђена компонента vim-а
+-Name[sr@Latn]=Utkana komponenta vim-a
++Name[sr@Latn]=Ugrađena komponenta vim-a
+ Name[sv]=Inbäddad Vim-komponent
+ Name[ta]=உட்பொதிந்த Vim பகுதிகள்
+ Name[tg]=Танзими воридшудаи Vim
