@@ -15,7 +15,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	3
+Release:	4
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -266,7 +266,7 @@ Summary(pl):	Pliki umiêdzynarodawiaj±ce dla atlantikdesigner
 Group:		X11/Applications
 Requires:	%{name}-atlantikdesigner = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdegames-atlantik-i18n >= 9:%{version}
+Requires:	kdegames-atlantik-i18n >= 8:%{version}
 
 %description atlantikdesigner-i18n
 Internationalization and localization files for atlantikdesigner.
@@ -280,7 +280,7 @@ Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kontact
 Group:		X11/Applications
 Requires:	%{name}-kontact = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdepim-kontact-i18n >= 9:%{version}
+Requires:	kdepim-kontact-i18n >= 3:%{version}
 Requires:	kdenetwork-knewsticker-i18n >= 9:%{version}
 
 %description kontact-i18n
@@ -307,9 +307,9 @@ Pliki umiêdzynarodawiaj±ce dla ksig.
 Summary:	Internationalization and localization files for kaddressbook
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kaddressbook
 Group:		X11/Applications
-Requires:	%{name}-kaddressbook = %{epoch}:%{version}-%{release}
+Requires:	%{name}-kaddressbook-plugins = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
-Requires:	kdepim-kaddressbook-i18n >= 9:%{version}
+Requires:	kdepim-kaddressbook-i18n >= 3:%{version}
 
 %description kaddressbook-i18n
 Internationalization and localization files for kaddressbook.
