@@ -4,7 +4,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.0.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
@@ -231,7 +231,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/*
 %{_datadir}/apps/konqiconview/kpartplugins/*
 %{_datadir}/apps/konqlistview/kpartplugins/*
-%{_datadir}/apps/konqsidebartng
+%{_datadir}/apps/konqsidebartng/add/*
+%{_datadir}/apps/konqsidebartng/entries/*
 %{_pixmapsdir}/*/*/*/babelfish*
 %{_pixmapsdir}/*/*/*/cssvalidator*
 %{_pixmapsdir}/*/*/*/domtreeviewer*
