@@ -829,5 +829,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/noatun/*
 %{_iconsdir}/crystalsvg/*/apps/synaescope.png
 %{_mandir}/man1/noatunsynaescope.bin.1*
-%{_mandir}/man1/noatunippecanoe.bin.1*
+%{_mandir}/man1/noatuntippecanoe.bin.1*
 %{_mandir}/man1/noatuntyler.bin.1*
