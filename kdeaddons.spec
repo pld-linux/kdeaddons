@@ -15,8 +15,8 @@ BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	awk
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 3.0
-BuildRequires:	kdemultimedia-devel >= 3.0
+BuildRequires:	kdebase-devel >= %{version}
+BuildRequires:	kdemultimedia-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	nas-devel
