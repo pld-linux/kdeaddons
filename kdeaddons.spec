@@ -7,7 +7,8 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040407
+%define		_snap		040511
+%define		_packager	adgor
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -15,13 +16,13 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	cc7af97fa4a58c23a1d3b3180f254cf0
+Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
+##%% Source0-md5:	cc7af97fa4a58c23a1d3b3180f254cf0
 #Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 ##%% Source1-md5:	464451c674acd4bb27e0e34a48d737e2
 #Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
@@ -61,7 +62,7 @@ KDE.
 Summary:	Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
 Group:		X11/Applications/Games
-Requires:	kdegames-atlantik >= 8:%{version}
+Requires:	kdegames-atlantik >= 8:%{_ver}
 
 %description atlantikdesigner
 Atlantik board designer.
@@ -73,7 +74,7 @@ Program do tworzenia plansz dla gry Atlantik.
 Summary:	FSView - a tool for showing disc utilization in a graphical form
 Summary(pl):	FSview - narzêdzie do graficznego przedstawiania wolnego miejsca na dysku
 Group:		X11/Applications
-Requires:	konqueror >= 9:%{version}
+Requires:	konqueror >= 9:%{_ver}
 
 %description fsview
 FSView is a tool for showing disc utilization in a graphical form,
@@ -89,7 +90,7 @@ Summary(es):	Plugins para kaddressbook
 Summary(pl):	Wtyczki do kaddressbook
 Summary(pt_BR):	Plugins para kaddressbook
 Group:		X11/Applications
-Requires:	kdepim-kaddressbook >= 3:%{version}
+Requires:	kdepim-kaddressbook >= 3:%{_ver}
 
 %description kaddressbook-plugins
 Plugins for kaddressbook.
@@ -109,7 +110,7 @@ Summary(es):	Plugins para kdebase-kate
 Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
-Requires:	kdebase-kate >= 9:%{version}
+Requires:	kdebase-kate >= 9:%{_ver}
 
 %description kate
 kdeaddons-kate contains plugins extending the functionality of the
@@ -135,7 +136,7 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
-Requires:	kdebase-kicker >= 9:%{version}
+Requires:	kdebase-desktop >= 9:%{_ver}
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
@@ -153,7 +154,7 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 Summary:	Scripts extending the functionality of KNewsTicker
 Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
-Requires:	kdenetwork-knewsticker >= 10:%{version}
+Requires:	kdenetwork-knewsticker >= 10:%{_ver}
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
@@ -167,7 +168,7 @@ Summary(es):	Plugins para konqueror
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
-Requires:	konqueror >= 9:%{version}
+Requires:	konqueror >= 9:%{_ver}
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -190,8 +191,8 @@ Este pacote fornece plugins KDE para kdebase-konqueror.
 Summary:	Plugins extending the functionality of Kontact
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
 Group:		X11/Applications
-Requires:	kdepim >= 3:%{version}
-Requires:	kdenetwork-knewsticker >= 10:%{version}
+Requires:	kdepim >= 3:%{_ver}
+Requires:	kdenetwork-knewsticker >= 10:%{_ver}
 
 %description kontact
 Plugins extending the functionality of Kontact. This includes an
@@ -205,7 +206,7 @@ modu³ wy¶wietlaj±cy ¼ród³a rss.
 Summary:	A signature creator and manager
 Summary(pl):	Program tworz±cy i zarz±dzaj±cy podpisami
 Group:		X11/Applications
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= 9:%{_ver}
 
 %description ksig
 A signature creator and manager.
@@ -217,7 +218,7 @@ Program tworz±cy i zarz±dzaj±cy podpisami.
 Summary:	Vim KPart
 Summary(pl):	KPart z vimem
 Group:		X11/Applications
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= 9:%{_ver}
 
 %description kvim
 A kpart allowing KDE apps to embedd vim as an editor.
@@ -232,7 +233,7 @@ Summary(es):	Plugins para kdemultimedia-noatun
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
-Requires:	kdemultimedia-noatun >= 9:%{version}
+Requires:	kdemultimedia-noatun >= 9:%{_ver}
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
@@ -405,15 +406,16 @@ Pliki umiêdzynarodawiaj±ce dla konquerora.
 ### </i18n>
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{_snap}
+#%patch0 -p1
 %patch1 -p1
+
+echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 
 %build
 cp -f /usr/share/automake/config.sub admin
 
 export UNSERMAKE=/usr/share/unsermake/unsermake
-
-echo KDE_OPTIONS=nofinal >> noatun-plugins/luckytag/Makefile.am
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -630,7 +632,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kate*.la
 %attr(755,root,root) %{_libdir}/kde3/kate*.so
-%{_datadir}/apps/kate/plugins
+%{_libdir}/kde3/libkatetabbarextensionplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libkatetabbarextensionplugin.so
+%{_datadir}/apps/kate/plugins/*
 %{_datadir}/apps/kate/scripts/html-tidy.desktop
 %attr(755,root,root) %{_datadir}/apps/kate/scripts/html-tidy.sh
 %{_datadir}/apps/katexmltools
@@ -639,18 +643,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kicker -f kicker-applets_en.lang
 %defattr(644,root,root,755)
+%{_libdir}/kde3/kbinaryclock_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/kbinaryclock_panelapplet.so
 %{_libdir}/kde3/kolourpicker_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/kolourpicker_panelapplet.so
 %{_libdir}/kde3/ktimemon_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/ktimemon_panelapplet.so
-%{_libdir}/kde3/kbinaryclock_panelapplet.la
-%attr(755,root,root) %{_libdir}/kde3/kbinaryclock_panelapplet.so
+%{_libdir}/kde3/math_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/math_panelapplet.so
 %{_libdir}/kde3/mediacontrol_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/mediacontrol_panelapplet.so
+%{_datadir}/apps/kicker/applets/kbinaryclock.desktop
 %{_datadir}/apps/kicker/applets/kolourpicker.desktop
 %{_datadir}/apps/kicker/applets/ktimemon.desktop
+%{_datadir}/apps/kicker/applets/mathapplet.desktop
 %{_datadir}/apps/kicker/applets/mediacontrol.desktop
-%{_datadir}/apps/kicker/applets/kbinaryclock.desktop
+%{_datadir}/apps/mediacontrol
 %{_datadir}/config.kcfg/kbinaryclock.kcfg
 %{_iconsdir}/crystalsvg/*/apps/ktimemon.png
 %{_iconsdir}/hicolor/*/apps/autorefresh.png
@@ -727,6 +735,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_validators.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_webarchiver.rc
+%{_datadir}/apps/khtml/kpartplugins/searchbar.rc
 %{_datadir}/apps/khtml/kpartplugins/uachangerplugin.rc
 %{_datadir}/apps/konqiconview/kpartplugins/dirfilterplugin.rc
 %{_datadir}/apps/konqiconview/kpartplugins/kimgalleryplugin.rc
@@ -739,7 +748,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqsidebartng/kicker_entries/mplayer.desktop
 %{_datadir}/apps/konqueror/servicemenus/imageconverter.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
-%{_datadir}/apps/mediacontrol
+%{_datadir}/config/translaterc
 %{_datadir}/mimelnk/application/x-webarchive.desktop
 %{_datadir}/services/kfile_desktop.desktop
 %{_datadir}/services/kfile_folder.desktop
@@ -775,7 +784,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/exif.py.1*
 %{_mandir}/man1/jpegorient.1*
 %{_mandir}/man1/orient.py.1*
-# TODO
+# TODO - requires kdenetwork-{knewsticker,rss}
 %{_libdir}/kde3/konq_sidebarnews.la
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
 %{_datadir}/apps/konqsidebartng/add/news_add.desktop
