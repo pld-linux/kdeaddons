@@ -20,3 +20,42 @@
  ktimemon_panelapplet_la_LIBADD = $(LIB_KDEUI) $(LIBKSTAT)
  
  KDE_ICON = ktimemon
+--- kdeaddons-3.1/kicker-applets/mediacontrol/Makefile.am.orig	Sun Sep 15 23:07:13 2002
++++ kdeaddons-3.1/kicker-applets/mediacontrol/Makefile.am	Thu Nov 28 12:34:32 2002
+@@ -7,14 +7,14 @@
+ 
+ #libmediacontrolconfig_la_SOURCES = 
+ #libmediacontrolconfig_la_LIBADD  = $(LIB_KDECORE)
+-#libmediacontrolconfig_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -no-undefined
++#libmediacontrolconfig_la_LDFLAGS = $(all_libraries) -no-undefined -avoid-version
+ 
+ # -------------------------------------------------
+ kde_module_LTLIBRARIES = mediacontrol_panelapplet.la
+ 
+ mediacontrol_panelapplet_la_SOURCES = mediacontrol.cpp playerInterface.cpp noatunInterface.cpp xmmsInterface.cpp \
+                               configfrontend.cpp mediacontrolconfigwidget.ui mediacontrolconfig.cpp mediacontroliface.skel
+-mediacontrol_panelapplet_la_LDFLAGS = $(all_libraries) -no-undefined -module -version-info 1:0:0
++mediacontrol_panelapplet_la_LDFLAGS = $(all_libraries) -no-undefined -module -avoid-version
+ mediacontrol_panelapplet_la_LIBADD = $(LIB_KDEUI) $(XMMS_LIBS)
+ 
+ # -------------------------------------------------
+--- kdeaddons-3.1/kicker-applets/mediacontrol/Makefile.in.orig	Mon Nov 25 05:06:53 2002
++++ kdeaddons-3.1/kicker-applets/mediacontrol/Makefile.in	Thu Nov 28 12:32:53 2002
+@@ -258,7 +258,7 @@
+ 
+ #libmediacontrolconfig_la_SOURCES = 
+ #libmediacontrolconfig_la_LIBADD  = $(LIB_KDECORE)
+-#libmediacontrolconfig_la_LDFLAGS = $(all_libraries) -version-info 1:0:0 -no-undefined
++#libmediacontrolconfig_la_LDFLAGS = $(all_libraries) -no-undefined -avoid-version
+ 
+ # -------------------------------------------------
+ kde_module_LTLIBRARIES = mediacontrol_panelapplet.la
+@@ -269,7 +269,7 @@
+ mediacontrol_panelapplet_la_SOURCES=mediacontrol.cpp playerInterface.cpp noatunInterface.cpp xmmsInterface.cpp \
+                               configfrontend.cpp  mediacontrolconfig.cpp  mediacontroliface_skel.cpp mediacontrolconfigwidget.cpp
+ 
+-mediacontrol_panelapplet_la_LDFLAGS = $(all_libraries) -no-undefined -module -version-info 1:0:0
++mediacontrol_panelapplet_la_LDFLAGS = $(all_libraries) -no-undefined -module -avoid-version
+ mediacontrol_panelapplet_la_LIBADD = $(LIB_KDEUI) $(XMMS_LIBS)
+ 
+ 
