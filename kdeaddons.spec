@@ -9,7 +9,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -270,6 +270,14 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %patch100 -p1
 
 echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
+
+%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
+	vimpart/kcmvim/kcmvim.desktop
+%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
+	-e 's/Terminal=0/Terminal=false/' \
+	atlantikdesigner/atlantikdesigner.desktop
+%{__sed} -i -e 's/Terminal=0/Terminal=false/' \
+	ksig/ksig.desktop
 
 %build
 cp -f %{_datadir}/automake/config.sub admin
