@@ -225,7 +225,6 @@ done
 
 > konqueror.lang
 programs=" \
-	konq-plugins \
 	babelfish \
 	dirfilterplugin \
 	domtreeviewer \
@@ -244,9 +243,11 @@ programs=" \
 # does not build
 #	crashesplugin
 for i in $programs; do
-	%find_lang $i --with-kde
+	%find_lang $i
 	cat $i.lang >> konqueror.lang
 done
+%find_lang	konq-plugins	--with-kde
+cat konq-plugins.lang >> konqueror.lang
 
 >kicker.lang
 programs=" \
