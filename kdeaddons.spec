@@ -22,7 +22,6 @@ Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.pat
 Patch1:		%{name}-gcc34.patch
 BuildRequires:	SDL-devel
 BuildRequires:	automake
-BuildRequires:	unsermake >= 040511
 BuildRequires:	autoconf
 BuildRequires:	db-cxx-devel
 BuildRequires:	ed
@@ -35,6 +34,7 @@ BuildRequires:	kdepim-devel >= 3:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	unsermake >= 040511
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
