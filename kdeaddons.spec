@@ -1,7 +1,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040516
+%define		_snap		040526
 %define		_packager	adgor
 
 Summary:	K Desktop Environment - Plugins
@@ -10,11 +10,11 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}.%{_snap}
-Release:	2
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
 Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
 ##%% Source0-md5:	cc7af97fa4a58c23a1d3b3180f254cf0
 Patch0:		%{name}-gcc34.patch
