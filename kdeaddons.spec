@@ -8,20 +8,19 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kicker-applets-no-version.patch
-
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 3.0
-BuildRequires:	kdemultimedia-devel >= 3.0
-BuildRequires:  kdegames-atlantik >= 3.0
+BuildRequires:	kdebase-devel >= 3.1
+BuildRequires:	kdemultimedia-devel >= 3.1
+BuildRequires:  kdegames-devel >= 3.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	nas-devel
@@ -31,6 +30,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
 %define		_htmldir	/usr/share/doc/kde/HTML
+
+%define		no_install_post_chrpath	1
 
 %description
 Plugins for some KDE applications: %{name} extends the functionality
@@ -173,7 +174,7 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags}"
-%{__make} -f Makefile.cvs
+#%{__make} -f Makefile.cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
@@ -246,7 +247,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/*_panelapplet.??
-%{_pixmapsdir}/*/*/*/ktimemon.png
+%{_pixmapsdir}/[!l]*/*/*/ktimemon.png
 %{_datadir}/apps/kicker/applets/*
 
 %files knewsticker
@@ -285,7 +286,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/*/domtreeviewer*
 %{_pixmapsdir}/*/*/*/htmlvalidator*
 %{_pixmapsdir}/*/*/*/imagegallery*
-%{_pixmapsdir}/*/*/*/konqsidebar_mediaplayer*
+%{_pixmapsdir}/[!l]*/*/*/konqsidebar_mediaplayer*
 %{_pixmapsdir}/*/*/*/validators*
 %{_pixmapsdir}/*/*/*/webarchiver*
 %{_applnkdir}/.hidden/*
