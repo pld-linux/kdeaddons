@@ -22,16 +22,16 @@ Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	db-cxx-devel
+BuildRequires:	ed
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 9:%{version}
-BuildRequires:  kdegames-devel >= 8:%{version}
+BuildRequires:	kdegames-devel >= 8:%{version}
 BuildRequires:	kdemultimedia-devel >= 9:%{version}
 BuildRequires:	kdenetwork-devel >= 10:%{version}
-BuildRequires:  kdepim-devel >= 3:%{version}
+BuildRequires:	kdepim-devel >= 3:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
-BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,10 +50,10 @@ kdeaddons contem plugins e scripts adicionais para alguma aplicações
 KDE.
 
 %package atlantikdesigner
-Summary:        Atlantik board designer
+Summary:	Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
-Group:          X11/Applications/Games
-Requires:       kdegames-atlantik >= 8:%{version}
+Group:		X11/Applications/Games
+Requires:	kdegames-atlantik >= 8:%{version}
 
 %description atlantikdesigner
 Atlantik board designer.
@@ -62,10 +62,10 @@ Atlantik board designer.
 Program do tworzenia plansz dla gry Atlantik.
 
 %package fsview
-Summary:        TODO
-Summary(pl):    TODO
-Group:          X11/Applications
-Requires:       konqueror >= 9:%{version}
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Applications
+Requires:	konqueror >= 9:%{version}
 
 %description fsview
 TODO.
@@ -74,15 +74,15 @@ TODO.
 TODO.
 
 %package kaddressbook-plugins
-Summary:        Plugins for the Kaddressbook
-Summary(es):    Plugins para kaddressbook
-Summary(pl):    Wtyczki do kaddressbook
-Summary(pt_BR): Plugins para kaddressbook
-Group:          X11/Applications
-Requires:       kdepim-kaddressbook >= 3:%{version}
+Summary:	Plugins for kaddressbook
+Summary(es):	Plugins para kaddressbook
+Summary(pl):	Wtyczki do kaddressbook
+Summary(pt_BR):	Plugins para kaddressbook
+Group:		X11/Applications
+Requires:	kdepim-kaddressbook >= 3:%{version}
 
 %description kaddressbook-plugins
-Plugins for the Kaddressbook.
+Plugins for kaddressbook.
 
 %description kaddressbook-plugins -l es
 Este paquete prove plugins de KDE para kaddressbook.
@@ -102,9 +102,9 @@ Group:		X11/Applications
 Requires:	kdebase-kate >= 9:%{version}
 
 %description kate
-%{name}-kate contains plugins extending the functionality of the Kate
-(KDE Advanced Text Editor) editor. %{name}-kate adds, among other
-things, DCOP support, project management and text filtering
+kdeaddons-kate contains plugins extending the functionality of the
+Kate (KDE Advanced Text Editor) editor. kdeaddons-kate adds, among
+other things, DCOP support, project management and text filtering
 capabilities.
 
 %description kate -l es
@@ -178,9 +178,9 @@ Este pacote fornece plugins KDE para kdebase-konqueror.
 
 %package kontact
 Summary:	Plugins extending the functionality of Kontact
-Summary(pl):    Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
-Group:          X11/Applications
-Requires:       kdepim-kontact >= 3:%{version}
+Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
+Group:		X11/Applications
+Requires:	kdepim-kontact >= 3:%{version}
 Requires:	kdenetwork-knewsticker >= 10:%{version}
 
 %description kontact
@@ -192,16 +192,16 @@ Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera
 modu³ wy¶wietlaj±cy ¼ród³a rss.
 
 %package ksig
-Summary:	ksig
-Summary(pl):	ksig
+Summary:	ksig - TODO
+Summary(pl):	ksig - TODO
 Group:		X11/Applications
 Requires:	kdebase-core >= 9:%{version}
 
 %description ksig
-ksig
+ksig - TODO
 
 %description ksig -l pl
-ksig
+ksig - TODO
 
 %package kvim
 Summary:	TODO
@@ -214,7 +214,6 @@ TODO.
 
 %description kvim -l pl
 TODO.
-
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
@@ -242,9 +241,8 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %patch0 -p1
 
 %build
-
-for f in `find . -name *.desktop` ; do
-	sed -i 's/\[nb\]/\[no\]/g' $f
+for f in `find . -name *.desktop | grep -l '\[nb\]'` ; do
+	echo -e ',s/\[nb\]/\[no\]/\n,w' | ed $f
 done
 
 %{__make} -f admin/Makefile.common cvs
@@ -259,7 +257,7 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install  \
+%{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_appsdir=%{_applnkdir} \
 	kde_htmldir=%{_kdedocdir}
@@ -273,7 +271,7 @@ mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files  atlantikdesigner
+%files atlantikdesigner
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantikdesigner
 %{_datadir}/apps/atlantikdesigner
@@ -338,7 +336,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/knewsticker/scripts/newsrss.pl
 %{_datadir}/apps/knewsticker/scripts/sportscores.py
 %{_datadir}/apps/knewsticker/scripts/stock.pl
-
 
 %files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
