@@ -2,6 +2,7 @@
 %bcond_without  kdegames        # no kdegames dep
 
 %define		_state		stable
+%define		_kdever		3.4
 %define		_ver		3.4.0
 
 %define		_minlibsevr	9:3.4.0
@@ -17,7 +18,7 @@ Release:	0.1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
 # Source0-md5:	5a0d82ee1bbaeec8dab74b2e5e604f94
 BuildRequires:	SDL-devel
 BuildRequires:	automake
