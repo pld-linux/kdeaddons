@@ -3,44 +3,42 @@
 # Splitting konqueror subpackage
 #
 # Conditional build:
-%bcond_without  i18n    # don't build i18n subpackages
+%bcond_with  i18n    # w/wo i18n subpackages
 #
-%define		_state		stable
-%define		_ver		3.2.0
-##%define		_snap		040110
+%define		_state		snapshots
+%define		_ver		3.2.90
+%define		_snap		040217
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	%{_ver}
-Release:	4
+Version:	%{_ver}.%{_snap}
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	e61991c52aa6b76dec0790e76eb889bd
-%if %{with i18n}
-Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	464451c674acd4bb27e0e34a48d737e2
-%endif
-Patch0:		%{name}-3.2branch.diff
-Patch1:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
+##%% Source0-md5:	e61991c52aa6b76dec0790e76eb889bd
+#Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
+##%% Source1-md5:	464451c674acd4bb27e0e34a48d737e2
+Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	db-cxx-devel
 BuildRequires:	ed
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 9:%{version}
-BuildRequires:	kdegames-devel >= 8:%{version}
-BuildRequires:	kdemultimedia-devel >= 9:%{version}
-BuildRequires:	kdenetwork-devel >= 10:%{version}
-BuildRequires:	kdepim-devel >= 3:%{version}
+BuildRequires:	kdebase-devel >= 9:%{_ver}
+BuildRequires:	kdegames-devel >= 8:%{_ver}
+BuildRequires:	kdemultimedia-devel >= 9:%{_ver}
+BuildRequires:	kdenetwork-devel >= 10:%{_ver}
+BuildRequires:	kdepim-devel >= 3:%{_ver}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	unsermake
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -191,7 +189,7 @@ Este pacote fornece plugins KDE para kdebase-konqueror.
 Summary:	Plugins extending the functionality of Kontact
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
 Group:		X11/Applications
-Requires:	kdepim-kontact >= 3:%{version}
+Requires:	kdepim >= 3:%{version}
 Requires:	kdenetwork-knewsticker >= 10:%{version}
 
 %description kontact
@@ -247,6 +245,8 @@ multimedialnych noatun.
 
 %description noatun -l pt_BR
 Este pacote fornece plugins KDE para kdemultimedia-noatun.
+
+### <i18n>
 
 %package i18n
 Summary:	Common internationalization and localization files for kdeaddons
@@ -401,20 +401,24 @@ Internationalization and localization files for konqueror.
 %description konqueror-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla konquerora.
 
+### </i18n>
+
 %prep
-%setup -q 
+%setup -q -n %{name}
 %patch0 -p1
-%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
+
+export UNSERMAKE=/usr/share/unsermake/unsermake
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
-	--with-qt-libraries=%{_libdir} \
-	--enable-final
+	--enable-final \
+	--with-qt-libraries=%{_libdir}
 
 %{__make}
 
@@ -445,113 +449,114 @@ fi
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
-%find_lang	kate-plugins	--with-kde
-%find_lang	kicker-applets	--with-kde
-%find_lang	konq-plugins	--with-kde
+%find_lang kate-plugins		--with-kde
+%find_lang kicker-applets	--with-kde
+%find_lang konq-plugins		--with-kde
 
 %if %{with i18n}
-%find_lang	fsview		--with-kde
-%find_lang	desktop_kdeaddons	--with-kde
-%find_lang	atlantikdesigner	--with-kde
-%find_lang	kcmkontactnt		--with-kde
-%find_lang	ksig		--with-kde
-%find_lang	libkaddrbk_geo_xxport	--with-kde
+%find_lang fsview			--with-kde
+%find_lang desktop_kdeaddons		--with-kde
+%find_lang atlantikdesigner		--with-kde
+%find_lang kcmkontactnt			--with-kde
+%find_lang ksig				--with-kde
+%find_lang libkaddrbk_geo_xxport	--with-kde
 
-kicker="kbinaryclock \
-kolourpicker \
-ktimemon \
-mediacontrol \
-kcmmediacontrol"
+kicker="\
+	kbinaryclock \
+	kolourpicker \
+	ktimemon \
+	mediacontrol \
+	kcmmediacontrol"
 
-for i in $kicker;
-do
-	%find_lang $i	--with-kde
+for i in $kicker; do
+	%find_lang $i --with-kde
 	cat $i.lang >> kicker-applets.lang
 done
 
-vim="kcmvim \
-vimpart"
+vim="\
+	kcmvim \
+	vimpart"
 
-for i in $vim;
-do
-	%find_lang $i	--with-kde
+for i in $vim; do
+	%find_lang $i --with-kde
 	cat $i.lang >> vim.lang
 done
 
-noatun="alsaplayerui \
-charlatanui \
-dub \
-ffrs \
-jefferson \
-lyrics \
-nexscope \
-pitchablespeed \
-synaescope \
-tippecanoe \
-tyler \
-wakeup \
-wavecapture"
+noatun="\
+	alsaplayerui \
+	charlatanui \
+	dub \
+	ffrs \
+	jefferson \
+	lyrics \
+	nexscope \
+	pitchablespeed \
+	synaescope \
+	tippecanoe \
+	tyler \
+	wakeup \
+	wavecapture"
 
-for i in $noatun;
-do
-	%find_lang $i	--with-kde
+for i in $noatun; do
+	%find_lang $i --with-kde
 	cat $i.lang >> noatun.lang
 done
 
-konqueror="khtmlsettingsplugin \
-konqsidebar_mediaplayer \
-konq_smbmounterplugin \
-validatorsplugin \
-webarchiver \
-autorefresh \
-babelfish \
-crashesplugin \
-dirfilterplugin \
-domtreeviewer \
-imgalleryplugin \
-kcmkuick \
-minitoolsplugin \
-uachangerplugin \
-kuick_plugin \
-audiorename_plugin \
-imagerename_plugin \
-kfile_desktop \
-kfile_folder \
-kfile_html \
-kfile_txt"
+konqueror="\
+	khtmlsettingsplugin \
+	konqsidebar_mediaplayer \
+	konq_smbmounterplugin \
+	validatorsplugin \
+	webarchiver \
+	autorefresh \
+	babelfish \
+	crashesplugin \
+	dirfilterplugin \
+	domtreeviewer \
+	imgalleryplugin \
+	kcmkuick \
+	minitoolsplugin \
+	uachangerplugin \
+	kuick_plugin \
+	audiorename_plugin \
+	imagerename_plugin \
+	kfile_desktop \
+	kfile_folder \
+	kfile_html \
+	kfile_txt"
 
-for i in $konqueror;
-do
-	%find_lang $i	--with-kde
+for i in $konqueror; do
+	%find_lang $i --with-kde
 	cat $i.lang >> konq-plugins.lang
 done
 
-kate="katecppsymbolviewer \
-katefll_initplugin \
-katefll_plugin \
-katehelloworld \
-katehtmltools \
-kateinsertcommand \
-katemake \
-katemodeline \
-kateopenheader \
-kateprojectmanager \
-katepybrowse \
-katespell \
-katetextfilter \
-katexmlcheck \
-katexmltools"
+kate="\
+	katecppsymbolviewer \
+	katefll_initplugin \
+	katefll_plugin \
+	katehelloworld \
+	katehtmltools \
+	kateinsertcommand \
+	katemake \
+	katemodeline \
+	kateopenheader \
+	kateprojectmanager \
+	katepybrowse \
+	katespell \
+	katetextfilter \
+	katexmlcheck \
+	katexmltools"
 
-for i in $kate;
-do
-	%find_lang $i	--with-kde
+for i in $kate; do
+	%find_lang $i --with-kde
 	cat $i.lang >> kate-plugins.lang
 done
 %endif
 
-files="kate-plugins \
-kicker-applets \
-konq-plugins"
+files="\
+	kate-plugins \
+	kicker-applets \
+	konq-plugins"
 
 for i in $files; do
 	> ${i}_en.lang
@@ -563,8 +568,7 @@ done
 
 durne=`ls -1 *.lang|grep -v _en`
 
-for i in $durne; 
-do
+for i in $durne; do
 	echo $i >> control
 	grep -v en\/ $i|grep -v apidocs >> ${i}.1
 	if [ -f ${i}.1 ] ; then
@@ -611,7 +615,6 @@ rm -rf $RPM_BUILD_ROOT
 #%{_desktopdir}/kde/fsview.desktop
 %{_iconsdir}/*/*/apps/fsview.png
 %{_mandir}/man1/fsview.1*
-
 
 %files kaddressbook-plugins
 %defattr(644,root,root,755)
