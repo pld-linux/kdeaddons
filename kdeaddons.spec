@@ -182,7 +182,7 @@ Este paquete prove plugins de KDE para kdebase-konqueror.
 %description konqueror -l pl
 Pakiet zawiera wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora.
 Zawiera m.in. wtyczki do t³umaczenia stron WWW, sprawdzania
-poprawno¶ci HTML, ogl±dania drzewa DOM stron WWW.
+poprawno¶ci HTML-a, ogl±dania drzewa DOM stron WWW.
 
 %description konqueror -l pt_BR
 Este pacote fornece plugins KDE para kdebase-konqueror.
