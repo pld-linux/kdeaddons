@@ -199,22 +199,34 @@ rm -rf $RPM_BUILD_ROOT
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-> kate.lang
+:> kate.lang
 programs="katehelloworld katehtmltools kateinsertcommand kateopenheader \
-	kateprojectmanager katetextfilter katexmltools kate-plugins"
+	kateprojectmanager katetextfilter katexmltools kate-plugins \
+	katefll_initplugin katefll_plugin katemodeline katepybrowse \
+	katespell katexmlcheck"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> kate.lang
 done
 
-> konqueror.lang
+:> konqueror.lang
 programs="babelfish dirfilterplugin domtreeviewer dub \
-	imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer \
-	kuick_plugin uachangerplugin validatorsplugin webarchiver \
-	konq-plugins"
+	imgalleryplugin kcmkuick kcmmediacontrol kfile_desktop \
+	kfile_folder kfile_html kfile_txt khtmlsettingsplugin \
+	konqsidebar_mediaplayer kuick_plugin mediacontrol uachangerplugin \
+	validatorsplugin webarchiver desktop_kdeaddons"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> konqueror.lang
+done
+
+:> noatun.lang
+programs="alsaplayerui charlatanui ffrs lyrics \
+	nexscope pitchablespeed synaescope tippecanoe \
+	tyler wakeup wavecapture"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> noatun.lang
 done
 
 %find_lang kicker-applets	--with-kde
@@ -223,6 +235,12 @@ done
 cat {kicker-applets,kolourpicker,ktimemon}.lang > kicker.lang
 
 %find_lang atlantikdesigner	--with-kde
+
+# Should be in kdelibs:
+%find_lang imagerename_plugin	--with-kde
+# Whereis it from?
+%find_lang crashesplugin	--with-kde
+%find_lang jefferson		--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -285,7 +303,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/*/webarchiver*
 %{_applnkdir}/.hidden/*
 
-%files noatun
+%files noatun -f noatun.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/noatun*
 %{_libdir}/kde3/noatun*.la
