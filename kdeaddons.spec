@@ -26,7 +26,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	464451c674acd4bb27e0e34a48d737e2
 %endif
-Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
+Patch0:		%{name}-3.2branch.diff
+Patch1:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	db-cxx-devel
@@ -403,6 +404,7 @@ Pliki umiêdzynarodawiaj±ce dla konquerora.
 %prep
 %setup -q 
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
