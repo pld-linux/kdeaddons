@@ -1,6 +1,6 @@
 %define		_ver		3.0.3
 #define		_sub_ver
-%define		_rel		0.1
+%define		_rel		1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -21,15 +21,15 @@ Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
+BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 3.0
 BuildRequires:	kdemultimedia-devel >= 3.0
-BuildRequires:	SDL-devel
-BuildRequires:	zlib-devel
-BuildRequires:	gettext-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	nas-devel
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -182,14 +182,29 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/FileBrowsing \
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-%find_lang kate-plugins --with-kde
+> kate.lang
+programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kate.lang
+done
+
+> konqueror.lang
+programs="babelfish dirfilterplugin domtreeviewer dub imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer konq-plugins kuick_plugin uachangerplugin validatorsplugin webarchiver"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> konqueror.lang
+done
+
 %find_lang kicker-applets --with-kde
-%find_lang konq-plugins --with-kde
+%find_lang kolourpicker --with-kde
+%find_lang ktimemon --with-kde
+cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files kate -f kate-plugins.lang
+%files kate -f kate.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dcop_kate
 %attr(755,root,root) %{_bindir}/testor
@@ -197,8 +212,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apps/kate/plugins
 %{_datadir}/apps/kate/plugins/*
 %{_datadir}/apps/katexmltools
+/usr/share/doc/kde/HTML/en/kate-plugins/*
 
-%files kicker -f kicker-applets.lang
+%files kicker -f kicker.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/*_panelapplet.??
 %{_libdir}/kde3/*_panelapplet.so.*.*.*
@@ -210,7 +226,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apps/knewsticker/scripts
 %{_datadir}/apps/knewsticker/scripts/*
 
-%files konqueror -f konq-plugins.lang
+%files konqueror -f konqueror.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/konq*.??
 %{_libdir}/kde3/libkhtml*
