@@ -3,7 +3,7 @@ Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	2.2.1
+Version:	2.2.2
 Release:	1
 License:	GPL
 Group:		X11/Applications
@@ -12,13 +12,19 @@ Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{version}%{version}%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRequires:	kdebase-devel >= 2.2
 BuildRequires:	kdemultimedia-devel >= 2.2
+BuildRequires:	SDL-devel
+BuildRequires:	zlib-devel
+BuildRequires:	gettext-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
+%define		_htmldir	/usr/share/doc/kde/HTML
 
 %description
 Plugins for some KDE applications: %{name} extends the functionality
@@ -166,8 +172,20 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %setup -q
 
 %build
-CXXFLAGS="%{rpmcflags} -DNDEBUG -DNO_DEBUG -fno-check-new" CFLAGS="%{rpmcflags} -DNDEBUG -DNO_DEBUG" \
-./configure --prefix=%{_prefix} --includedir=%{_includedir}/kde --enable-final
+#CXXFLAGS="%{rpmcflags} -DNDEBUG -DNO_DEBUG -fno-check-new" CFLAGS="%{rpmcflags} -DNDEBUG -DNO_DEBUG" \
+#./configure --prefix=%{_prefix} --includedir=%{_includedir}/kde --enable-final
+kde_htmldir="%{_htmldir}"; export kde_htmldir
+kde_icondir="%{_pixmapsdir}"; export kde_icondir
+
+%{__make} -f Makefile.cvs
+
+CFLAGS="%{rpmcflags}"
+CXXFLAGS="%{rpmcflags}"
+
+%configure \
+	--%{?debug:en}%{!?debug:dis}able-debug \
+	--enable-final
+
 %{__make}
 %{__make} -C noatun-plugins
 
@@ -181,10 +199,13 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 # Make symlinks relative
-cd $RPM_BUILD_ROOT%{_datadir}/doc/HTML/en
-for i in *; do
-	[ -d $i -a -L $i/common ] && rm -f $i/common && ln -sf ../common $i/common
-done
+#cd $RPM_BUILD_ROOT%{_datadir}/doc/HTML/en
+#for i in *; do
+#	[ -d $i -a -L $i/common ] && rm -f $i/common && ln -sf ../common $i/common
+#done
+
+%find_lang kate-plugins --with-kde
+%find_lang kicker-applets --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -196,15 +217,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde2/libkate*
 %dir %{_datadir}/apps/kate/plugins
 %{_datadir}/apps/kate/plugins/*
-%doc %{_datadir}/doc/HTML/en/kate-plugins/*
+#%doc %{_datadir}/doc/HTML/en/kate-plugins/*
 
 %files kicker
 %defattr(644,root,root,755)
 %{_libdir}/libktimemon*
 %{_libdir}/libkolourpicker*
-%{_datadir}/icons/*/*/*/ktimemon.png
+%{_pixmapsdir}/*/*/*/ktimemon.png
 %{_datadir}/apps/kicker/applets/*
-%doc %{_datadir}/doc/HTML/en/kicker-applets/*
+#%doc %{_datadir}/doc/HTML/en/kicker-applets/*
 
 %files knewsticker
 %defattr(644,root,root,755)
@@ -225,13 +246,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/*
 %{_datadir}/apps/konqiconview/kpartplugins/*
 %{_datadir}/apps/konqlistview/kpartplugins/*
-%{_datadir}/icons/*/*/*/imagegallery*
-%{_datadir}/icons/*/*/*/babelfish*
-%{_datadir}/icons/*/*/*/validators*
-%{_datadir}/icons/*/*/*/cssvalidator*
-%{_datadir}/icons/*/*/*/htmlvalidator*
-%{_datadir}/icons/*/*/*/domtreeviewer*
-%{_datadir}/icons/*/*/*/webarchiver*
+%{_pixmapsdir}/*/*/*/imagegallery*
+%{_pixmapsdir}/*/*/*/babelfish*
+%{_pixmapsdir}/*/*/*/validators*
+%{_pixmapsdir}/*/*/*/cssvalidator*
+%{_pixmapsdir}/*/*/*/htmlvalidator*
+%{_pixmapsdir}/*/*/*/domtreeviewer*
+%{_pixmapsdir}/*/*/*/webarchiver*
 %{_datadir}/mimelnk/application/*webarchive*
 %{_datadir}/services/webarchive*
 
