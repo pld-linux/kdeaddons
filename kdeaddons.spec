@@ -12,7 +12,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}.%{_snap}
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -22,12 +22,12 @@ Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 #Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
-BuildRequires:	kdenetwork-rss-devel  >= %{version}
+BuildRequires:	kdenetwork-rss-devel  >= 10:%{version}
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 3.1
-BuildRequires:	kdemultimedia-devel >= 3.1
-BuildRequires:  kdegames-devel >= 3.1
-BuildRequires:  kdepim-devel >= 3.1
+BuildRequires:	kdebase-devel >= 9:%{version}
+BuildRequires:	kdemultimedia-devel >= 9:%{version}
+BuildRequires:  kdegames-devel >= 8:%{version}
+BuildRequires:  kdepim-devel >= 3:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	nas-devel
