@@ -1,15 +1,27 @@
+%define		_ver		3.0
+#define		_sub_ver
+%define		_rel		1
+
+%{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
+%{!?_sub_ver:	%define	_version	%{_ver}}
+%{?_sub_ver:	%define	_release	0.%{_sub_ver}.%{_rel}}
+%{!?_sub_ver:	%define	_release	%{_rel}}
+%{!?_sub_ver:	%define	_ftpdir	stable}
+%{?_sub_ver:	%define	_ftpdir	unstable/kde-%{version}%{_sub_ver}}
+
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	2.2.2
-Release:	3
+Version:	%{_version}
+Release:	%{_release}
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
-BuildRequires:	kdebase-devel >= 2.2
-BuildRequires:	kdemultimedia-devel >= 2.2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
+BuildRequires:	arts-kde-devel
+BuildRequires:	kdebase-devel >= 3.0
+BuildRequires:	kdemultimedia-devel >= 3.0
 BuildRequires:	SDL-devel
 BuildRequires:	zlib-devel
 BuildRequires:	gettext-devel
@@ -145,8 +157,6 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
-%{__make} -f Makefile.cvs
-
 CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags}"
 
@@ -160,30 +170,36 @@ CXXFLAGS="%{rpmcflags}"
 %install
 rm -rf $RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT%{_applnkdir}/KDE
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__make} -C noatun-plugins install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+mv $RPM_BUILD_ROOT%{_applnkdir}{,/KDE}/Settings
+
 %find_lang kate-plugins --with-kde
 %find_lang kicker-applets --with-kde
+%find_lang konq-plugins --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files kate
+%files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dcop_kate
 %attr(755,root,root) %{_bindir}/testor
-%{_libdir}/kde2/libkate*
+%{_libdir}/kde3/kate*.??
 %dir %{_datadir}/apps/kate/plugins
 %{_datadir}/apps/kate/plugins/*
+%{_datadir}/apps/katexmltools
 
-%files kicker
+%files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
-%{_libdir}/libktimemon*
-%{_libdir}/libkolourpicker*
+%{_libdir}/kde3/*_panelapplet.??
+%{_libdir}/kde3/*_panelapplet.so.*.*.*
 %{_pixmapsdir}/*/*/*/ktimemon.png
 %{_datadir}/apps/kicker/applets/*
 
@@ -192,32 +208,39 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apps/knewsticker/scripts
 %{_datadir}/apps/knewsticker/scripts/*
 
-%files konqueror
+%files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
-%{_libdir}/kde2/libkhtml*
-%{_libdir}/kde2/libkimg*
-%{_libdir}/kde2/libdirfilter*
-%{_libdir}/kde2/libuachanger*
-%{_libdir}/kde2/libbabelfish*
-%{_libdir}/kde2/libvalidator*
-%{_libdir}/kde2/libdomtree*
-%{_libdir}/kde2/*webarchive*
+%{_libdir}/kde3/konq*.??
+%{_libdir}/kde3/libkhtml*
+%{_libdir}/kde3/libkimg*
+%{_libdir}/kde3/libdirfilter*
+%{_libdir}/kde3/libuachanger*
+%{_libdir}/kde3/libbabelfish*
+%{_libdir}/kde3/libvalidator*
+%{_libdir}/kde3/libdomtree*
+%{_libdir}/kde3/*webarchive*
+%{_libdir}/kde3/libkcm_*.??
+%{_libdir}/kde3/libkuickplugin.??
 %dir %{_datadir}/apps/khtml/kpartplugins
 %{_datadir}/apps/khtml/kpartplugins/*
 %{_datadir}/apps/konqiconview/kpartplugins/*
 %{_datadir}/apps/konqlistview/kpartplugins/*
-%{_pixmapsdir}/*/*/*/imagegallery*
+%{_datadir}/apps/konqsidebartng
 %{_pixmapsdir}/*/*/*/babelfish*
-%{_pixmapsdir}/*/*/*/validators*
 %{_pixmapsdir}/*/*/*/cssvalidator*
-%{_pixmapsdir}/*/*/*/htmlvalidator*
 %{_pixmapsdir}/*/*/*/domtreeviewer*
+%{_pixmapsdir}/*/*/*/htmlvalidator*
+%{_pixmapsdir}/*/*/*/imagegallery*
+%{_pixmapsdir}/*/*/*/konqsidebar_mediaplayer*
+%{_pixmapsdir}/*/*/*/validators*
 %{_pixmapsdir}/*/*/*/webarchiver*
 %{_datadir}/mimelnk/application/*webarchive*
 %{_datadir}/services/webarchive*
+%{_datadir}/services/kuickplugin*
+%{_applnkdir}/KDE/Settings/FileBrowsing/kcmkuick.desktop
 
 %files noatun
 %defattr(644,root,root,755)
-%{_libdir}/libnoatun*
+%{_libdir}/kde3/noatun*.??
 %{_datadir}/apps/noatun/*
 %attr(755,root,root) %{_bindir}/noatun*
