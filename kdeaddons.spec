@@ -3,7 +3,7 @@
 # Splitting konqueror subpackage
 
 %define		_state		stable
-%define		_ver		3.1.1
+%define		_ver		3.1.2
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -53,7 +53,7 @@ KDE.
 Summary:        Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
 Group:          X11/Applications/Games
-Requires:       kdegames-atlantik
+Requires:       kdegames-atlantik >= %{version}
 
 %description atlantikdesigner
 Atlantik board designer.
@@ -67,7 +67,7 @@ Summary(es):	Plugins para kdebase-kate
 Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
-Requires:	kdebase-kate
+Requires:	kdebase-kate >= %{version}
 
 %description kate
 %{name}-kate contains plugins extending the functionality of the Kate
@@ -93,7 +93,7 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
-Requires:	kdebase
+Requires:	kdebase-kicker >= %{version}
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
@@ -111,7 +111,7 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 Summary:	Scripts extending the functionality of KNewsTicker
 Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
-Requires:	kdenetwork-knewsticker
+Requires:	kdenetwork-knewsticker >= %{version}
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
@@ -125,7 +125,7 @@ Summary(es):	Plugins para konqueror
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
-Requires:	konqueror
+Requires:	konqueror >= %{version}
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -150,7 +150,7 @@ Summary(es):	Plugins para kdemultimedia-noatun
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
-Requires:	kdemultimedia-noatun
+Requires:	kdemultimedia-noatun >= %{version}
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
