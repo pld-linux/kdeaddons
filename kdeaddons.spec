@@ -1,13 +1,13 @@
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc3
+%define		_kdever		kde-3.1-rc4
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.0.99
+Version:	3.1
 Release:	2
 License:	GPL
 Group:		X11/Applications
@@ -270,7 +270,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/libkcm_*.??
 %{_libdir}/kde3/libkuickplugin.??
 %{_libdir}/kde3/mediacontrol_panelapplet.*
-%{_datadir}/apps/dub
 %{_datadir}/apps/khtml/kpartplugins/*
 %{_datadir}/apps/konqiconview/kpartplugins/*
 %{_datadir}/apps/konqlistview/kpartplugins/*
