@@ -11,12 +11,12 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	1.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
-#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
@@ -195,36 +195,35 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-#> kate.lang
-#programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
-#for i in $programs; do
-#	%find_lang $i --with-kde
-#	cat $i.lang >> kate.lang
-#done
+> kate.lang
+programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kate.lang
+done
 
-#> konqueror.lang
-#programs="babelfish dirfilterplugin domtreeviewer dub imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer kuick_plugin uachangerplugin validatorsplugin webarchiver"
-#for i in $programs; do
-#	%find_lang $i --with-kde
-#	cat $i.lang >> konqueror.lang
-#done
-#
-#%find_lang	atlantikdesigner --with-kde
+> konqueror.lang
+programs="babelfish dirfilterplugin domtreeviewer dub imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer kuick_plugin uachangerplugin validatorsplugin webarchiver"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> konqueror.lang
+done
+
+%find_lang	atlantikdesigner --with-kde
 %find_lang	kate-plugins	--with-kde
 %find_lang	kicker-applets	--with-kde
 %find_lang	konq-plugins	--with-kde
-#%find_lang kolourpicker --with-kde
-#%find_lang ktimemon --with-kde
-#cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
-#cat konq-plugins.lang >> konqueror.lang
+%find_lang	kolourpicker --with-kde
+%find_lang	ktimemon --with-kde
+cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
+cat konq-plugins.lang >> konqueror.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-#%files  atlantikdesigner -f atlantikdesigner.lang
-%files  atlantikdesigner
+%files  atlantikdesigner -f atlantikdesigner.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantikdesigner
 %{_pixmapsdir}/*/*/*/atlantikdesigner.png
@@ -256,8 +255,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apps/knewsticker/scripts
 %{_datadir}/apps/knewsticker/scripts/*
 
-#%files konqueror -f konqueror.lang
-%files konqueror -f konq-plugins.lang
+%files konqueror -f konqueror.lang
+#%files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kfile*.la
 %attr(755,root,root) %{_libdir}/kde3/kfile*.so
