@@ -1,0 +1,168 @@
+diff -urN -x CVS kdeaddons.orig/kate/tabbarextension/plugin_katetabbarextension.cpp kdeaddons/kate/tabbarextension/plugin_katetabbarextension.cpp
+--- kdeaddons.orig/kate/tabbarextension/plugin_katetabbarextension.cpp	Fri May 14 18:51:04 2004
++++ kdeaddons/kate/tabbarextension/plugin_katetabbarextension.cpp	Tue Aug 17 19:04:12 2004
+@@ -191,7 +191,8 @@
+   if (d) {
+     setIconSet(SmallIconSet("cancel"));
+   } else {
+-    setIconSet(QIconSet());
++    if (modified) setIconSet(SmallIconSet("modified"));
++    else setIconSet(QIconSet());
+   }
+ }
+ 
+@@ -223,9 +224,11 @@
+   if (modified) {
+     QColor c(255, 0, 0);
+     setPaletteForegroundColor( c );
++    setIconSet(SmallIconSet("modified"));
+   } else {
+     QColor c(KGlobalSettings::textColor());
+     setPaletteForegroundColor( c );
++    setIconSet(QIconSet());
+   }
+ }
+ 
+diff -urN -x CVS kdeaddons.orig/konq-plugins/searchbar/searchbar.cpp kdeaddons/konq-plugins/searchbar/searchbar.cpp
+--- kdeaddons.orig/konq-plugins/searchbar/searchbar.cpp	Fri Jul 16 12:32:16 2004
++++ kdeaddons/konq-plugins/searchbar/searchbar.cpp	Sat Aug 21 17:17:12 2004
+@@ -36,7 +36,7 @@
+ #include <kstandarddirs.h>
+ #include <kurifilter.h>
+ 
+-#include <kparts/mainwindow.h> 
++#include <kparts/mainwindow.h>
+ #include <kparts/partmanager.h>
+ 
+ #include <qpopupmenu.h>
+@@ -60,7 +60,7 @@
+ 	m_searchCombo = new SearchBarCombo(0L, "search combo");
+ 	m_searchCombo->setDuplicatesEnabled(false);
+ 	m_searchCombo->setMaxCount(5);
+-	m_searchCombo->setMinimumWidth(180);
++	m_searchCombo->setFixedWidth(180);
+ 
+ 	m_popupMenu = new QPopupMenu(m_searchCombo, "search selection menu");
+ 	m_popupMenu->insertItem(SmallIcon("find"), i18n("Find in This Page"), this, SLOT(useFindInThisPage()),  0, 0);
+@@ -81,14 +81,14 @@
+ 	                                    "Enter a search term."));
+ 
+ 	configurationChanged();
+-	
++
+ 	KParts::MainWindow *mainWin = static_cast<KParts::MainWindow*>(parent);
+ 
+ 	//Grab the part manager. Don't know of any other way, and neither does Tronical, so..
+ 	KParts::PartManager *partMan = static_cast<KParts::PartManager*>(mainWin->child(0, "KParts::PartManager"));
+ 	if (partMan)
+ 	{
+-		connect(partMan, SIGNAL(activePartChanged(KParts::Part*)), 
++		connect(partMan, SIGNAL(activePartChanged(KParts::Part*)),
+ 		                 SLOT  (partChanged      (KParts::Part*)));
+ 		partChanged(partMan->activePart());
+ 	}
+@@ -243,7 +243,7 @@
+ void SearchBarPlugin::partChanged(KParts::Part *newPart)
+ {
+ 	m_part = ::qt_cast<KHTMLPart*>(newPart);
+-	
++
+ 	//Delay since when destroying tabs part 0 gets activated for a bit, before the proper part
+ 	QTimer::singleShot(0, this, SLOT(updateComboVisibility()));
+ }
+@@ -251,13 +251,20 @@
+ void SearchBarPlugin::updateComboVisibility()
+ {
+ 	if (m_part.isNull() || !m_searchComboAction->isPlugged())
++	{
++		m_searchCombo->setPluginActive(false);
+ 		m_searchCombo->hide();
++	}
+ 	else
++	{
++		m_searchCombo->setPluginActive(true);
+ 		m_searchCombo->show();
++	}
+ }
+ 
+ SearchBarCombo::SearchBarCombo(QWidget *parent, const char *name) :
+-  KHistoryCombo(parent, name)
++  KHistoryCombo(parent, name),
++  m_pluginActive(true)
+ {
+ 	connect(this, SIGNAL(cleared()), SLOT(historyCleared()));
+ }
+@@ -318,4 +325,17 @@
+ 	setIcon(m_icon);
+ }
+ 
++void SearchBarCombo::setPluginActive(bool pluginActive)
++{
++	m_pluginActive = pluginActive;
++}
++
++void SearchBarCombo::show()
++{
++	if(m_pluginActive)
++	{
++		KHistoryCombo::show();
++	}
++}
++
+ #include "searchbar.moc"
+diff -urN -x CVS kdeaddons.orig/konq-plugins/searchbar/searchbar.h kdeaddons/konq-plugins/searchbar/searchbar.h
+--- kdeaddons.orig/konq-plugins/searchbar/searchbar.h	Thu Jul  1 18:20:48 2004
++++ kdeaddons/konq-plugins/searchbar/searchbar.h	Sat Aug 21 17:05:17 2004
+@@ -62,6 +62,20 @@
+ 		 */
+ 		int findHistoryItem(const QString &text);
+ 
++		/**
++		 * Sets whether the plugin is active. It can be inactive
++		 * in case the current Konqueror part isn't a KHTML part.
++		 */
++		void setPluginActive(bool pluginActive);
++
++
++	public slots:
++		/**
++		 * Reimplement the show function so it only shows in the right
++		 * profiles.
++		 */
++		virtual void show();
++
+ 	signals:
+ 		/**
+ 		 * Emitted when the icon was clicked.
+@@ -80,6 +94,7 @@
+ 
+ 	private:
+ 		QPixmap m_icon;
++		bool    m_pluginActive;
+ };
+ 
+ /**
+@@ -88,7 +103,7 @@
+  * provider it will use.
+  *
+  * @author Arend van Beelen jr. <arend@auton.nl>
+- * @version $Id$
++ * @version $Id$
+  */
+ class SearchBarPlugin : public KParts::Plugin
+ {
+@@ -124,12 +139,12 @@
+ 		void selectSearchEngine();
+ 		void searchEngineSelected(KProcess *process);
+ 		void configurationChanged();
+-		
++
+ 		/**
+ 		 * We keep track of part activations to know when to show or hide ourselves
+ 		 */
+ 		void partChanged(KParts::Part *newPart);
+-		
++
+ 		/**
+ 		 * Show or hide the combo box
+ 		 */
