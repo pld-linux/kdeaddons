@@ -11,14 +11,15 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	294edc0b59a23ae5a9e3a3664e677b2f
+# Source0-md5:	5997388ff74ed1c95dd07c778d66fdae
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
+Patch1:		%{name}-gcc34.patch
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	unsermake >= 040511
@@ -258,6 +259,7 @@ Pliki umiêdzynarodawiaj±ce dla atlantikdesigner.
 %prep
 %setup -q 
 %patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -331,6 +333,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/katexmltools
 %{_datadir}/services/kate*
 %{_datadir}/applnk/.hidden/katefll.desktop
+%{_kdedocdir}/en/kate-plugins
 
 %files kicker
 %defattr(644,root,root,755)
@@ -349,6 +352,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config.kcfg/kbinaryclock.kcfg
 %{_iconsdir}/crystalsvg/*/apps/ktimemon.png
 %{_iconsdir}/hicolor/*/apps/autorefresh.png
+%{_kdedocdir}/en/kicker-applets
 
 %files knewsticker
 %defattr(644,root,root,755)
@@ -467,6 +471,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/exif.py.1*
 %{_mandir}/man1/jpegorient.1*
 %{_mandir}/man1/orient.py.1*
+%{_kdedocdir}/en/konq-plugins
 
 %files kontact
 %defattr(644,root,root,755)
