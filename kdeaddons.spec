@@ -293,7 +293,6 @@ export UNSERMAKE=%{_datadir}/unsermake/unsermake
 export LDFLAGS="%{rpmldflags} -lpthread"
 
 %configure \
-	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
 	--enable-final \
 	--with-qt-libraries=%{_libdir} \
