@@ -1,13 +1,13 @@
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc2
+%define		_kdever		kde-3.1-rc3
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.0.98
+Version:	3.0.99
 Release:	1
 License:	GPL
 Group:		X11/Applications
