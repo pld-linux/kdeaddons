@@ -1,4 +1,4 @@
-
+%bcond_without  kdegames        # no kdegames dep
 %define		_state		unstable
 %define		_ver		3.3.0
 %define		_snap		rc2
@@ -14,7 +14,7 @@ Epoch:		1
 License:	GPL
 Group:		X11/Applications
 # Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{version}-%{_snap}.tar.bz2
 # Source0-md5:	279500317749e08e3b53e558b9abf9e8
 BuildRequires:	SDL-devel
 BuildRequires:	automake
@@ -22,7 +22,7 @@ BuildRequires:	autoconf
 BuildRequires:	db-cxx-devel
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 9:%{_ver}
-BuildRequires:	kdegames-devel >= 8:%{_ver}
+%{?with_kdegames:BuildRequires:	kdegames-devel >= 8:%{_ver}}
 BuildRequires:	kdemultimedia-devel >= 9:%{_ver}
 BuildRequires:	kdenetwork-devel >= 10:%{_ver}
 BuildRequires:	kdepim-devel >= 3:%{_ver}
@@ -48,16 +48,18 @@ kdeaddons contem plugins e scripts adicionais para alguma aplicações
 KDE.
 
 %package ark
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	Konqueror ark integration plugin
+Summary(pl):	Wtyczka pozwalaj±ca na integracjê konquerora z ark
 Group:		X11/Applications
 Requires:	kdeutils-ark
 
 %description ark
-TODO.
+Konqueror plugin for integrating ark (a compression/decompression
+program) with the filemanager.
 
 %description ark -l pl
-TODO.
+Wtyczka do konquerora integruj±ca ark (program do
+kompresji/dekompresji archiwów) z mened¿erem plików.
 
 %package atlantikdesigner
 Summary:	Atlantik board designer
@@ -196,12 +198,12 @@ Requires:	kdepim >= 3:%{_ver}
 Requires:	kdenetwork-knewsticker >= 10:%{_ver}
 
 %description kontact
-Plugins extending the functionality of Kontact. This includes an
-rss feeds module.
+Plugins extending the functionality of Kontact. This includes an rss
+feeds module.
 
 %description kontact -l pl
-Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera
-modu³ wy¶wietlaj±cy ¼ród³a rss.
+Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera modu³
+wy¶wietlaj±cy ¼ród³a rss.
 
 %package ksig
 Summary:	A signature creator and manager
@@ -229,17 +231,17 @@ KPart umo¿liwiaj±cy aplikacjom KDE wykorzystywanie vima jako
 osadzonego edytora.
 
 %package lnkforward
-Summary:	TODO
-Summary(pl):	TODO
+Summary:	Windows link file forwarder
+Summary(pl):	Przekierowywacz skrótów windowsowych
 Group:		X11/Applications
-# ???
 Requires:	kdebase-core >= 9:%{_ver}
 
 %description lnkforward
-TODO.
+A konqueror extension that makes windows .lnk files work under linux.
 
 %description lnkforward -l pl
-TODO.
+Rozszerzenie do konquerora sprawiaj±ce, ¿e windowsowe skróty .lnk
+dzia³aj± pod linuksem.
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
@@ -268,9 +270,9 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 
 %build
-cp -f /usr/share/automake/config.sub admin
+cp -f %{_datadir}/automake/config.sub admin
 
-export UNSERMAKE=/usr/share/unsermake/unsermake
+export UNSERMAKE=%{_datadir}/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -283,7 +285,9 @@ export UNSERMAKE=/usr/share/unsermake/unsermake
 %{__make}
 
 %install
-rm -rf $RPM_BUILD_ROOT *.lang
+rm -rf $RPM_BUILD_ROOT
+rm -rf *.lang
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_libs_htmldir=%{_kdedocdir} \
@@ -312,6 +316,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applnk/.hidden/arkplugin.desktop
 %{_datadir}/services/ark_plugin.desktop
 
+%if %{with kdegames}
 %files atlantikdesigner
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantikdesigner
@@ -319,6 +324,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/atlantikdesigner.desktop
 %{_iconsdir}/*/*/*/atlantikdesigner.png
 %{_mandir}/man1/atlantikdesigner.1*
+%endif
 
 %files fsview
 %defattr(644,root,root,755)
