@@ -7,7 +7,6 @@
 #
 %define		_state		stable
 %define		_ver		3.2.2
-##%define		_snap		040110
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -26,8 +25,7 @@ Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
 Source1:        kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	3fbdf1869b87a451b298cc3a90922ad8
 %endif
-Patch0:		%{name}-3.2branch.diff
-Patch1:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
+Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	db-cxx-devel
@@ -403,8 +401,7 @@ Pliki umiêdzynarodawiaj±ce dla konquerora.
 
 %prep
 %setup -q 
-#%patch0 -p1
-%patch1 -p1
+%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -420,6 +417,7 @@ cp -f /usr/share/automake/config.sub admin
 
 %install
 rm -rf $RPM_BUILD_ROOT
+rm -f *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -451,7 +449,6 @@ mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
 %if %{with i18n}
 %find_lang	fsview		--with-kde
-%find_lang	desktop_kdeaddons	--with-kde
 %find_lang	atlantikdesigner	--with-kde
 %find_lang	kcmkontactnt		--with-kde
 %find_lang	ksig		--with-kde
@@ -502,12 +499,10 @@ konqueror="khtmlsettingsplugin \
 konqsidebar_mediaplayer \
 konq_smbmounterplugin \
 validatorsplugin \
-webarchiver \
 autorefresh \
 babelfish \
 crashesplugin \
 dirfilterplugin \
-domtreeviewer \
 imgalleryplugin \
 kcmkuick \
 minitoolsplugin \
@@ -515,7 +510,6 @@ uachangerplugin \
 kuick_plugin \
 audiorename_plugin \
 imagerename_plugin \
-kfile_desktop \
 kfile_folder \
 kfile_html \
 kfile_txt"
@@ -525,6 +519,10 @@ do
 	%find_lang $i	--with-kde
 	cat $i.lang >> konq-plugins.lang
 done
+
+%find_lang webarchiver
+%find_lang domtreeviewer
+cat webarchiver.lang domtreeviewer.lang >> konq-plugins.lang
 
 kate="katecppsymbolviewer \
 katefll_initplugin \
@@ -579,7 +577,6 @@ rm -rf $RPM_BUILD_ROOT
 %postun	kvim	-p /sbin/ldconfig
 
 %if %{with i18n}
-%files i18n -f desktop_kdeaddons.lang
 %files kate-i18n -f kate-plugins.lang
 %files kicker-i18n -f kicker-applets.lang
 %files konqueror-i18n -f konq-plugins.lang
