@@ -1,8 +1,10 @@
 #
 # TODO:
 # Splitting konqueror subpackage
-%bcond_without  i18n    # dont build i18n subpackage
-
+#
+# Conditional build:
+%bcond_without  i18n    # don't build i18n subpackages
+#
 %define		_state		stable
 %define		_ver		3.2.0
 ##%define		_snap		040110
@@ -68,17 +70,17 @@ Atlantik board designer.
 Program do tworzenia plansz dla gry Atlantik.
 
 %package fsview
-Summary:	FSView is a tool for showing disc utilization in a graphical form
-Summary(pl):	FSview s³u¿y do graficznego przedstawiania wolnego miejsca na dysku
+Summary:	FSView - a tool for showing disc utilization in a graphical form
+Summary(pl):	FSview - narzêdzie do graficznego przedstawiania wolnego miejsca na dysku
 Group:		X11/Applications
 Requires:	konqueror >= 9:%{version}
 
 %description fsview
-FSView is a tool for showing disc utilization in a graphical form, much
-like the UNIX command 'du'.
+FSView is a tool for showing disc utilization in a graphical form,
+much like the UNIX command 'du'.
 
 %description fsview -l pl
-FSview s³u¿y do graficznego przedstawiania wolnego miejsca na dysku, 
+FSview s³u¿y do graficznego przedstawiania wolnego miejsca na dysku,
 dzia³a podobnie do polecenia 'du'.
 
 %package kaddressbook-plugins
@@ -358,7 +360,7 @@ Pliki umiêdzynarodawiaj±ce dla noatun.
 
 %package kvim-i18n
 Summary:	Internationalization and localization files for kvim
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kvim
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kvima
 Group:		X11/Applications
 Requires:	%{name}-kvim = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
@@ -368,11 +370,11 @@ Requires:	kdebase-core-i18n >= 9:%{version}
 Internationalization and localization files for kvim.
 
 %description kvim-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kvim.
+Pliki umiêdzynarodawiaj±ce dla kvima.
 
 %package kicker-i18n
 Summary:	Internationalization and localization files for kicker
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kicker
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kickera
 Group:		X11/Applications
 Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
@@ -382,12 +384,11 @@ Requires:	kdebase-kicker-i18n >= 9:%{version}
 Internationalization and localization files for kicker.
 
 %description kicker-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla kicker.
-
+Pliki umiêdzynarodawiaj±ce dla kickera.
 
 %package konqueror-i18n
 Summary:	Internationalization and localization files for konqueror
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konqueror
+Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konquerora
 Group:		X11/Applications
 Requires:	%{name}-konqueror = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
@@ -397,7 +398,7 @@ Requires:	konqueror-i18n >= 9:%{version}
 Internationalization and localization files for konqueror.
 
 %description konqueror-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla konqueror.
+Pliki umiêdzynarodawiaj±ce dla konquerora.
 
 %prep
 %setup -q 
@@ -434,7 +435,6 @@ else
 	echo "No i18n sources found and building --with i18n. FIXIT!"
 	exit 1
 fi
-
 %endif
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
@@ -559,11 +559,10 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with i18n}
+%files i18n -f desktop_kdeaddons.lang
 %files kate-i18n -f kate-plugins.lang
 %files kicker-i18n -f kicker-applets.lang
 %files konqueror-i18n -f konq-plugins.lang
-%files i18n -f desktop_kdeaddons.lang
-
 %files atlantikdesigner-i18n -f atlantikdesigner.lang
 %files kontact-i18n -f kcmkontactnt.lang
 %files ksig-i18n -f ksig.lang
@@ -762,7 +761,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libxvim.la
 # What to do wit it?
-%{_libdir}/libxvim.so
+%attr(755,root,root) %{_libdir}/libxvim.so
 #
 %attr(755,root,root) %{_libdir}/libxvim.so.*.*.*
 %{_libdir}/kde3/kcm_vim.la
