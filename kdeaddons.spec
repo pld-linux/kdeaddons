@@ -3,8 +3,8 @@
 # Splitting konqueror subpackage
 
 %define		_state		snapshots
-%define		_ver		3.1.91
-%define		_snap		030918
+%define		_ver		3.1.92
+%define		_snap		030930
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -56,7 +56,7 @@ KDE.
 Summary:        Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
 Group:          X11/Applications/Games
-Requires:       kdegames-atlantik >= %{version}
+Requires:       kdegames-atlantik >= 8:%{version}
 
 %description atlantikdesigner
 Atlantik board designer.
@@ -68,7 +68,7 @@ Program do tworzenia plansz dla gry Atlantik.
 Summary:        TODO
 Summary(pl):    TODO
 Group:          X11/Applications
-Requires:       konqueror >= %{version}
+Requires:       konqueror >= 9:%{version}
 
 %description fsview
 TODO.
@@ -82,7 +82,7 @@ Summary(es):    Plugins para kaddressbook
 Summary(pl):    Wtyczki do kaddressbook
 Summary(pt_BR): Plugins para kaddressbook
 Group:          X11/Applications
-Requires:       kdepim-kaddressbook >= %{version}
+Requires:       kdepim-kaddressbook >= 3:%{version}
 
 %description kaddressbook-plugins
 Plugins for the Kaddressbook.
@@ -102,7 +102,7 @@ Summary(es):	Plugins para kdebase-kate
 Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
-Requires:	kdebase-kate >= %{version}
+Requires:	kdebase-kate >= 9:%{version}
 
 %description kate
 %{name}-kate contains plugins extending the functionality of the Kate
@@ -128,7 +128,7 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
-Requires:	kdebase-kicker >= %{version}
+Requires:	kdebase-kicker >= 9:%{version}
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
@@ -146,7 +146,7 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 Summary:	Scripts extending the functionality of KNewsTicker
 Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
-Requires:	kdenetwork-knewsticker >= %{version}
+Requires:	kdenetwork-knewsticker >= 10:%{version}
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
@@ -160,7 +160,7 @@ Summary(es):	Plugins para konqueror
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
-Requires:	konqueror >= %{version}
+Requires:	konqueror >= 9:%{version}
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -183,8 +183,8 @@ Este pacote fornece plugins KDE para kdebase-konqueror.
 Summary:	Plugins extending the functionality of Kontact
 Summary(pl):    Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
 Group:          X11/Applications
-Requires:       kdepim-kontact >= %{version}
-Requires:	kdenetwork-knewsticker >= %{version}
+Requires:       kdepim-kontact >= 3:%{version}
+Requires:	kdenetwork-knewsticker >= 10:%{version}
 
 %description kontact
 Plugins extending the functionality of Kontact. This includes an 
@@ -198,7 +198,7 @@ modu³ wy¶wietlaj±cy ¼ród³a rss.
 Summary:	ksig
 Summary(pl):	ksig
 Group:		X11/Applications
-Requires:	kdebase-core >= %{version}
+Requires:	kdebase-core >= 9:%{version}
 
 %description ksig
 ksig
@@ -210,7 +210,7 @@ ksig
 Summary:	TODO
 Summary(pl):	TODO
 Group:		X11/Applications
-Requires:	kdebase-core >= %{version}
+Requires:	kdebase-core >= 9:%{version}
 
 %description kvim
 TODO.
@@ -225,7 +225,7 @@ Summary(es):	Plugins para kdemultimedia-noatun
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
-Requires:	kdemultimedia-noatun >= %{version}
+Requires:	kdemultimedia-noatun >= 9:%{version}
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
@@ -288,6 +288,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libfsviewpart.so
 %{_datadir}/apps/fsview
 %{_datadir}/services/fsview_part.desktop
+%{_applnkdir}/.hidden/fsview.desktop
 %{_desktopdir}/kde/fsview.desktop
 %{_iconsdir}/*/*/apps/fsview.png
 
@@ -440,8 +441,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kontact
 %defattr(644,root,root,755)
+%{_libdir}/kde3/kcm_kontactknt.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_kontactknt.so
 %{_libdir}/kde3/libkontact_newstickerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libkontact_newstickerplugin.so
+%{_datadir}/services/kcmkontactknt.desktop
 %{_datadir}/services/kontact/newstickerplugin.desktop
 
 %files ksig
