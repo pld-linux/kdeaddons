@@ -6,7 +6,7 @@
 %bcond_without  i18n    # don't build i18n subpackages
 #
 %define		_state		stable
-%define		_ver		3.2.0
+%define		_ver		3.2.1
 ##%define		_snap		040110
 
 Summary:	K Desktop Environment - Plugins
@@ -19,9 +19,9 @@ Release:	4
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+# Source0-md5:	c73c1777d3f5c25f46cd782fcca9fc35
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-# Source0-md5:	e61991c52aa6b76dec0790e76eb889bd
 %if %{with i18n}
 Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	464451c674acd4bb27e0e34a48d737e2
@@ -403,7 +403,7 @@ Pliki umiêdzynarodawiaj±ce dla konquerora.
 
 %prep
 %setup -q 
-%patch0 -p1
+#%patch0 -p1
 %patch1 -p1
 
 %build
