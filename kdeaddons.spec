@@ -3,7 +3,7 @@
 # Splitting konqueror subpackage
 
 %define		_state		snapshots
-%define		_ver		3.2
+%define		_ver		3.1.90
 %define		_snap		030620
 
 Summary:	K Desktop Environment - Plugins
@@ -11,11 +11,13 @@ Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	%{_ver}
-Release:	0.%{_snap}.2
+Version:	%{_ver}.%{_snap}
+Release:	1
+Epoch:		1
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
+#Source0:	http://www.kernwl.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	a2e3733c8db83e59307275418d7fbf67
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
@@ -25,6 +27,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 3.1
 BuildRequires:	kdemultimedia-devel >= 3.1
 BuildRequires:  kdegames-devel >= 3.1
+BuildRequires:  kdepim-devel >= 3.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	nas-devel
@@ -33,6 +36,7 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	%{_docdir}/kde/HTML
+%define		_icondir	%{_datadir}/icons
 
 %define		no_install_post_chrpath	1
 
@@ -203,12 +207,6 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %patch0 -p1
 
 %build
-kde_appsdir="%{_applnkdir}"; export kde_appsdir
-kde_htmldir="%{_htmldir}"; export kde_htmldir
-kde_icondir="%{_pixmapsdir}"; export kde_icondir
-
-CFLAGS="%{rpmcflags}"
-CXXFLAGS="%{rpmcflags}"
 
 for plik in `find ./ -name *.desktop` ; do
 	echo $plik	
@@ -224,7 +222,10 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install  \
+	DESTDIR=$RPM_BUILD_ROOT \
+	kde_appsdir=%{_applnkdir} \
+	kde_htmldir=%{_htmldir}
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}
 
@@ -247,7 +248,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/atlantikdesigner
 %{_datadir}/apps/atlantikdesigner
 %{_desktopdir}/atlantikdesigner.desktop
-%{_pixmapsdir}/*/*/*/atlantikdesigner.png
+%{_icondir}/*/*/*/atlantikdesigner.png
 
 #%files kaddressbook-plugins
 #%defattr(644,root,root,755)
@@ -274,7 +275,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kicker/applets/kolourpicker.desktop
 %{_datadir}/apps/kicker/applets/ktimemon.desktop
 %{_datadir}/apps/kicker/applets/mediacontrol.desktop
-%{_pixmapsdir}/crystalsvg/*/apps/ktimemon.png
+%{_icondir}/crystalsvg/*/apps/ktimemon.png
 
 %files knewsticker
 %defattr(644,root,root,755)
@@ -359,21 +360,21 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/.hidden/uachangerplugin.desktop
 %{_applnkdir}/.hidden/validatorsplugin.desktop
 %{_applnkdir}/.hidden/webarchiverplugin.desktop
-%{_pixmapsdir}/crystalsvg/*/actions/babelfish.png
-%{_pixmapsdir}/crystalsvg/*/actions/cssvalidator.png
-%{_pixmapsdir}/crystalsvg/*/actions/domtreeviewer.png
-%{_pixmapsdir}/crystalsvg/*/actions/htmlvalidator.png
-%{_pixmapsdir}/crystalsvg/*/actions/imagegallery.png
-%{_pixmapsdir}/crystalsvg/*/actions/validators.png
-%{_pixmapsdir}/crystalsvg/*/actions/webarchiver.png
-%{_pixmapsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
+%{_icondir}/crystalsvg/*/actions/babelfish.png
+%{_icondir}/crystalsvg/*/actions/cssvalidator.png
+%{_icondir}/crystalsvg/*/actions/domtreeviewer.png
+%{_icondir}/crystalsvg/*/actions/htmlvalidator.png
+%{_icondir}/crystalsvg/*/actions/imagegallery.png
+%{_icondir}/crystalsvg/*/actions/validators.png
+%{_icondir}/crystalsvg/*/actions/webarchiver.png
+%{_icondir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
 
 %files ksig
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksig
 %{_datadir}/apps/ksig
 %{_desktopdir}/ksig.desktop
-%{_pixmapsdir}/*/*/apps/ksig.png
+%{_icondir}/*/*/apps/ksig.png
 
 %files noatun
 %defattr(644,root,root,755)
