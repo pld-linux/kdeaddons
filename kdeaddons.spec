@@ -10,6 +10,7 @@ Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
 Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+Patch0:		%{name}-kicker-applets-no-version.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
@@ -140,6 +141,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
@@ -189,10 +191,6 @@ done
 %find_lang ktimemon --with-kde
 cat kolourpicker.lang ktimemon.lang > kicker.lang
 
-cd $RPM_BUILD_ROOT%{_libdir}/kde3
-ln -sf ktimemon_panelapplet.so.1.0.0 ktimemon_panelapplet.so.1
-cd -
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -209,7 +207,6 @@ rm -rf $RPM_BUILD_ROOT
 %files kicker -f kicker.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/*_panelapplet.??
-%{_libdir}/kde3/*_panelapplet.so.*.*.*
 %{_pixmapsdir}/*/*/*/ktimemon.png
 %{_datadir}/apps/kicker/applets/*
 
