@@ -1,3 +1,6 @@
+#
+# TODO:
+# Splitting konqueror subpackage
 
 %define		_state		stable
 %define		_ver		3.1
@@ -14,6 +17,7 @@ Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
@@ -162,6 +166,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 kde_appsdir="%{_applnkdir}"; export kde_appsdir
@@ -176,19 +181,11 @@ CXXFLAGS="%{rpmcflags}"
 	--enable-final
 
 %{__make}
-%{__make} -C noatun-plugins
-%{__make} -C atlantikdesigner
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__make} -C noatun-plugins install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__make} -C atlantikdesigner install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 #bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
