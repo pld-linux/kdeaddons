@@ -587,8 +587,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/noatunblurscope.so
 %{_libdir}/kde3/noatuncharlatan.la
 %attr(755,root,root) %{_libdir}/kde3/noatuncharlatan.so
-%{_libdir}/kde3/noatun_oblique.la
-%attr(755,root,root) %{_libdir}/kde3/noatun_oblique.so
+#%{_libdir}/kde3/noatun_oblique.la
+#%attr(755,root,root) %{_libdir}/kde3/noatun_oblique.so
 %{_libdir}/kde3/noatundub.la
 %attr(755,root,root) %{_libdir}/kde3/noatundub.so
 %{_libdir}/kde3/noatunluckytag.la
