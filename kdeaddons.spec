@@ -263,7 +263,7 @@ multimedialnych noatun.
 Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
-%setup -q -n %{name}-%{_snap}
+%setup -q
 
 echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 
@@ -351,7 +351,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/katexmltools
 %{_datadir}/services/kate*
 %{_datadir}/applnk/.hidden/katefll.desktop
-%{_kdedocdir}/en/kate-plugins
 
 %files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
@@ -374,7 +373,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config.kcfg/kbinaryclock.kcfg
 %{_iconsdir}/crystalsvg/*/apps/ktimemon.png
 %{_iconsdir}/hicolor/*/apps/autorefresh.png
-%{_kdedocdir}/en/kicker-applets
 
 %files knewsticker
 %defattr(644,root,root,755)
@@ -510,14 +508,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/config.kcfg/konq_sidebarnews.kcfg
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_news.png
 
-%files kontact
-%defattr(644,root,root,755)
-%{_libdir}/kde3/kcm_kontactknt.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_kontactknt.so
-%{_libdir}/kde3/libkontact_newstickerplugin.la
-%attr(755,root,root) %{_libdir}/kde3/libkontact_newstickerplugin.so
-%{_datadir}/services/kcmkontactknt.desktop
-%{_datadir}/services/kontact/newstickerplugin.desktop
+#%files kontact
+#%defattr(644,root,root,755)
+#%{_libdir}/kde3/kcm_kontactknt.la
+#%attr(755,root,root) %{_libdir}/kde3/kcm_kontactknt.so
+#%{_libdir}/kde3/libkontact_newstickerplugin.la
+#%attr(755,root,root) %{_libdir}/kde3/libkontact_newstickerplugin.so
+#%{_datadir}/services/kcmkontactknt.desktop
+#%{_datadir}/services/kontact/newstickerplugin.desktop
 
 %files ksig
 %defattr(644,root,root,755)
