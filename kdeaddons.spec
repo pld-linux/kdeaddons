@@ -25,7 +25,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 3.1
 BuildRequires:	kdebase-libkate >= 3.1
 BuildRequires:	kdemultimedia-devel >= 3.1
-BuildRequires:  kdegames-devel >= 3.1
+BuildRequires:	kdegames-devel >= 3.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	nas-devel
@@ -52,10 +52,10 @@ kdeaddons contem plugins e scripts adicionais para alguma aplicações
 KDE.
 
 %package atlantikdesigner
-Summary:        Atlantik board designer
+Summary:	Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
-Group:          X11/Applications/Games
-Requires:       kdegames-atlantik >= %{version}
+Group:		X11/Applications/Games
+Requires:	kdegames-atlantik >= %{version}
 
 %description atlantikdesigner
 Atlantik board designer.
