@@ -4,7 +4,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.0.3
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
@@ -191,6 +191,9 @@ cat kolourpicker.lang ktimemon.lang > kicker.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   kicker /sbin/ldconfig -n %{_libdir}/kde3
+%postun kicker /sbin/ldconfig -n %{_libdir}/kde3
 
 %files kate -f kate.lang
 %defattr(644,root,root,755)
