@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.92
-%define		_snap		030930
+%define		_snap		031006
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -288,8 +288,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libfsviewpart.so
 %{_datadir}/apps/fsview
 %{_datadir}/services/fsview_part.desktop
-%{_applnkdir}/.hidden/fsview.desktop
-%{_desktopdir}/kde/fsview.desktop
+#%{_applnkdir}/.hidden/fsview.desktop
+#%{_desktopdir}/kde/fsview.desktop
 %{_iconsdir}/*/*/apps/fsview.png
 
 #%files kaddressbook-plugins
