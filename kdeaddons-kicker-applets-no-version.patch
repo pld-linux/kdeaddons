@@ -1,0 +1,22 @@
+--- kdeaddons-3.0.3/kicker-applets/ktimemon/Makefile.am~	Tue Sep 24 02:21:46 2002
++++ kdeaddons-3.0.3/kicker-applets/ktimemon/Makefile.am	Tue Sep 24 02:21:46 2002
+@@ -8,7 +8,7 @@
+ noinst_HEADERS = confdlg.h sample.h timemon.h
+ 
+ INCLUDES= $(all_includes)
+-ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined  -version-info 1:0:0
++ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined
+ ktimemon_panelapplet_la_LIBADD   = $(LIB_KDEUI) $(LIBKSTAT)
+ 
+ KDE_ICON = ktimemon
+--- kdeaddons-3.0.3/kicker-applets/ktimemon/Makefile.in~	Tue Sep 24 02:22:05 2002
++++ kdeaddons-3.0.3/kicker-applets/ktimemon/Makefile.in	Tue Sep 24 02:22:05 2002
+@@ -242,7 +242,7 @@
+ noinst_HEADERS = confdlg.h sample.h timemon.h
+ 
+ INCLUDES = $(all_includes)
+-ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined  -version-info 1:0:0
++ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined
+ ktimemon_panelapplet_la_LIBADD = $(LIB_KDEUI) $(LIBKSTAT)
+ 
+ KDE_ICON = ktimemon
