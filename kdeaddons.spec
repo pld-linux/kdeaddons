@@ -607,6 +607,8 @@ rm -rf $RPM_BUILD_ROOT
 #%{_applnkdir}/.hidden/fsview.desktop
 #%{_desktopdir}/kde/fsview.desktop
 %{_iconsdir}/*/*/apps/fsview.png
+%{_mandir}/man1/fsview.1*
+
 
 %files kaddressbook-plugins
 %defattr(644,root,root,755)
@@ -758,6 +760,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/crystalsvg/*/actions/validators.png
 %{_iconsdir}/crystalsvg/*/actions/webarchiver.png
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
+%{_mandir}/man1/exif.py.1*
+%{_mandir}/man1/jpegorient.1*
+%{_mandir}/man1/orient.py.1*
 
 %files kontact
 %defattr(644,root,root,755)
@@ -774,6 +779,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksig
 %{_desktopdir}/kde/ksig.desktop
 %{_iconsdir}/*/*/apps/ksig.png
+%{_mandir}/man1/ksig.1*
 
 %files kvim
 %defattr(644,root,root,755)
