@@ -1,14 +1,3 @@
---- kdeaddons/konq-plugins/sidebar/newsticker/nspanel.cpp~	2004-04-09 15:30:12.875898368 +0200
-+++ kdeaddons/konq-plugins/sidebar/newsticker/nspanel.cpp	2004-04-09 15:30:19.849838168 +0200
-@@ -72,7 +72,7 @@
-     m_isValid = false;
- 
-     m_listbox = NULL;
--    m_pixmap = NULL;
-+    m_pixmap = (QPixmap)NULL;
- 
-     connectDCOPSignal("rssservice", m_rssdocument.obj(),
-                       "documentUpdated(DCOPRef)",
 --- kdeaddons/noatun-plugins/synaescope/polygon.horig	2004-04-09 16:11:32.480941104 +0200
 +++ kdeaddons/noatun-plugins/synaescope/polygon.h	2004-04-09 16:21:12.074829440 +0200
 @@ -31,8 +31,8 @@
