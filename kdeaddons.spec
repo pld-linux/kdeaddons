@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2
-%define		_snap		030406
+%define		_snap		030418
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -12,7 +12,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.%{_snap}.2
+Release:	0.%{_snap}.1
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -249,10 +249,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/atlantikdesigner
 %{_desktopdir}/atlantikdesigner.desktop
 
-%files kaddressbook-plugins
-%defattr(644,root,root,755)
-%{_datadir}/apps/kaddressbook/geo_xxportui.rc
-%{_datadir}/services/kaddressbook/geo_xxport.desktop
+#%files kaddressbook-plugins
+#%defattr(644,root,root,755)
+#%{_datadir}/apps/kaddressbook/geo_xxportui.rc
+#%{_datadir}/services/kaddressbook/geo_xxport.desktop
 
 %files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
