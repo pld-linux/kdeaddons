@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.2
-%define		_snap		030509
+%define		_snap		030512
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -244,9 +244,9 @@ rm -rf $RPM_BUILD_ROOT
 %files  atlantikdesigner
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantikdesigner
-%{_pixmapsdir}/*/*/*/atlantikdesigner.png
 %{_datadir}/apps/atlantikdesigner
 %{_desktopdir}/atlantikdesigner.desktop
+%{_pixmapsdir}/*/*/*/atlantikdesigner.png
 
 #%files kaddressbook-plugins
 #%defattr(644,root,root,755)
@@ -264,10 +264,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
-%{_libdir}/kde3/*_panelapplet.la
-%attr(755,root,root) %{_libdir}/kde3/*_panelapplet.so
-%{_pixmapsdir}/[!l]*/*/*/ktimemon.png
-%{_datadir}/apps/kicker/applets/*
+%{_libdir}/kde3/kolourpicker_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/kolourpicker_panelapplet.so
+%{_libdir}/kde3/ktimemon_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/ktimemon_panelapplet.so
+%{_libdir}/kde3/mediacontrol_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/mediacontrol_panelapplet.so
+%{_datadir}/apps/kicker/applets/kolourpicker.desktop
+%{_datadir}/apps/kicker/applets/ktimemon.desktop
+%{_datadir}/apps/kicker/applets/mediacontrol.desktop
+%{_pixmapsdir}/crystalsvg/*/apps/ktimemon.png
 
 %files knewsticker
 %defattr(644,root,root,755)
@@ -279,34 +285,87 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/exif.py
 %attr(755,root,root) %{_bindir}/jpegorient
 %attr(755,root,root) %{_bindir}/orient.py
-%{_libdir}/kde3/kfile*.la
-%attr(755,root,root) %{_libdir}/kde3/kfile*.so
-%{_libdir}/kde3/konq*.la
-%attr(755,root,root) %{_libdir}/kde3/konq*.so
-%{_libdir}/kde3/[lw]*.la
-%attr(755,root,root) %{_libdir}/kde3/[lw]*.so
-%{_datadir}/apps/khtml/kpartplugins/*
-%{_datadir}/apps/konqiconview/kpartplugins/*
-%{_datadir}/apps/konqlistview/kpartplugins/*
-%{_datadir}/apps/konqsidebartng/add/*
-%{_datadir}/apps/konqsidebartng/entries/*
+%{_libdir}/kde3/kfile_desktop.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_desktop.so
+%{_libdir}/kde3/kfile_folder.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_folder.so
+%{_libdir}/kde3/kfile_html.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_html.so
+%{_libdir}/kde3/kfile_txt.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_txt.so
+%{_libdir}/kde3/konq_smbmounterplugin.la
+%attr(755,root,root) %{_libdir}/kde3/konq_smbmounterplugin.so
+%{_libdir}/kde3/konqsidebar_mediaplayer.la
+%attr(755,root,root) %{_libdir}/kde3/konqsidebar_mediaplayer.so
+%{_libdir}/kde3/libbabelfishplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libbabelfishplugin.so
+%{_libdir}/kde3/libcrashesplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libcrashesplugin.so
+%{_libdir}/kde3/libdirfilterplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libdirfilterplugin.so
+%{_libdir}/kde3/libdomtreeviewerplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libdomtreeviewerplugin.so
+%{_libdir}/kde3/libkcm_kuick.la
+%attr(755,root,root) %{_libdir}/kde3/libkcm_kuick.so
+%{_libdir}/kde3/libkhtmlsettingsplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libkhtmlsettingsplugin.so
+%{_libdir}/kde3/libkimgallery.la
+%attr(755,root,root) %{_libdir}/kde3/libkimgallery.so
+%{_libdir}/kde3/libkuickplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libkuickplugin.so
+%{_libdir}/kde3/libuachangerplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libuachangerplugin.so
+%{_libdir}/kde3/libvalidatorsplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libvalidatorsplugin.so
+%{_libdir}/kde3/libwebarchiverplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libwebarchiverplugin.so
+%{_libdir}/kde3/webarchivethumbnail.la
+%attr(755,root,root) %{_libdir}/kde3/webarchivethumbnail.so
+%{_datadir}/apps/khtml/kpartplugins/crashesplugin.rc
+%{_datadir}/apps/khtml/kpartplugins/khtmlsettingsplugin.rc
+%{_datadir}/apps/khtml/kpartplugins/plugin_babelfish.rc
+%{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.rc
+%{_datadir}/apps/khtml/kpartplugins/plugin_validators.rc
+%{_datadir}/apps/khtml/kpartplugins/plugin_webarchiver.rc
+%{_datadir}/apps/khtml/kpartplugins/uachangerplugin.rc
+%{_datadir}/apps/konqiconview/kpartplugins/dirfilterplugin.rc
+%{_datadir}/apps/konqiconview/kpartplugins/kimgalleryplugin.rc
+%{_datadir}/apps/konqiconview/kpartplugins/smbmounterplugin.rc
+%{_datadir}/apps/konqlistview/kpartplugins/dirfilterplugin.rc
+%{_datadir}/apps/konqlistview/kpartplugins/kimgalleryplugin.rc
+%{_datadir}/apps/konqlistview/kpartplugins/smbmounterplugin.rc
+%{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop
+%{_datadir}/apps/konqsidebartng/entries/mplayer.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
-%{_datadir}/apps/konqueror/servicemenus/noatunhayessetcurrent.desktop
 %{_datadir}/apps/mediacontrol
-%{_datadir}/mimelnk/application/*webarchive*
-%{_datadir}/services/kfile_*
+%{_datadir}/mimelnk/application/x-webarchive.desktop
+%{_datadir}/services/kfile_desktop.desktop
+%{_datadir}/services/kfile_folder.desktop
+%{_datadir}/services/kfile_html.desktop
+%{_datadir}/services/kfile_txt.desktop
 %{_datadir}/services/kuick_plugin.desktop
-%{_datadir}/services/noatunhayessetcurrent.desktop
-%{_datadir}/services/webarchive*
-%{_pixmapsdir}/*/*/*/babelfish*
-%{_pixmapsdir}/*/*/*/cssvalidator*
-%{_pixmapsdir}/*/*/*/domtreeviewer*
-%{_pixmapsdir}/*/*/*/htmlvalidator*
-%{_pixmapsdir}/*/*/*/imagegallery*
-%{_pixmapsdir}/[!l]*/*/*/konqsidebar_mediaplayer*
-%{_pixmapsdir}/*/*/*/validators*
-%{_pixmapsdir}/*/*/*/webarchiver*
-%{_applnkdir}/.hidden/*
+%{_datadir}/services/webarchivethumbnail.desktop
+%{_applnkdir}/.hidden/babelfishplugin.desktop
+%{_applnkdir}/.hidden/crashesplugin.desktop
+%{_applnkdir}/.hidden/dirfilterplugin.desktop
+%{_applnkdir}/.hidden/domtreeviewerplugin.desktop
+%{_applnkdir}/.hidden/kcmkuick.desktop
+%{_applnkdir}/.hidden/khtmlsettingsplugin.desktop
+%{_applnkdir}/.hidden/kimgalleryplugin.desktop
+%{_applnkdir}/.hidden/kuickplugin.desktop
+%{_applnkdir}/.hidden/mediaplayerplugin.desktop
+%{_applnkdir}/.hidden/smbmounterplugin.desktop
+%{_applnkdir}/.hidden/uachangerplugin.desktop
+%{_applnkdir}/.hidden/validatorsplugin.desktop
+%{_applnkdir}/.hidden/webarchiverplugin.desktop
+%{_pixmapsdir}/crystalsvg/*/actions/babelfish.png
+%{_pixmapsdir}/crystalsvg/*/actions/cssvalidator.png
+%{_pixmapsdir}/crystalsvg/*/actions/domtreeviewer.png
+%{_pixmapsdir}/crystalsvg/*/actions/htmlvalidator.png
+%{_pixmapsdir}/crystalsvg/*/actions/imagegallery.png
+%{_pixmapsdir}/crystalsvg/*/actions/validators.png
+%{_pixmapsdir}/crystalsvg/*/actions/webarchiver.png
+%{_pixmapsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
 
 %files ksig
 %defattr(644,root,root,755)
@@ -317,7 +376,42 @@ rm -rf $RPM_BUILD_ROOT
 
 %files noatun
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/noatun*
-%{_libdir}/kde3/noatun*.la
-%attr(755,root,root) %{_libdir}/kde3/noatun*.so
-%{_datadir}/apps/noatun/*
+%attr(755,root,root) %{_bindir}/noatunsynaescope.bin
+%attr(755,root,root) %{_bindir}/noatuntippecanoe.bin
+%attr(755,root,root) %{_bindir}/noatuntyler.bin
+%{_libdir}/kde3/noatun_ffrs.la
+%attr(755,root,root) %{_libdir}/kde3/noatun_ffrs.so
+%{_libdir}/kde3/noatun_hayes.la
+%attr(755,root,root) %{_libdir}/kde3/noatun_hayes.so
+%{_libdir}/kde3/noatunalsaplayer.la
+%attr(755,root,root) %{_libdir}/kde3/noatunalsaplayer.so
+%{_libdir}/kde3/noatunblurscope.la
+%attr(755,root,root) %{_libdir}/kde3/noatunblurscope.so
+%{_libdir}/kde3/noatuncharlatan.la
+%attr(755,root,root) %{_libdir}/kde3/noatuncharlatan.so
+%{_libdir}/kde3/noatundub.la
+%attr(755,root,root) %{_libdir}/kde3/noatundub.so
+%{_libdir}/kde3/noatunluckytag.la
+%attr(755,root,root) %{_libdir}/kde3/noatunluckytag.so
+%{_libdir}/kde3/noatunlyrics.la
+%attr(755,root,root) %{_libdir}/kde3/noatunlyrics.so
+%{_libdir}/kde3/noatunmadness.la
+%attr(755,root,root) %{_libdir}/kde3/noatunmadness.so
+%{_libdir}/kde3/noatunpitchablespeed.la
+%attr(755,root,root) %{_libdir}/kde3/noatunpitchablespeed.so
+%{_libdir}/kde3/noatunsynaescope.la
+%attr(755,root,root) %{_libdir}/kde3/noatunsynaescope.so
+%{_libdir}/kde3/noatuntippecanoe.la
+%attr(755,root,root) %{_libdir}/kde3/noatuntippecanoe.so
+%{_libdir}/kde3/noatuntyler.la
+%attr(755,root,root) %{_libdir}/kde3/noatuntyler.so
+%{_libdir}/kde3/noatunwakeup.la
+%attr(755,root,root) %{_libdir}/kde3/noatunwakeup.so
+%{_libdir}/kde3/noatunwavecapture.la
+%attr(755,root,root) %{_libdir}/kde3/noatunwavecapture.so
+# hidden at this moment
+#%{_datadir}/apps/konqueror/servicemenus/noatunhayessetcurrent.desktop
+#
+%{_datadir}/apps/noatun/[!i]*
+%{_datadir}/apps/noatun/icons/*
+%{_datadir}/services/noatunhayessetcurrent.desktop
