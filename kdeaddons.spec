@@ -11,7 +11,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -30,7 +30,8 @@ BuildRequires:	kdegames-devel >= 3.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	nas-devel
-BuildRequires:	sed >= 4.0
+BuildRequires:	perl
+BuildRequires:	sed
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -182,7 +183,7 @@ CXXFLAGS="%{rpmcflags}"
 
 for plik in `find ./ -name *.desktop` ; do
 	echo $plik
-	sed -i -e 's/\[nb\]/\[no\]/g' $plik
+	perl -pi -e 's/\[nb\]/\[no\]/g' $plik
 done
 
 %configure \
