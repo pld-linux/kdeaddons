@@ -15,7 +15,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -423,6 +423,10 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
+# Debian manpages
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+
 %if %{with i18n}
 if [ -f "%{SOURCE1}" ] ; then
 	bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
@@ -578,6 +582,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/atlantikdesigner
 %{_desktopdir}/kde/atlantikdesigner.desktop
 %{_iconsdir}/*/*/*/atlantikdesigner.png
+%{_mandir}/man1/atlantikdesigner.1*
 
 %files fsview
 %defattr(644,root,root,755)
@@ -810,3 +815,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/noatunwavecapture.so
 %{_datadir}/apps/noatun/*
 %{_iconsdir}/crystalsvg/*/apps/synaescope.png
+%{_mandir}/man1/noatunsynaescope.bin.1*
+%{_mandir}/man1/noatunippecanoe.bin.1*
+%{_mandir}/man1/noatuntyler.bin.1*
