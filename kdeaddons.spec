@@ -3,8 +3,8 @@
 # Splitting konqueror subpackage
 
 %define		_state		snapshots
-%define		_ver		3.1.90
-%define		_snap		030725
+%define		_ver		3.1.91
+%define		_snap		030918
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -18,7 +18,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	c391410164a3b6ec1dcc291052c68643
+# Source0-md5:	631098c6dac0330bc4742f914dd587dd
 #Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
@@ -26,7 +26,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 9:%{version}
 BuildRequires:  kdegames-devel >= 8:%{version}
 BuildRequires:	kdemultimedia-devel >= 9:%{version}
-BuildRequires:	kdenetwork-rss-devel >= 10:%{version}
+BuildRequires:	kdenetwork-devel >= 10:%{version}
 BuildRequires:  kdepim-devel >= 3:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
@@ -34,9 +34,6 @@ BuildRequires:	libpng-devel
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_htmldir	%{_docdir}/kde/HTML
-%define		_icondir	%{_datadir}/icons
 
 %define		no_install_post_chrpath	1
 
@@ -66,6 +63,18 @@ Atlantik board designer.
 %description atlantikdesigner -l pl
 Program do tworzenia plansz dla gry Atlantik.
 
+%package fsview
+Summary:        TODO
+Summary(pl):    TODO
+Group:          X11/Applications
+Requires:       konqueror >= %{version}
+
+%description fsview
+TODO.
+
+%description fsview -l pl
+TODO.
+
 %package kaddressbook-plugins
 Summary:        Plugins for the Kaddressbook
 Summary(es):    Plugins para kaddressbook
@@ -76,7 +85,6 @@ Requires:       kdepim-kaddressbook >= %{version}
 
 %description kaddressbook-plugins
 Plugins for the Kaddressbook.
-
 
 %description kaddressbook-plugins -l es
 Este paquete prove plugins de KDE para kaddressbook.
@@ -145,21 +153,6 @@ Scripts extending the functionality of KNewsTicker.
 %description knewsticker -l pl
 Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera.
 
-%package kontact
-Summary:	Plugins extending the functionality of Kontact
-Summary(pl):    Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
-Group:          X11/Applications
-Requires:       kdepim-kontact >= %{version}
-Requires:	kdenetwork-rss >= %{version}
-
-%description kontact
-Plugins extending the functionality of Kontact. This includes an 
-rss feeds module.
-
-%description kontact -l pl
-Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera
-modu³ wy¶wietlaj±cy ¼ród³a rss.
-
 %package konqueror
 Summary:	Plugins extending the functionality of Konqueror
 Summary(es):	Plugins para konqueror
@@ -185,16 +178,45 @@ poprawno¶ci HTML, ogl±dania drzewa DOM stron WWW.
 %description konqueror -l pt_BR
 Este pacote fornece plugins KDE para kdebase-konqueror.
 
+%package kontact
+Summary:	Plugins extending the functionality of Kontact
+Summary(pl):    Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
+Group:          X11/Applications
+Requires:       kdepim-kontact >= %{version}
+Requires:	kdenetwork-knewsticker >= %{version}
+
+%description kontact
+Plugins extending the functionality of Kontact. This includes an 
+rss feeds module.
+
+%description kontact -l pl
+Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera
+modu³ wy¶wietlaj±cy ¼ród³a rss.
+
 %package ksig
 Summary:	ksig
 Summary(pl):	ksig
 Group:		X11/Applications
 Requires:	kdebase-core >= %{version}
+
 %description ksig
 ksig
 
 %description ksig -l pl
 ksig
+
+%package kvim
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Applications
+Requires:	kdebase-core >= %{version}
+
+%description kvim
+TODO.
+
+%description kvim -l pl
+TODO.
+
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
@@ -228,7 +250,7 @@ for plik in `find ./ -name *.desktop` ; do
 	sed -i -e 's/\[nb\]/\[no\]/g' $plik
 done
 
-#%%{__make} -f Makefile.cvs
+%{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
@@ -242,14 +264,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install  \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_appsdir=%{_applnkdir} \
-	kde_htmldir=%{_htmldir}
-
-install -d $RPM_BUILD_ROOT%{_desktopdir}
-
-mv $RPM_BUILD_ROOT%{_applnkdir}/Games/Board/atlantikdesigner.desktop \
-    $RPM_BUILD_ROOT%{_desktopdir}
-mv $RPM_BUILD_ROOT%{_applnkdir}/Utilities/More/ksig.desktop \
-    $RPM_BUILD_ROOT%{_desktopdir}
+	kde_htmldir=%{_docdir}/kde/HTML
 
 %find_lang	kate-plugins	--with-kde
 %find_lang	kicker-applets	--with-kde
@@ -262,15 +277,25 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantikdesigner
 %{_datadir}/apps/atlantikdesigner
-%{_desktopdir}/atlantikdesigner.desktop
-%{_icondir}/*/*/*/atlantikdesigner.png
+%{_desktopdir}/kde/atlantikdesigner.desktop
+%{_iconsdir}/*/*/*/atlantikdesigner.png
 
-%files kaddressbook-plugins
+%files fsview
 %defattr(644,root,root,755)
-%{_datadir}/apps/kaddressbook/geo_xxportui.rc
-%{_libdir}/kde3/libkaddrbk_geo_xxport.la
-%attr(755,root,root) %{_libdir}/kde3/libkaddrbk_geo_xxport.so
-%{_datadir}/services/kaddressbook/geo_xxport.desktop
+%attr(755,root,root) %{_bindir}/fsview
+%{_libdir}/kde3/libfsviewpart.la
+%attr(755,root,root) %{_libdir}/kde3/libfsviewpart.so
+%{_datadir}/apps/fsview
+%{_datadir}/services/fsview_part.desktop
+%{_desktopdir}/kde/fsview.desktop
+%{_iconsdir}/*/*/apps/fsview.png
+
+#%files kaddressbook-plugins
+#%defattr(644,root,root,755)
+#%{_datadir}/apps/kaddressbook/geo_xxportui.rc
+#%{_libdir}/kde3/libkaddrbk_geo_xxport.la
+#%attr(755,root,root) %{_libdir}/kde3/libkaddrbk_geo_xxport.so
+#%{_datadir}/services/kaddressbook/geo_xxport.desktop
 
 %files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
@@ -295,12 +320,21 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kicker/applets/ktimemon.desktop
 %{_datadir}/apps/kicker/applets/mediacontrol.desktop
 %{_datadir}/apps/kicker/applets/kbinaryclock.desktop
-%{_icondir}/crystalsvg/*/apps/ktimemon.png
+%{_iconsdir}/crystalsvg/*/apps/ktimemon.png
 
 %files knewsticker
 %defattr(644,root,root,755)
 %dir %{_datadir}/apps/knewsticker/scripts
-%{_datadir}/apps/knewsticker/scripts/*
+%{_datadir}/apps/knewsticker/scripts/Generic.Newsticker.Error
+%{_datadir}/apps/knewsticker/scripts/Readme.ErrorHandling
+%{_datadir}/apps/knewsticker/scripts/Readme.newsrss
+%{_datadir}/apps/knewsticker/scripts/Readme.stock
+%{_datadir}/apps/knewsticker/scripts/bbc.pl
+%{_datadir}/apps/knewsticker/scripts/fyensget.py
+%{_datadir}/apps/knewsticker/scripts/newsrss.pl
+%{_datadir}/apps/knewsticker/scripts/sportscores.py
+%{_datadir}/apps/knewsticker/scripts/stock.pl
+
 
 %files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
@@ -319,6 +353,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/konq_smbmounterplugin.so
 %{_libdir}/kde3/konqsidebar_mediaplayer.la
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_mediaplayer.so
+%{_libdir}/kde3/libautorefresh.la
+%attr(755,root,root) %{_libdir}/kde3/libautorefresh.so
 %{_libdir}/kde3/libbabelfishplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libbabelfishplugin.so
 %{_libdir}/kde3/libcrashesplugin.la
@@ -327,8 +363,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libdirfilterplugin.so
 %{_libdir}/kde3/libdomtreeviewerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libdomtreeviewerplugin.so
-%{_libdir}/kde3/libkcm_kuick.la
-%attr(755,root,root) %{_libdir}/kde3/libkcm_kuick.so
+%{_libdir}/kde3/kcm_kuick.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_kuick.so
 %{_libdir}/kde3/libkhtmlsettingsplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libkhtmlsettingsplugin.so
 %{_libdir}/kde3/libkimgallery.la
@@ -337,6 +373,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libkuickplugin.so
 %{_libdir}/kde3/libminitoolsplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libminitoolsplugin.so
+%{_libdir}/kde3/librenaudioplugin.la
+%attr(755,root,root) %{_libdir}/kde3/librenaudioplugin.so
+%{_libdir}/kde3/librenimageplugin.la
+%attr(755,root,root) %{_libdir}/kde3/librenimageplugin.so
 %{_libdir}/kde3/libuachangerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libuachangerplugin.so
 %{_libdir}/kde3/libvalidatorsplugin.la
@@ -345,6 +385,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libwebarchiverplugin.so
 %{_libdir}/kde3/webarchivethumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/webarchivethumbnail.so
+%{_datadir}/apps/khtml/kpartplugins/autorefresh.rc
 %{_datadir}/apps/khtml/kpartplugins/crashesplugin.rc
 %{_datadir}/apps/khtml/kpartplugins/khtmlsettingsplugin.rc
 %{_datadir}/apps/khtml/kpartplugins/minitoolsplugin.rc
@@ -361,6 +402,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqlistview/kpartplugins/smbmounterplugin.rc
 %{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop
 %{_datadir}/apps/konqsidebartng/entries/mplayer.desktop
+%{_datadir}/apps/konqsidebartng/kicker_entries/mplayer.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
 %{_datadir}/apps/mediacontrol
 %{_datadir}/mimelnk/application/x-webarchive.desktop
@@ -369,6 +411,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kfile_html.desktop
 %{_datadir}/services/kfile_txt.desktop
 %{_datadir}/services/kuick_plugin.desktop
+%{_datadir}/services/renaudiodlg.desktop
+%{_datadir}/services/renimagedlg.desktop
 %{_datadir}/services/webarchivethumbnail.desktop
 %{_applnkdir}/.hidden/babelfishplugin.desktop
 %{_applnkdir}/.hidden/crashesplugin.desktop
@@ -384,27 +428,43 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/.hidden/uachangerplugin.desktop
 %{_applnkdir}/.hidden/validatorsplugin.desktop
 %{_applnkdir}/.hidden/webarchiverplugin.desktop
-%{_icondir}/crystalsvg/*/actions/babelfish.png
-%{_icondir}/crystalsvg/*/actions/cssvalidator.png
-%{_icondir}/crystalsvg/*/actions/domtreeviewer.png
-%{_icondir}/crystalsvg/*/actions/htmlvalidator.png
-%{_icondir}/crystalsvg/*/actions/imagegallery.png
-%{_icondir}/crystalsvg/*/actions/validators.png
-%{_icondir}/crystalsvg/*/actions/webarchiver.png
-%{_icondir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
+%{_iconsdir}/crystalsvg/*/actions/babelfish.png
+%{_iconsdir}/crystalsvg/*/actions/cssvalidator.png
+%{_iconsdir}/crystalsvg/*/actions/domtreeviewer.png
+%{_iconsdir}/crystalsvg/*/actions/htmlvalidator.png
+%{_iconsdir}/crystalsvg/*/actions/imagegallery.png
+%{_iconsdir}/crystalsvg/*/actions/validators.png
+%{_iconsdir}/crystalsvg/*/actions/webarchiver.png
+%{_iconsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
 
 %files kontact
 %defattr(644,root,root,755)
-%{_libdir}/kde3/libkpnewstickerplugin.la
-%attr(755,root,root) %{_libdir}/kde3/libkpnewstickerplugin.so
-%{_datadir}/services/kpnewstickerplugin.desktop
+%{_libdir}/kde3/libkontact_newstickerplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libkontact_newstickerplugin.so
+%{_datadir}/services/kontact/newstickerplugin.desktop
 
 %files ksig
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksig
 %{_datadir}/apps/ksig
-%{_desktopdir}/ksig.desktop
-%{_icondir}/*/*/apps/ksig.png
+%{_desktopdir}/kde/ksig.desktop
+%{_iconsdir}/*/*/apps/ksig.png
+
+%files kvim
+%defattr(644,root,root,755)
+%{_libdir}/libxvim.la
+# What to do wit it?
+%{_libdir}/libxvim.so
+#
+%attr(755,root,root) %{_libdir}/libxvim.so.*.*.*
+%{_libdir}/kde3/kcm_vim.la
+%attr(755,root,root) %{_libdir}/kde3/kcm_vim.so
+%{_libdir}/kde3/libvimpart.la
+%attr(755,root,root) %{_libdir}/kde3/libvimpart.so*
+%{_datadir}/apps/kcontrol/pics/kvim.png
+%{_datadir}/apps/vimpart
+%{_datadir}/services/vimpart.desktop
+%{_desktopdir}/kde/kcmvim.desktop
 
 %files noatun
 %defattr(644,root,root,755)
@@ -413,8 +473,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/noatuntyler.bin
 %{_libdir}/kde3/noatun_ffrs.la
 %attr(755,root,root) %{_libdir}/kde3/noatun_ffrs.so
-%{_libdir}/kde3/noatun_hayes.la
-%attr(755,root,root) %{_libdir}/kde3/noatun_hayes.so
 %{_libdir}/kde3/noatunalsaplayer.la
 %attr(755,root,root) %{_libdir}/kde3/noatunalsaplayer.so
 %{_libdir}/kde3/noatunblurscope.la
@@ -443,10 +501,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/noatunwakeup.so
 %{_libdir}/kde3/noatunwavecapture.la
 %attr(755,root,root) %{_libdir}/kde3/noatunwavecapture.so
-# it is supposed to be hidden.
-%{_datadir}/apps/konqueror/servicemenus/noatunhayessetcurrent.desktop
-#
-%{_datadir}/apps/noatun/[!i]*
-%{_datadir}/apps/noatun/icons/*
-%{_icondir}/crystalsvg/*/apps/synaescope.png
-%{_datadir}/services/noatunhayessetcurrent.desktop
+%{_datadir}/apps/noatun/*
+%{_iconsdir}/crystalsvg/*/apps/synaescope.png
