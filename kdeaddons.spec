@@ -27,6 +27,7 @@ BuildRequires:  kdegames-devel >= 3.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	nas-devel
+BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -179,7 +180,7 @@ CXXFLAGS="%{rpmcflags}"
 for plik in `find ./ -name *.desktop` ; do
 	if [ -d $plik ]; then
 	echo $plik	
-	sed -ie "s/[nb]/[no]/g" $plik
+	sed -ie 's/\[nb\]/\[no\]/g' $plik
 	fi
 done
 
