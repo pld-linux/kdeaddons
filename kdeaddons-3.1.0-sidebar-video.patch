@@ -1,0 +1,206 @@
+diff -Pur kdeaddons-orig/konq-plugins/sidebar/mediaplayer/engine.cpp kdeaddons/konq-plugins/sidebar/mediaplayer/engine.cpp
+--- kdeaddons-orig/konq-plugins/sidebar/mediaplayer/engine.cpp	2003-01-17 14:02:51.000000000 +0100
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/engine.cpp	2003-01-17 14:03:03.000000000 +0100
+@@ -102,13 +102,10 @@
+ 
+ 	KPlayObjectFactory factory(d->server.server());
+ 	d->playobj = factory.createPlayObject(d->file, true);
+-	
+-	return !d->playobj->object().isNull();
+-}
+ 
+-void Engine::getVideoId()
+-{
+-	if(!d->playobj) return;
++	needReload = false;
++
++	return !d->playobj->object().isNull();
+ }
+ 
+ void Engine::play()
+@@ -118,7 +115,8 @@
+ 		switch(d->playobj->state())
+ 		{
+ 		case Arts::posIdle:
+-			reload();
++			if(needReload)
++				reload();
+ 			d->playobj->play();
+ 			break;
+ 		case Arts::posPaused:
+@@ -142,6 +140,7 @@
+ 	{
+ 		d->playobj->halt();
+ 		seek(0);
++		needReload = true;
+ 	}
+ }
+ 
+@@ -227,4 +226,9 @@
+ 	return str;
+ }
+ 
++Arts::PlayObject Engine::playObject() const
++{
++	return d->playobj ? d->playobj->object() : Arts::PlayObject::null();
++}
++
+ #include "engine.moc"
+diff -Pur kdeaddons-orig/konq-plugins/sidebar/mediaplayer/engine.h kdeaddons/konq-plugins/sidebar/mediaplayer/engine.h
+--- kdeaddons-orig/konq-plugins/sidebar/mediaplayer/engine.h	2003-01-17 14:02:51.000000000 +0100
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/engine.h	2003-01-17 14:03:03.000000000 +0100
+@@ -26,6 +26,7 @@
+ 
+ #include <qobject.h>
+ #include <kurl.h>
++#include <kmedia2.h>
+ 
+ namespace Arts
+ {
+@@ -46,6 +47,8 @@
+ 	Engine(QObject *parent=0);
+ 	~Engine();
+ 
++	Arts::PlayObject playObject() const;
++
+ 	enum EngineState { Stop, Pause, Play, Empty };
+ 
+ public slots:
+@@ -85,14 +88,9 @@
+ 	long position(); // NOT unsigned
+ 	unsigned long length();
+ 
+-signals:
+-	void x11WindowId(int);
+-
+-private slots:
+-	void getVideoId();
+-	
+ private:
+ 	bool reload(void);
++	bool needReload;
+ 
+ 	class EnginePrivate;
+ 	EnginePrivate *d;
+diff -Pur kdeaddons-orig/konq-plugins/sidebar/mediaplayer/mediawidget.cpp kdeaddons/konq-plugins/sidebar/mediaplayer/mediawidget.cpp
+--- kdeaddons-orig/konq-plugins/sidebar/mediaplayer/mediawidget.cpp	2003-01-17 14:02:51.000000000 +0100
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/mediawidget.cpp	2003-01-17 14:03:03.000000000 +0100
+@@ -40,6 +40,7 @@
+ 	connect(Stop,SIGNAL(clicked()),player,SLOT(stop()));
+ 	connect(player, SIGNAL(timeout()), this, SLOT(playerTimeout()));
+ 	connect(player, SIGNAL(finished()), this, SLOT(playerFinished()));
++	connect(player, SIGNAL(embed(Arts::VideoPlayObject)), this, SLOT(slotEmbed(Arts::VideoPlayObject)));
+ 
+ 	connect(Position, SIGNAL(userChanged(int)), this, SLOT(skipToWrapper(int)));
+ 	connect(this, SIGNAL(skipTo(unsigned long)), player, SLOT(skipTo(unsigned long)));
+@@ -55,6 +56,13 @@
+ 	QToolTip::add(Stop,i18n("Stop playing<BR><HR><B><I>Current File</I></B>:"));
+ 	QToolTip::add(Position,i18n("Current playing position<BR><HR><B><I>Current File</I></B>:"));
+ 	QToolTip::add(time,i18n("Current playing position<BR><HR><I><B>Current File</I></B>:"));
++
++	videoWidget->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred, true );
++}
++
++KSB_MediaWidget::~KSB_MediaWidget()
++{
++	videoWidget->embed(Arts::VideoPlayObject::null());
+ }
+ 
+ void KSB_MediaWidget::skipToWrapper(int second)
+@@ -129,3 +137,9 @@
+ 		QToolTip::add(time,i18n("Current playing position<BR><HR><B><I>Current File</I></B>: ")+pretty+i18n("<BR><B><I>Total time</I></B>: "));
+ 	}
+ }
++
++void KSB_MediaWidget::slotEmbed(Arts::VideoPlayObject poVideo)
++{
++	videoWidget->embed(poVideo);
++	videoWidget->updateGeometry();
++}
+diff -Pur kdeaddons-orig/konq-plugins/sidebar/mediaplayer/mediawidget.h kdeaddons/konq-plugins/sidebar/mediaplayer/mediawidget.h
+--- kdeaddons-orig/konq-plugins/sidebar/mediaplayer/mediawidget.h	2003-01-17 14:02:51.000000000 +0100
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/mediawidget.h	2003-01-17 14:03:03.000000000 +0100
+@@ -26,7 +26,7 @@
+ 	Q_OBJECT
+ public:
+ 	KSB_MediaWidget(QWidget *parent);
+-	~KSB_MediaWidget(){;}
++	~KSB_MediaWidget();
+ 
+ private:
+ 	class Player *player;
+@@ -41,6 +41,7 @@
+ private slots:
+ 	void playerTimeout();
+ 	void playerFinished();
++	void slotEmbed(Arts::VideoPlayObject poVideo);
+ 
+ 
+ public slots:
+diff -Pur kdeaddons-orig/konq-plugins/sidebar/mediaplayer/mediawidget_skel.ui kdeaddons/konq-plugins/sidebar/mediaplayer/mediawidget_skel.ui
+--- kdeaddons-orig/konq-plugins/sidebar/mediaplayer/mediawidget_skel.ui	2003-01-17 14:02:51.000000000 +0100
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/mediawidget_skel.ui	2003-01-17 14:03:03.000000000 +0100
+@@ -29,6 +29,11 @@
+         <property name="spacing">
+             <number>0</number>
+         </property>
++        <widget class="KVideoWidget">
++            <property name="name">
++                <cstring>videoWidget</cstring>
++            </property>
++        </widget>
+         <widget class="QLayoutWidget">
+             <property name="name">
+                 <cstring>Layout6</cstring>
+@@ -305,6 +310,7 @@
+ </images>
+ <includes>
+     <include location="global" impldecl="in declaration">controls.h</include>
++    <include location="global" impldecl="in declaration">kvideowidget.h</include>
+ </includes>
+ <layoutdefaults spacing="6" margin="11"/>
+ </UI>
+diff -Pur kdeaddons-orig/konq-plugins/sidebar/mediaplayer/player.cpp kdeaddons/konq-plugins/sidebar/mediaplayer/player.cpp
+--- kdeaddons-orig/konq-plugins/sidebar/mediaplayer/player.cpp	2003-01-17 14:02:51.000000000 +0100
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/player.cpp	2003-01-17 14:03:03.000000000 +0100
+@@ -84,6 +84,8 @@
+ void Player::play()
+ {
+ 	mEngine->play();
++
++	emit embed(Arts::DynamicCast(mEngine->playObject()));
+ }
+ 
+ void Player::pause()
+@@ -152,6 +154,8 @@
+ 
+ 	bool work = mEngine->load(mCurrent);
+ 
++	emit embed(Arts::DynamicCast(mEngine->playObject()));
++
+ 	if(!work)
+ 	{
+ 		mCurrent = KURL();
+diff -Pur kdeaddons-orig/konq-plugins/sidebar/mediaplayer/player.h kdeaddons/konq-plugins/sidebar/mediaplayer/player.h
+--- kdeaddons-orig/konq-plugins/sidebar/mediaplayer/player.h	2003-01-17 14:02:51.000000000 +0100
++++ kdeaddons/konq-plugins/sidebar/mediaplayer/player.h	2003-01-17 14:03:03.000000000 +0100
+@@ -27,6 +27,7 @@
+ #include <qobject.h>
+ #include <qtimer.h>
+ #include <kurl.h>
++#include <arts/kmedia2.h>
+ 
+ class Engine;
+ 
+@@ -127,6 +128,11 @@
+ 	
+ signals:
+ 	/**
++	 * PlayObject has changed, update video widget.
++	 */
++	void embed(Arts::VideoPlayObject);
++
++	/**
+ 	 * Tells you to update display information
+ 	 **/
+ 	void timeout();
