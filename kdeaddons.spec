@@ -575,6 +575,9 @@ done
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	kvim	-p /sbin/ldconfig
+%postun	kvim	-p /sbin/ldconfig
+
 %if %{with i18n}
 %files i18n -f desktop_kdeaddons.lang
 %files kate-i18n -f kate-plugins.lang
