@@ -291,6 +291,8 @@ export UNSERMAKE=%{_datadir}/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
 
+export LDFLAGS="%{rpmldflags} -lpthread"
+
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
