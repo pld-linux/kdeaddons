@@ -38,10 +38,6 @@ Plugins for some KDE applications: %{name} extends the functionality
 of Konqueror (web browser and file manager), noatun (media player) and
 Kate (text editor).
 
-%description -l es
-kdeaddons contains additional plugins and scripts for some KDE
-applications.
-
 %description -l pl
 Wtyczki dla niektórych aplikacji KDE, rozszerzaj±ce funkcjonalno¶æ
 Konquerora (przegl±darki WWW i menad¿era plików), noatun (odtwarzacza
