@@ -24,7 +24,6 @@ BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRequires:	db-cxx-devel
-BuildRequires:	ed
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 9:%{version}
 BuildRequires:	kdegames-devel >= 8:%{version}
