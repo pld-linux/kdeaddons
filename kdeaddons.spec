@@ -3,8 +3,8 @@
 # Splitting konqueror subpackage
 
 %define		_state		snapshots
-%define		_ver		3.1.92
-%define		_snap		031024
+%define		_ver		3.1.93
+%define		_snap		031105
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -19,7 +19,6 @@ Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 # Source0-md5:	4ebd30812ad52ccf21419f2b88fe4662
-#Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	db-cxx-devel
@@ -31,12 +30,10 @@ BuildRequires:	kdenetwork-devel >= 10:%{version}
 BuildRequires:  kdepim-devel >= 3:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-#BuildRequires:	nas-devel
+BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		no_install_post_chrpath	1
 
 %description
 Plugins for some KDE applications: %{name} extends the functionality
@@ -254,6 +251,7 @@ done
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
+	--disable-rpath \
 	--enable-final
 
 %{__make}
@@ -264,7 +262,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install  \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_appsdir=%{_applnkdir} \
-	kde_htmldir=%{_docdir}/kde/HTML
+	kde_htmldir=%{_kdedocdir}
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
