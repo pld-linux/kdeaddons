@@ -12,7 +12,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.2
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -291,10 +291,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqsidebartng/add/*
 %{_datadir}/apps/konqsidebartng/entries/*
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
+%{_datadir}/apps/konqueror/servicemenus/noatunhayessetcurrent.desktop
 %{_datadir}/apps/mediacontrol
 %{_datadir}/mimelnk/application/*webarchive*
 %{_datadir}/services/kfile_*
 %{_datadir}/services/kuick_plugin.desktop
+%{_datadir}/services/noatunhayessetcurrent.desktop
 %{_datadir}/services/webarchive*
 %{_pixmapsdir}/*/*/*/babelfish*
 %{_pixmapsdir}/*/*/*/cssvalidator*
