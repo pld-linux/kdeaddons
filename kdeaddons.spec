@@ -68,7 +68,7 @@ Summary(es):    Plugins para kaddressbook
 Summary(pl):    Wtyczki do kaddressbook
 Summary(pt_BR): Plugins para kaddressbook
 Group:          X11/Applications
-Requires:       kdepim-addressbook
+Requires:       kdepim-kaddressbook
 
 %description kaddressbook-plugins
 Plugins for the Kaddressbook.
