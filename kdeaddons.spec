@@ -2,8 +2,9 @@
 # TODO:
 # Splitting konqueror subpackage
 
-%define		_state		stable
-%define		_ver		3.1.1
+%define		_state		snapshots
+%define		_ver		3.2
+%define		_snap		030329
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -11,12 +12,11 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	0.%{_snap}.1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# generated from kde-i18n
-#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
+Source0:	http://team.pld.org.pl/~djurban/kde3/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
@@ -31,7 +31,7 @@ BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_htmldir	/usr/share/doc/kde/HTML
+%define		_htmldir	%{_docdir}/kde/HTML
 
 %define		no_install_post_chrpath	1
 
@@ -144,6 +144,17 @@ poprawno¶ci HTML, ogl±dania drzewa DOM stron WWW.
 %description konqueror -l pt_BR
 Este pacote fornece plugins KDE para kdebase-konqueror.
 
+%package ksig
+Summary:	ksig
+Summary(pl):	ksig
+Group:		X11/Applications
+
+%description ksig
+ksig
+
+%description ksig -l pl
+ksig
+
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
 Summary(es):	Plugins para kdemultimedia-noatun
@@ -166,7 +177,7 @@ multimedialnych noatun.
 Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{_snap}
 %patch0 -p1
 
 %build
@@ -193,58 +204,40 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_desktopdir}
 
-#> kate.lang
-#programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
-#for i in $programs; do
-#	%find_lang $i --with-kde
-#	cat $i.lang >> kate.lang
-#done
+mv $RPM_BUILD_ROOT%{_applnkdir}/Editors/katefll.desktop \
+    $RPM_BUILD_ROOT%{_desktopdir}
+mv $RPM_BUILD_ROOT%{_applnkdir}/Games/Board/atlantikdesigner.desktop \
+    $RPM_BUILD_ROOT%{_desktopdir}
+mv $RPM_BUILD_ROOT%{_applnkdir}/Utilities/More/ksig.desktop \
+    $RPM_BUILD_ROOT%{_desktopdir}
 
-#> konqueror.lang
-#programs="babelfish dirfilterplugin domtreeviewer dub imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer kuick_plugin uachangerplugin validatorsplugin webarchiver"
-#for i in $programs; do
-#	%find_lang $i --with-kde
-#	cat $i.lang >> konqueror.lang
-#done
-#
-#%find_lang	atlantikdesigner --with-kde
 %find_lang	kate-plugins	--with-kde
 %find_lang	kicker-applets	--with-kde
 %find_lang	konq-plugins	--with-kde
-#%find_lang kolourpicker --with-kde
-#%find_lang ktimemon --with-kde
-#cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
-#cat konq-plugins.lang >> konqueror.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-#%files  atlantikdesigner -f atlantikdesigner.lang
 %files  atlantikdesigner
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantikdesigner
 %{_pixmapsdir}/*/*/*/atlantikdesigner.png
 %{_datadir}/apps/atlantikdesigner
-%{_applnkdir}/Games/Board/*
+%{_desktopdir}/atlantikdesigner.desktop
 
-#%files kate -f kate.lang
 %files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/dcop_kate
-#%attr(755,root,root) %{_bindir}/testor
 %{_libdir}/kde3/kate*.la
 %attr(755,root,root) %{_libdir}/kde3/kate*.so
 %{_datadir}/apps/kate/plugins
 %{_datadir}/apps/katexmltools
 %{_datadir}/services/kate*
-%{_applnkdir}/Editors/katefll.desktop
+%{_desktopdir}/katefll.desktop
 
-#%files kicker -f kicker.lang
 %files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/*_panelapplet.la
@@ -257,9 +250,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apps/knewsticker/scripts
 %{_datadir}/apps/knewsticker/scripts/*
 
-#%files konqueror -f konqueror.lang
 %files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/exif.py
+%attr(755,root,root) %{_bindir}/jpegorient
+%attr(755,root,root) %{_bindir}/orient.py
 %{_libdir}/kde3/kfile*.la
 %attr(755,root,root) %{_libdir}/kde3/kfile*.so
 %{_libdir}/kde3/konq*.la
@@ -271,6 +266,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqlistview/kpartplugins/*
 %{_datadir}/apps/konqsidebartng/add/*
 %{_datadir}/apps/konqsidebartng/entries/*
+%{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
 %{_datadir}/apps/mediacontrol
 %{_datadir}/mimelnk/application/*webarchive*
 %{_datadir}/services/kfile_*
@@ -285,6 +281,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/*/validators*
 %{_pixmapsdir}/*/*/*/webarchiver*
 %{_applnkdir}/.hidden/*
+
+%files ksig
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/ksig
+%{_datadir}/apps/ksig
+%{_desktopdir}/ksig.desktop
+%{_pixmapsdir}/*/*/apps/ksig.png
 
 %files noatun
 %defattr(644,root,root,755)
