@@ -178,10 +178,8 @@ CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags}"
 
 for plik in `find ./ -name *.desktop` ; do
-	if [ -d $plik ]; then
 	echo $plik	
 	sed -ie 's/\[nb\]/\[no\]/g' $plik
-	fi
 done
 
 %configure \
