@@ -184,10 +184,10 @@ for i in $programs; do
 	cat $i.lang >> konqueror.lang
 done
 
-%find_lang kicker-applets --with-kde
+#%find_lang kicker-applets --with-kde
 %find_lang kolourpicker --with-kde
 %find_lang ktimemon --with-kde
-cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
+cat kolourpicker.lang ktimemon.lang > kicker.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
