@@ -229,7 +229,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 #%attr(755,root,root) %{_bindir}/dcop_kate
 #%attr(755,root,root) %{_bindir}/testor
-%{_libdir}/kde3/kate*.??
+%{_libdir}/kde3/kate*.la
+%attr(755,root,root) %{_libdir}/kde3/kate*.so
 %{_datadir}/apps/kate/plugins
 %{_datadir}/apps/katexmltools
 %{_datadir}/services/kate*
@@ -238,7 +239,8 @@ rm -rf $RPM_BUILD_ROOT
 #%files kicker -f kicker.lang
 %files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
-%{_libdir}/kde3/*_panelapplet.??
+%{_libdir}/kde3/*_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/*_panelapplet.so
 %{_pixmapsdir}/[!l]*/*/*/ktimemon.png
 %{_datadir}/apps/kicker/applets/*
 
@@ -250,19 +252,12 @@ rm -rf $RPM_BUILD_ROOT
 #%files konqueror -f konqueror.lang
 %files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
-%{_libdir}/kde3/kfile_*.??
-%{_libdir}/kde3/konq*.??
-%{_libdir}/kde3/libkhtml*
-%{_libdir}/kde3/libkimg*
-%{_libdir}/kde3/libdirfilter*
-%{_libdir}/kde3/libuachanger*
-%{_libdir}/kde3/libbabelfish*
-%{_libdir}/kde3/libvalidator*
-%{_libdir}/kde3/libdomtree*
-%{_libdir}/kde3/*webarchive*
-%{_libdir}/kde3/libkcm_*.??
-%{_libdir}/kde3/libkuickplugin.??
-%{_libdir}/kde3/mediacontrol_panelapplet.*
+%{_libdir}/kde3/kfile*.la
+%attr(755,root,root) %{_libdir}/kde3/kfile*.so
+%{_libdir}/kde3/konq*.la
+%attr(755,root,root) %{_libdir}/kde3/konq*.so
+%{_libdir}/kde3/[lw]*.la
+%attr(755,root,root) %{_libdir}/kde3/[lw]*.so
 %{_datadir}/apps/khtml/kpartplugins/*
 %{_datadir}/apps/konqiconview/kpartplugins/*
 %{_datadir}/apps/konqlistview/kpartplugins/*
@@ -286,5 +281,6 @@ rm -rf $RPM_BUILD_ROOT
 %files noatun
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/noatun*
-%{_libdir}/kde3/noatun*.??
+%{_libdir}/kde3/noatun*.la
+%attr(755,root,root) %{_libdir}/kde3/noatun*.so
 %{_datadir}/apps/noatun/*
