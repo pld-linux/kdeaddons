@@ -1,0 +1,57 @@
+Index: noatun-plugins/oblique/base.cpp
+===================================================================
+RCS file: /home/kde/kdeaddons/noatun-plugins/oblique/base.cpp,v
+retrieving revision 1.3
+diff -u -r1.3 base.cpp
+--- noatun-plugins/oblique/base.cpp	18 Jun 2003 05:10:04 -0000	1.3
++++ noatun-plugins/oblique/base.cpp	24 Jun 2003 20:04:09 -0000
+@@ -37,7 +37,12 @@
+ 	QCString filename = QFile::encodeName(file);
+ 
+ 	bool create = true;
+-	if (d->db.open(filename, 0, DB_BTREE, DB_NOMMAP, 0)==0)
++	if (d->db.open(
++#if DB_VERSION_MINOR > 0 && DB_VERSION_MAJOR >= 4
++	              NULL,
++#endif
++			filename, 
++			0, DB_BTREE, DB_NOMMAP, 0)==0)
+ 	{ // success
+ 		Private::Data data;
+ 		Private::Key key(0);
+@@ -54,7 +59,11 @@
+ 	if (create)
+ 	{ // failure
+ 		QFile(filename).remove();
+-		d->db.open(filename, 0, DB_BTREE, DB_NOMMAP|DB_CREATE,0);
++		d->db.open(
++#if DB_VERSION_MINOR > 0 && DB_VERSION_MAJOR >= 4
++				NULL,
++#endif						      
++				filename,0, DB_BTREE, DB_NOMMAP|DB_CREATE,0);
+ 
+ 		d->high=0;
+ 		QStringList strs;
+Index: noatun-plugins/oblique/configure.in.in
+===================================================================
+RCS file: /home/kde/kdeaddons/noatun-plugins/oblique/configure.in.in,v
+retrieving revision 1.2
+diff -u -r1.2 configure.in.in
+--- noatun-plugins/oblique/configure.in.in	2 Jun 2003 05:36:06 -0000	1.2
++++ noatun-plugins/oblique/configure.in.in	24 Jun 2003 20:04:19 -0000
+@@ -8,7 +8,6 @@
+ 	],[
+ 		berkeley_db=yes
+ 	])
+-AC_LANG_POP(C++)
+ AC_MSG_RESULT($berkeley_db)
+ if test x$berkeley_db = xyes; then
+ 	AC_CHECK_LIB(db_cxx,db_create,berkeley_db_lib=yes,
+@@ -19,6 +18,7 @@
+ 	BERKELEY_DB_LIBS="-ldb_cxx"
+ 	AC_SUBST(BERKELEY_DB_LIBS)
+ fi
++AC_LANG_POP(C++)
+ 
+ AM_CONDITIONAL(include_BERKELEY_DB, test "$berkeley_db" = yes)
+ 
