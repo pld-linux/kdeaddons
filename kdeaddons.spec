@@ -12,7 +12,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.2
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -49,6 +49,7 @@ plików multimedialnych), Kate (edytora tekstu).
 kdeaddons contem plugins e scripts adicionais para alguma aplicações
 KDE.
 
+
 %package atlantikdesigner
 Summary:        Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
@@ -60,6 +61,27 @@ Atlantik board designer.
 
 %description atlantikdesigner -l pl
 Program do tworzenia plansz dla gry Atlantik.
+
+%package kaddressbook-plugins
+Summary:        Plugins for the Kaddressbook
+Summary(es):    Plugins para kaddressbook
+Summary(pl):    Wtyczki do kaddressbook
+Summary(pt_BR): Plugins para kaddressbook
+Group:          X11/Applications
+Requires:       kdepim-addressbook
+
+%description kaddressbook-plugins
+Plugins for the Kaddressbook.
+
+
+%description kaddressbook-plugins -l es
+Este paquete prove plugins de KDE para kaddressbook.
+
+%description kaddressbook-plugins -l pl
+Wtyczki do kaddressbook.
+
+%description kaddressbook-plugins -l pt_BR
+Este pacote fornece plugins KDE para kaddressbook.
 
 %package kate
 Summary:	Plugins for the Kate text editor
@@ -189,10 +211,8 @@ CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags}"
 
 for plik in `find ./ -name *.desktop` ; do
-	if [ -d $plik ]; then
 	echo $plik	
-	sed -ie 's/\[nb\]/\[no\]/g' $plik
-	fi
+	sed -i -e 's/\[nb\]/\[no\]/g' $plik
 done
 
 %configure \
@@ -228,6 +248,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/*/atlantikdesigner.png
 %{_datadir}/apps/atlantikdesigner
 %{_desktopdir}/atlantikdesigner.desktop
+
+%files kaddressbook-plugins
+%defattr(644,root,root,755)
+%{_datadir}/apps/kaddressbook/geo_xxportui.rc
+%{_datadir}/services/kaddressbook/geo_xxport.desktop
 
 %files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
