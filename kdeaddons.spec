@@ -26,6 +26,7 @@ Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{v
 %endif
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
+BuildRequires:	automake
 BuildRequires:	db-cxx-devel
 BuildRequires:	ed
 BuildRequires:	gettext-devel
@@ -403,11 +404,13 @@ Pliki umiêdzynarodawiaj±ce dla konqueror.
 %patch0 -p1
 
 %build
+cp -f /usr/share/automake/config.sub admin
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
+	--with-qt-libraries=%{_libdir} \
 	--enable-final
 
 %{__make}
