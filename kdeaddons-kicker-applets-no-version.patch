@@ -5,7 +5,7 @@
  
  INCLUDES= $(all_includes)
 -ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined  -version-info 1:0:0
-+ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined
++ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined -avoid-version
  ktimemon_panelapplet_la_LIBADD   = $(LIB_KDEUI) $(LIBKSTAT)
  
  KDE_ICON = ktimemon
@@ -16,7 +16,7 @@
  
  INCLUDES = $(all_includes)
 -ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined  -version-info 1:0:0
-+ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined
++ktimemon_panelapplet_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) -module -no-undefined -avoid-version
  ktimemon_panelapplet_la_LIBADD = $(LIB_KDEUI) $(LIBKSTAT)
  
  KDE_ICON = ktimemon
