@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.92
-%define		_snap		031014
+%define		_snap		031024
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -18,7 +18,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	4bc09d7bc6f22eb3fbf203a4a62abaed
+# Source0-md5:	4ebd30812ad52ccf21419f2b88fe4662
 #Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
@@ -266,6 +266,8 @@ rm -rf $RPM_BUILD_ROOT
 	kde_appsdir=%{_applnkdir} \
 	kde_htmldir=%{_docdir}/kde/HTML
 
+mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
+
 %find_lang	kate-plugins	--with-kde
 %find_lang	kicker-applets	--with-kde
 %find_lang	konq-plugins	--with-kde
@@ -324,6 +326,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kicker/applets/mediacontrol.desktop
 %{_datadir}/apps/kicker/applets/kbinaryclock.desktop
 %{_iconsdir}/crystalsvg/*/apps/ktimemon.png
+%{_iconsdir}/hicolor/*/apps/autorefresh.png
 
 %files knewsticker
 %defattr(644,root,root,755)
@@ -406,6 +409,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop
 %{_datadir}/apps/konqsidebartng/entries/mplayer.desktop
 %{_datadir}/apps/konqsidebartng/kicker_entries/mplayer.desktop
+%{_datadir}/apps/konqueror/servicemenus/imageconverter.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
 %{_datadir}/apps/mediacontrol
 %{_datadir}/mimelnk/application/x-webarchive.desktop
