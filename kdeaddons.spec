@@ -41,7 +41,7 @@ Kate (text editor).
 
 %description -l pl
 Wtyczki dla niektórych aplikacji KDE, rozszerzaj±ce funkcjonalno¶æ
-Konquerora (przegl±darki WWW i menad¿era plików), noatun (odtwarzacza
+Konquerora (przegl±darki WWW i zarz±dcy plików), noatun (odtwarzacza
 plików multimedialnych), Kate (edytora tekstu).
 
 %description -l pt_BR
@@ -55,10 +55,10 @@ Group:          X11/Applications/Games
 Requires:       kdegames-atlantik
 
 %description atlantikdesigner
-Atlantik board designer
+Atlantik board designer.
 
 %description atlantikdesigner -l pl
-Program do tworzenia plansz dla gry Atlantik
+Program do tworzenia plansz dla gry Atlantik.
 
 %package kate
 Summary:	Plugins for the Kate text editor
@@ -138,7 +138,7 @@ Este paquete prove plugins de KDE para kdebase-konqueror.
 %description konqueror -l pl
 Pakiet zawiera wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora.
 Zawiera m.in. wtyczki do t³umaczenia stron WWW, sprawdzania
-poprawno¶ci HTML, ogl±dania drzewa DOM dokumentów.
+poprawno¶ci HTML, ogl±dania drzewa DOM stron WWW.
 
 %description konqueror -l pt_BR
 Este pacote fornece plugins KDE para kdebase-konqueror.
@@ -222,7 +222,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/atlantikdesigner
 %{_pixmapsdir}/*/*/*/atlantikdesigner.png
 %{_datadir}/apps/atlantikdesigner
-%{_applnkdir}/Games/Board/
+%{_applnkdir}/Games/Board/*
 
 #%files kate -f kate.lang
 %files kate -f kate-plugins.lang
