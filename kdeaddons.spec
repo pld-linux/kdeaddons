@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		0.6
+%define		_rel		0.7
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -168,7 +168,7 @@ CXXFLAGS="%{rpmcflags}"
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_applnkdir}/KDE
+install -d $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -176,7 +176,8 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/KDE
 %{__make} -C noatun-plugins install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_applnkdir}{,/KDE}/Settings
+mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/* \
+	$RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/
 
 #bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
@@ -237,7 +238,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/mimelnk/application/*webarchive*
 %{_datadir}/services/webarchive*
 %{_datadir}/services/kuickplugin*
-%{_applnkdir}/KDE/Settings/FileBrowsing/kcmkuick.desktop
+%{_applnkdir}/Settings/KDE/FileBrowsing/kcmkuick.desktop
 
 %files noatun
 %defattr(644,root,root,755)
