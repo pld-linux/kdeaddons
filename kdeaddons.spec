@@ -11,7 +11,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.3
+Release:	0.4
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -19,6 +19,8 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.
 # generated from kde-i18n
 Source1:	ftp://blysk.ds.pg.gda.pl/linux/kde-i18n-package/%{version}/kde-i18n-%{name}-%{version}.tar.bz2
 # Source1-md5:	42df196ef97e06aabc4145fdaa144e54
+Source2:	%{name}-atlantikdesigner.png
+#Source3:	%{name}-editcopy.png
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
@@ -200,6 +202,9 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man1
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}/atlantikdesigner.png
+#install %{SOURCE3} $RPM_BUILD_ROOT%{_pixmapsdir}/editcopy.png
+
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 > kate.lang
@@ -282,11 +287,14 @@ for i in $programs; do
 done
 
 %find_lang	atlantikdesigner	--with-kde
+
 # does not build
 #%find_lang	imagerename_plugin	--with-kde
 
 # probably obsolete
-%find_lang	kateprojectmanager	--with-kde
+#%find_lang	kateisearch		--with-kde
+#%find_lang	kateprojectmanager	--with-kde
+
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %clean
@@ -295,9 +303,10 @@ rm -rf $RPM_BUILD_ROOT
 %files atlantikdesigner -f atlantikdesigner.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantikdesigner
-%{_pixmapsdir}/*/*/*/atlantikdesigner.png
 %{_datadir}/apps/atlantikdesigner
 %{_applnkdir}/Games/Board/*
+%{_pixmapsdir}/*/*/*/atlantikdesigner.png
+%{_pixmapsdir}/atlantikdesigner.png
 %{_mandir}/man1/atlantikdesigner.*
 
 %files kate -f kate.lang
@@ -341,6 +350,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kfile_*
 %{_datadir}/services/kuick_plugin.desktop
 %{_datadir}/services/webarchive*
+%{_applnkdir}/.hidden/*
 %{_pixmapsdir}/*/*/*/babelfish*
 %{_pixmapsdir}/*/*/*/cssvalidator*
 %{_pixmapsdir}/*/*/*/domtreeviewer*
@@ -349,7 +359,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/[!l]*/*/*/konqsidebar_mediaplayer*
 %{_pixmapsdir}/*/*/*/validators*
 %{_pixmapsdir}/*/*/*/webarchiver*
-%{_applnkdir}/.hidden/*
+#%{_pixmapsdir}/editcopy.png
 
 %files noatun -f noatun.lang
 %defattr(644,root,root,755)
