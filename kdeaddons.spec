@@ -35,6 +35,7 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 %define		_htmldir	/usr/share/doc/kde/HTML
 
 %define		no_install_post_chrpath	1
@@ -194,48 +195,111 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-#> kate.lang
-#programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
-#for i in $programs; do
-#	%find_lang $i --with-kde
-#	cat $i.lang >> kate.lang
-#done
+> kate.lang
+programs=" \
+	kate-plugins \
+	katefll_initplugin \
+	katefll_plugin \
+	katehtmltools \
+	kateinsertcommand \
+	katemodeline \
+	kateopenheader \
+	katepybrowse \
+	katespell \
+	katetextfilter \
+	katexmlcheck \
+	katexmltools"
+# does not build
+#	katehelloworld
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kate.lang
+done
 
-#> konqueror.lang
-#programs="babelfish dirfilterplugin domtreeviewer dub imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer kuick_plugin uachangerplugin validatorsplugin webarchiver"
-#for i in $programs; do
-#	%find_lang $i --with-kde
-#	cat $i.lang >> konqueror.lang
-#done
-#
-#%find_lang	atlantikdesigner --with-kde
-%find_lang	kate-plugins	--with-kde
-%find_lang	kicker-applets	--with-kde
-%find_lang	konq-plugins	--with-kde
-#%find_lang kolourpicker --with-kde
-#%find_lang ktimemon --with-kde
-#cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
-#cat konq-plugins.lang >> konqueror.lang
+> konqueror.lang
+programs=" \
+	konq-plugins \
+	babelfish \
+	dirfilterplugin \
+	domtreeviewer \
+	imgalleryplugin \
+	kcmkuick \
+	kfile_desktop \
+	kfile_folder \
+	kfile_html \
+	kfile_txt \
+	khtmlsettingsplugin \
+	konqsidebar_mediaplayer \
+	kuick_plugin \
+	uachangerplugin \
+	validatorsplugin \
+	webarchiver"
+# does not build
+#	crashesplugin
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> konqueror.lang
+done
+
+>kicker.lang
+programs=" \
+	kicker-applets \
+	kolourpicker \
+	ktimemon \
+	mediacontrol"
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> kicker.lang
+done
+
+>noatun.lang
+programs=" \
+	alsaplayerui \
+	charlatanui \
+	ffrs \
+	lyrics \
+	pitchablespeed \
+	synaescope \
+	tippecanoe \
+	tyler \
+	wakeup \
+	wavecapture"
+# do not build
+#	dub
+#	jefferson
+#	nexscope
+for i in $programs; do
+	%find_lang $i --with-kde
+	cat $i.lang >> noatun.lang
+done
+
+%find_lang	atlantikdesigner	--with-kde
+# does not build
+#%find_lang	imagerename_plugin	--with-kde
+
+# probably obsolete
+%find_lang	kateprojectmanager	--with-kde
+install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-#%files atlantikdesigner -f atlantikdesigner.lang
-%files atlantikdesigner
+%files atlantikdesigner -f atlantikdesigner.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/atlantikdesigner
 %{_pixmapsdir}/*/*/*/atlantikdesigner.png
 %{_datadir}/apps/atlantikdesigner
 %{_applnkdir}/Games/Board/*
+%{_mandir}/man1/atlantikdesigner.*
 
-#%files kate -f kate.lang
-%files kate -f kate-plugins.lang
+%files kate -f kate.lang
 %defattr(644,root,root,755)
 #%attr(755,root,root) %{_bindir}/dcop_kate
 #%attr(755,root,root) %{_bindir}/testor
@@ -246,8 +310,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kate*
 %{_applnkdir}/Editors/katefll.desktop
 
-#%files kicker -f kicker.lang
-%files kicker -f kicker-applets.lang
+%files kicker -f kicker.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/*_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/*_panelapplet.so
@@ -259,8 +322,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apps/knewsticker/scripts
 %{_datadir}/apps/knewsticker/scripts/*
 
-#%files konqueror -f konqueror.lang
-%files konqueror -f konq-plugins.lang
+%files konqueror -f konqueror.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kfile*.la
 %attr(755,root,root) %{_libdir}/kde3/kfile*.so
@@ -288,9 +350,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/*/webarchiver*
 %{_applnkdir}/.hidden/*
 
-%files noatun
+%files noatun -f noatun.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/noatun*
 %{_libdir}/kde3/noatun*.la
 %attr(755,root,root) %{_libdir}/kde3/noatun*.so
 %{_datadir}/apps/noatun/*
+%{_mandir}/man1/noatun*
