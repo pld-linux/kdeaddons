@@ -26,7 +26,7 @@ BuildRequires:	kdemultimedia-devel >= 3.1
 BuildRequires:  kdegames-devel >= 3.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	nas-devel
+#BuildRequires:	nas-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -175,6 +175,13 @@ kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags}"
+
+for plik in `find ./ -name *.desktop` ; do
+	if [ -d $plik ]; then
+	echo $plik	
+	sed -ie "s/[nb]/[no]/g" $plik
+	fi
+done
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
