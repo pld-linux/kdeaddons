@@ -1,8 +1,7 @@
 
 %define		_state		snapshots
-%define		_ver		3.2.90
-%define		_snap		040526
-%define		_packager	adgor
+%define		_ver		3.2.91
+%define		_snap		040704
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -14,10 +13,7 @@ Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~%{_packager}/kde/%{name}-%{_snap}.tar.bz2
-##%% Source0-md5:	cc7af97fa4a58c23a1d3b3180f254cf0
-Patch0:		%{name}-gcc34.patch
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	db-cxx-devel
@@ -48,6 +44,18 @@ plików multimedialnych), Kate (edytora tekstu).
 %description -l pt_BR
 kdeaddons contem plugins e scripts adicionais para alguma aplicações
 KDE.
+
+%package ark
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Applications
+Requires:	kdeutils-ark
+
+%description ark
+TODO.
+
+%description ark -l pl
+TODO.
 
 %package atlantikdesigner
 Summary:	Atlantik board designer
@@ -218,6 +226,19 @@ A kpart allowing KDE apps to embedd vim as an editor.
 KPart umo¿liwiaj±cy aplikacjom KDE wykorzystywanie vima jako
 osadzonego edytora.
 
+%package lnkforward
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Applications
+# ???
+Requires:	kdebase-core >= 9:%{_ver}
+
+%description lnkforward
+TODO.
+
+%description lnkforward -l pl
+TODO.
+
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
 Summary(es):	Plugins para kdemultimedia-noatun
@@ -241,7 +262,6 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
 %setup -q -n %{name}-%{_snap}
-%patch0 -p1
 
 echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 
@@ -282,6 +302,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	kvim	-p /sbin/ldconfig
 %postun	kvim	-p /sbin/ldconfig
+
+%files ark
+%defattr(644,root,root,755)
+%{_libdir}/kde3/libarkplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libarkplugin.so
+%{_datadir}/applnk/.hidden/arkplugin.desktop
+%{_datadir}/services/ark_plugin.desktop
 
 %files atlantikdesigner
 %defattr(644,root,root,755)
@@ -417,7 +444,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_validators.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_webarchiver.rc
-%{_datadir}/apps/khtml/kpartplugins/searchbar.rc
+# What's up??!!
+%dir %{_datadir}/apps/konqueror
+%dir %{_datadir}/apps/konqueror/kpartplugins
+%{_datadir}/apps/konqueror/kpartplugins/searchbar.rc
+#
 %{_datadir}/apps/khtml/kpartplugins/uachangerplugin.rc
 %{_datadir}/apps/konqiconview/kpartplugins/dirfilterplugin.rc
 %{_datadir}/apps/konqiconview/kpartplugins/kimgalleryplugin.rc
@@ -507,6 +538,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/vimpart
 %{_datadir}/services/vimpart.desktop
 %{_desktopdir}/kde/kcmvim.desktop
+
+%files lnkforward
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/lnkforward
+%{_libdir}/kde3/kfile_lnk.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_lnk.so
+%{_libdir}/kde3/librellinksplugin.la
+%attr(755,root,root) %{_libdir}/kde3/librellinksplugin.so
+%{_desktopdir}/kde/lnkforward.desktop
+%{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
+%{_datadir}/mimelnk/application/x-win-lnk.desktop
+%{_datadir}/services/kfile_lnk.desktop
 
 %files noatun
 %defattr(644,root,root,755)
