@@ -242,20 +242,6 @@ multimedialnych noatun.
 %description noatun -l pt_BR
 Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
-%package atlantikdesigner-i18n
-Summary:	Internationalization and localization files for atlantikdesigner
-Summary(pl):	Pliki umiêdzynarodawiaj±ce dla atlantikdesigner
-Group:		X11/Applications
-Requires:	%{name}-atlantikdesigner = %{epoch}:%{version}-%{release}
-Requires:	kdegames-atlantik-i18n >= 8:%{version}
-
-%description atlantikdesigner-i18n
-Internationalization and localization files for atlantikdesigner.
-
-%description atlantikdesigner-i18n -l pl
-Pliki umiêdzynarodawiaj±ce dla atlantikdesigner.
-
-
 %prep
 %setup -q 
 %patch0 -p1
