@@ -3,8 +3,8 @@ Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.0.4
-Release:	2
+Version:	3.0.5a
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
@@ -15,8 +15,8 @@ BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	awk
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 3.0
-BuildRequires:	kdemultimedia-devel >= 3.0
+BuildRequires:	kdebase-devel >= %{version}
+BuildRequires:	kdemultimedia-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	nas-devel
