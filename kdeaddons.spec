@@ -189,11 +189,12 @@ done
 %find_lang ktimemon --with-kde
 cat kolourpicker.lang ktimemon.lang > kicker.lang
 
+cd $RPM_BUILD_ROOT%{_libdir}/kde3
+ln -sf ktimemon_panelapplet.so.1.0.0 ktimemon_panelapplet.so.1
+cd -
+
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post   kicker /sbin/ldconfig -n %{_libdir}/kde3
-%postun kicker /sbin/ldconfig -n %{_libdir}/kde3
 
 %files kate -f kate.lang
 %defattr(644,root,root,755)
