@@ -1,9 +1,7 @@
-#
-# TODO:
-# Splitting konqueror subpackage
 
-%define		_state		stable
-%define		_ver		3.2.3
+%define		_state		unstable
+%define		_ver		3.3.0
+%define		_snap		rc2
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -11,25 +9,23 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	3
+Release:	0.%{_snap}.1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	5997388ff74ed1c95dd07c778d66fdae
-#Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
-Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
-Patch1:		%{name}-gcc34.patch
+# Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+Source0:	ftp://ftp.pld-linux.org/software/kde/%{name}-%{_ver}-%{_snap}.tar.bz2
+# Source0-md5:	279500317749e08e3b53e558b9abf9e8
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRequires:	db-cxx-devel
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 9:%{version}
-BuildRequires:	kdegames-devel >= 8:%{version}
-BuildRequires:	kdemultimedia-devel >= 9:%{version}
-BuildRequires:	kdenetwork-devel >= 10:%{version}
-BuildRequires:	kdepim-devel >= 3:%{version}
+BuildRequires:	kdebase-devel >= 9:%{_ver}
+BuildRequires:	kdegames-devel >= 8:%{_ver}
+BuildRequires:	kdemultimedia-devel >= 9:%{_ver}
+BuildRequires:	kdenetwork-devel >= 10:%{_ver}
+BuildRequires:	kdepim-devel >= 3:%{_ver}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	rpmbuild(macros) >= 1.129
@@ -51,11 +47,23 @@ plików multimedialnych), Kate (edytora tekstu).
 kdeaddons contem plugins e scripts adicionais para alguma aplicações
 KDE.
 
+%package ark
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Applications
+Requires:	kdeutils-ark
+
+%description ark
+TODO.
+
+%description ark -l pl
+TODO.
+
 %package atlantikdesigner
 Summary:	Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
 Group:		X11/Applications/Games
-Requires:	kdegames-atlantik >= 8:%{version}
+Requires:	kdegames-atlantik >= 8:%{_ver}
 
 %description atlantikdesigner
 Atlantik board designer.
@@ -67,7 +75,7 @@ Program do tworzenia plansz dla gry Atlantik.
 Summary:	FSView - a tool for showing disc utilization in a graphical form
 Summary(pl):	FSview - narzêdzie do graficznego przedstawiania wolnego miejsca na dysku
 Group:		X11/Applications
-Requires:	konqueror >= 9:%{version}
+Requires:	konqueror >= 9:%{_ver}
 
 %description fsview
 FSView is a tool for showing disc utilization in a graphical form,
@@ -83,7 +91,7 @@ Summary(es):	Plugins para kaddressbook
 Summary(pl):	Wtyczki do kaddressbook
 Summary(pt_BR):	Plugins para kaddressbook
 Group:		X11/Applications
-Requires:	kdepim-kaddressbook >= 3:%{version}
+Requires:	kdepim-kaddressbook >= 3:%{_ver}
 
 %description kaddressbook-plugins
 Plugins for kaddressbook.
@@ -103,7 +111,7 @@ Summary(es):	Plugins para kdebase-kate
 Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
-Requires:	kdebase-kate >= 9:%{version}
+Requires:	kdebase-kate >= 9:%{_ver}
 
 %description kate
 kdeaddons-kate contains plugins extending the functionality of the
@@ -129,7 +137,7 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
-Requires:	kdebase-desktop >= 9:%{version}
+Requires:	kdebase-desktop >= 9:%{_ver}
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
@@ -147,7 +155,7 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 Summary:	Scripts extending the functionality of KNewsTicker
 Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
-Requires:	kdenetwork-knewsticker >= 10:%{version}
+Requires:	kdenetwork-knewsticker >= 10:%{_ver}
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
@@ -161,7 +169,7 @@ Summary(es):	Plugins para konqueror
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
-Requires:	konqueror >= 9:%{version}
+Requires:	konqueror >= 9:%{_ver}
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -184,8 +192,8 @@ Este pacote fornece plugins KDE para kdebase-konqueror.
 Summary:	Plugins extending the functionality of Kontact
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
 Group:		X11/Applications
-Requires:	kdepim-kontact >= 3:%{version}
-Requires:	kdenetwork-knewsticker >= 10:%{version}
+Requires:	kdepim >= 3:%{_ver}
+Requires:	kdenetwork-knewsticker >= 10:%{_ver}
 
 %description kontact
 Plugins extending the functionality of Kontact. This includes an
@@ -199,7 +207,7 @@ modu³ wy¶wietlaj±cy ¼ród³a rss.
 Summary:	A signature creator and manager
 Summary(pl):	Program tworz±cy i zarz±dzaj±cy podpisami
 Group:		X11/Applications
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= 9:%{_ver}
 
 %description ksig
 A signature creator and manager.
@@ -211,7 +219,7 @@ Program tworz±cy i zarz±dzaj±cy podpisami.
 Summary:	Vim KPart
 Summary(pl):	KPart z vimem
 Group:		X11/Applications
-Requires:	kdebase-core >= 9:%{version}
+Requires:	kdebase-core >= 9:%{_ver}
 
 %description kvim
 A kpart allowing KDE apps to embedd vim as an editor.
@@ -220,13 +228,26 @@ A kpart allowing KDE apps to embedd vim as an editor.
 KPart umo¿liwiaj±cy aplikacjom KDE wykorzystywanie vima jako
 osadzonego edytora.
 
+%package lnkforward
+Summary:	TODO
+Summary(pl):	TODO
+Group:		X11/Applications
+# ???
+Requires:	kdebase-core >= 9:%{_ver}
+
+%description lnkforward
+TODO.
+
+%description lnkforward -l pl
+TODO.
+
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
 Summary(es):	Plugins para kdemultimedia-noatun
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
-Requires:	kdemultimedia-noatun >= 9:%{version}
+Requires:	kdemultimedia-noatun >= 9:%{_ver}
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
@@ -242,36 +263,27 @@ multimedialnych noatun.
 Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
-%setup -q 
-%patch0 -p1
-%patch1 -p1
+%setup -q -n %{name}-%{_snap}
 
-for f in `find . -name *.desktop | xargs grep -l '^Terminal=0'`; do
-	%{__sed} -i -e 's/^Terminal=0/Terminal=false/' $f
-done
-for f in `find . -name *.desktop | xargs grep -l '^Type=Application'`; do
-	if ! grep '^Encoding=' $f >/dev/null; then
-		%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' $f
-	fi
-done
+echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 
 %build
 cp -f /usr/share/automake/config.sub admin
-export kde_htmldir=%{_kdedocdir}
-export kde_libs_htmldir=%{_kdedocdir}
-export UNSERMAKE=%{_datadir}/unsermake/unsermake
+
+export UNSERMAKE=/usr/share/unsermake/unsermake
+
 %{__make} -f admin/Makefile.common cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
-	--with-qt-libraries=%{_libdir} \
-	--enable-final
+	--enable-final \
+	--with-qt-libraries=%{_libdir}
 
 %{__make}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT *.lang
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_libs_htmldir=%{_kdedocdir} \
@@ -283,11 +295,22 @@ install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
+%find_lang kate-plugins		--with-kde
+%find_lang kicker-applets	--with-kde
+%find_lang konq-plugins		--with-kde
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post	kvim	-p /sbin/ldconfig
 %postun	kvim	-p /sbin/ldconfig
+
+%files ark
+%defattr(644,root,root,755)
+%{_libdir}/kde3/libarkplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libarkplugin.so
+%{_datadir}/applnk/.hidden/arkplugin.desktop
+%{_datadir}/services/ark_plugin.desktop
 
 %files atlantikdesigner
 %defattr(644,root,root,755)
@@ -309,7 +332,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/*/*/apps/fsview.png
 %{_mandir}/man1/fsview.1*
 
-
 %files kaddressbook-plugins
 %defattr(644,root,root,755)
 %{_libdir}/kde3/libkaddrbk_geo_xxport.la
@@ -317,11 +339,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kaddressbook/geo_xxportui.rc
 %{_datadir}/services/kaddressbook/geo_xxport.desktop
 
-%files kate 
+%files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kate*.la
 %attr(755,root,root) %{_libdir}/kde3/kate*.so
-%{_datadir}/apps/kate/plugins
+%{_libdir}/kde3/libkatetabbarextensionplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libkatetabbarextensionplugin.so
+%{_datadir}/apps/kate/plugins/*
 %{_datadir}/apps/kate/scripts/html-tidy.desktop
 %attr(755,root,root) %{_datadir}/apps/kate/scripts/html-tidy.sh
 %{_datadir}/apps/katexmltools
@@ -329,20 +353,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applnk/.hidden/katefll.desktop
 %{_kdedocdir}/en/kate-plugins
 
-%files kicker
+%files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
+%{_libdir}/kde3/kbinaryclock_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/kbinaryclock_panelapplet.so
 %{_libdir}/kde3/kolourpicker_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/kolourpicker_panelapplet.so
 %{_libdir}/kde3/ktimemon_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/ktimemon_panelapplet.so
-%{_libdir}/kde3/kbinaryclock_panelapplet.la
-%attr(755,root,root) %{_libdir}/kde3/kbinaryclock_panelapplet.so
+%{_libdir}/kde3/math_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/math_panelapplet.so
 %{_libdir}/kde3/mediacontrol_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/mediacontrol_panelapplet.so
+%{_datadir}/apps/kicker/applets/kbinaryclock.desktop
 %{_datadir}/apps/kicker/applets/kolourpicker.desktop
 %{_datadir}/apps/kicker/applets/ktimemon.desktop
+%{_datadir}/apps/kicker/applets/mathapplet.desktop
 %{_datadir}/apps/kicker/applets/mediacontrol.desktop
-%{_datadir}/apps/kicker/applets/kbinaryclock.desktop
+%{_datadir}/apps/mediacontrol
 %{_datadir}/config.kcfg/kbinaryclock.kcfg
 %{_iconsdir}/crystalsvg/*/apps/ktimemon.png
 %{_iconsdir}/hicolor/*/apps/autorefresh.png
@@ -361,7 +389,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/knewsticker/scripts/sportscores.py
 %{_datadir}/apps/knewsticker/scripts/stock.pl
 
-%files konqueror 
+%files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/exif.py
 %attr(755,root,root) %{_bindir}/jpegorient
@@ -388,6 +416,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libdirfilterplugin.so
 %{_libdir}/kde3/libdomtreeviewerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libdomtreeviewerplugin.so
+%{_libdir}/kde3/libsearchbarplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libsearchbarplugin.so
 %{_libdir}/kde3/kcm_kuick.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_kuick.so
 %{_libdir}/kde3/libkhtmlsettingsplugin.la
@@ -418,6 +448,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_validators.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_webarchiver.rc
+# What's up??!!
+%dir %{_datadir}/apps/konqueror
+%dir %{_datadir}/apps/konqueror/kpartplugins
+%{_datadir}/apps/konqueror/kpartplugins/searchbar.rc
+#
 %{_datadir}/apps/khtml/kpartplugins/uachangerplugin.rc
 %{_datadir}/apps/konqiconview/kpartplugins/dirfilterplugin.rc
 %{_datadir}/apps/konqiconview/kpartplugins/kimgalleryplugin.rc
@@ -430,7 +465,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqsidebartng/kicker_entries/mplayer.desktop
 %{_datadir}/apps/konqueror/servicemenus/imageconverter.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
-%{_datadir}/apps/mediacontrol
+%{_datadir}/config/translaterc
 %{_datadir}/mimelnk/application/x-webarchive.desktop
 %{_datadir}/services/kfile_desktop.desktop
 %{_datadir}/services/kfile_folder.desktop
@@ -454,6 +489,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applnk/.hidden/uachangerplugin.desktop
 %{_datadir}/applnk/.hidden/validatorsplugin.desktop
 %{_datadir}/applnk/.hidden/webarchiverplugin.desktop
+%{_datadir}/applnk/.hidden/searchbarplugin.desktop
 %{_iconsdir}/crystalsvg/*/actions/babelfish.png
 %{_iconsdir}/crystalsvg/*/actions/cssvalidator.png
 %{_iconsdir}/crystalsvg/*/actions/domtreeviewer.png
@@ -465,7 +501,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/exif.py.1*
 %{_mandir}/man1/jpegorient.1*
 %{_mandir}/man1/orient.py.1*
-%{_kdedocdir}/en/konq-plugins
+# TODO - requires kdenetwork-{knewsticker,rss}
+%{_libdir}/kde3/konq_sidebarnews.la
+%attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
+%{_datadir}/apps/konqsidebartng/add/news_add.desktop
+%{_datadir}/apps/konqsidebartng/entries/news.desktop
+%{_datadir}/apps/konqueror/icons/crystalsvg/16x16/actions/google.png
+%{_datadir}/config.kcfg/konq_sidebarnews.kcfg
+%{_iconsdir}/crystalsvg/*/apps/konqsidebar_news.png
 
 %files kontact
 %defattr(644,root,root,755)
@@ -499,6 +542,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/vimpart
 %{_datadir}/services/vimpart.desktop
 %{_desktopdir}/kde/kcmvim.desktop
+
+%files lnkforward
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/lnkforward
+%{_libdir}/kde3/kfile_lnk.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_lnk.so
+%{_libdir}/kde3/librellinksplugin.la
+%attr(755,root,root) %{_libdir}/kde3/librellinksplugin.so
+%{_desktopdir}/kde/lnkforward.desktop
+%{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
+%{_datadir}/mimelnk/application/x-win-lnk.desktop
+%{_datadir}/services/kfile_lnk.desktop
 
 %files noatun
 %defattr(644,root,root,755)
