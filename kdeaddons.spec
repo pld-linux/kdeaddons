@@ -1,6 +1,7 @@
-
+#
+# Conditional build:
 %bcond_without  kdegames        # no kdegames dep
-
+#
 %define		_state		stable
 %define		_kdever		3.4
 %define		_ver		3.4.0
@@ -63,7 +64,7 @@ program) with the filemanager.
 
 %description ark -l pl
 Wtyczka do konquerora integruj±ca ark (program do
-kompresji/dekompresji archiwów) z mened¿erem plików.
+kompresji/dekompresji archiwów) z zarz±dc± plików.
 
 %package atlantikdesigner
 Summary:	Atlantik board designer
@@ -226,7 +227,7 @@ Group:		X11/Applications
 Requires:	kdebase-core >= 9:%{_ver}
 
 %description lnkforward
-A konqueror extension that makes windows .lnk files work under linux.
+A konqueror extension that makes windows .lnk files work under Linux.
 
 %description lnkforward -l pl
 Rozszerzenie do konquerora sprawiaj±ce, ¿e windowsowe skróty .lnk
