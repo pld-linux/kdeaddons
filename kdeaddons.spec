@@ -4,7 +4,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	2.2.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
@@ -14,6 +14,9 @@ Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRequires:	kdebase-devel >= 2.2
+# YES, it requires kdebase --- it contains some .so files. And 
+# kdebase-devel contains only headers thus it doesn't require kdebase.
+BuildRequires:	kdebase >= 2.2
 BuildRequires:	kdemultimedia-devel >= 2.2
 BuildRequires:	SDL-devel
 BuildRequires:	zlib-devel
