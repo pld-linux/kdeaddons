@@ -23,8 +23,9 @@ BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= %{version}
-BuildRequires:	kdemultimedia-devel >= %{version}
+BuildRequires:	kdebase-kate 
 BuildRequires:  kdegames-devel >= %{version}
+BuildRequires:	kdemultimedia-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	nas-devel
