@@ -7,11 +7,15 @@ Version:	2.2.2
 Release:	3
 License:	GPL
 Group:		X11/Applications
-Group(de):	X11/Applikationen
+Group(cs):	X11/Aplikace
+Group(de):	X11/Anwendungen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
 BuildRequires:	kdebase-devel >= 2.2
 BuildRequires:	kdemultimedia-devel >= 2.2
@@ -50,11 +54,15 @@ Summary(es):	Plugins para kdebase-kate
 Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
-Group(de):	X11/Applikationen
+Group(cs):	X11/Aplikace
+Group(de):	X11/Anwendungen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 
 %description kate
 %{name}-kate contains plugins extending the functionality of the Kate
@@ -80,11 +88,15 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
-Group(de):	X11/Applikationen
+Group(cs):	X11/Aplikace
+Group(de):	X11/Anwendungen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
@@ -102,11 +114,15 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 Summary:	Scripts extending the functionality of KNewsTicker
 Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
-Group(de):	X11/Applikationen
+Group(cs):	X11/Aplikace
+Group(de):	X11/Anwendungen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
@@ -120,11 +136,15 @@ Summary(es):	Plugins para konqueror
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
-Group(de):	X11/Applikationen
+Group(cs):	X11/Aplikace
+Group(de):	X11/Anwendungen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -149,11 +169,15 @@ Summary(es):	Plugins para kdemultimedia-noatun
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
-Group(de):	X11/Applikationen
+Group(cs):	X11/Aplikace
+Group(de):	X11/Anwendungen
 Group(es):	X11/Aplicaciones
+Group(fr):	X11/Applications
+Group(ja):	X11/¥¢¥×¥ê¥±¡¼¥·¥ç¥ó
 Group(pl):	X11/Aplikacje
 Group(pt_BR):	X11/Aplicações
 Group(pt):	X11/Aplicações
+Group(ru):	X11/ðÒÉÌÏÖÅÎÉÑ
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
