@@ -6,7 +6,7 @@
 %bcond_without  i18n    # don't build i18n subpackages
 #
 %define		_state		stable
-%define		_ver		3.2.1
+%define		_ver		3.2.2
 ##%define		_snap		040110
 
 Summary:	K Desktop Environment - Plugins
@@ -20,11 +20,11 @@ Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	c73c1777d3f5c25f46cd782fcca9fc35
+# Source0-md5:	294edc0b59a23ae5a9e3a3664e677b2f
 #Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{version}.tar.bz2
 %if %{with i18n}
 Source1:        kde-i18n-%{name}-%{version}.tar.bz2
-# Source1-md5:	2a4aebfb41d16660b468836cf5d74080
+# Source1-md5:	3fbdf1869b87a451b298cc3a90922ad8
 %endif
 Patch0:		%{name}-3.2branch.diff
 Patch1:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
