@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.90
-%define		_snap		030623
+%define		_snap		030725
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -18,12 +18,10 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	c391410164a3b6ec1dcc291052c68643
 #Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	0d37ed5bae4ff501f1cd8c1fa4f06f3e
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
-Patch1:		%{name}-db4.patch
 BuildRequires:	SDL-devel
-BuildRequires:	arts-kde-devel
 BuildRequires:	kdenetwork-rss-devel  >= %{version}
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 3.1
@@ -222,14 +220,15 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %prep
 %setup -q -n %{name}-%{_snap}
 %patch0 -p1
-%patch1 -p0
 
 %build
-%{__make} -f Makefile.cvs
+
 for plik in `find ./ -name *.desktop` ; do
 	echo $plik	
 	sed -i -e 's/\[nb\]/\[no\]/g' $plik
 done
+
+#%%{__make} -f Makefile.cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
@@ -247,8 +246,6 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_desktopdir}
 
-mv $RPM_BUILD_ROOT%{_applnkdir}/Editors/katefll.desktop \
-    $RPM_BUILD_ROOT%{_desktopdir}
 mv $RPM_BUILD_ROOT%{_applnkdir}/Games/Board/atlantikdesigner.desktop \
     $RPM_BUILD_ROOT%{_desktopdir}
 mv $RPM_BUILD_ROOT%{_applnkdir}/Utilities/More/ksig.desktop \
@@ -282,7 +279,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kate/plugins
 %{_datadir}/apps/katexmltools
 %{_datadir}/services/kate*
-%{_desktopdir}/katefll.desktop
+%{_applnkdir}/.hidden/katefll.desktop
 
 %files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
@@ -338,6 +335,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libkimgallery.so
 %{_libdir}/kde3/libkuickplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libkuickplugin.so
+%{_libdir}/kde3/libminitoolsplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libminitoolsplugin.so
 %{_libdir}/kde3/libuachangerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libuachangerplugin.so
 %{_libdir}/kde3/libvalidatorsplugin.la
@@ -348,6 +347,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/webarchivethumbnail.so
 %{_datadir}/apps/khtml/kpartplugins/crashesplugin.rc
 %{_datadir}/apps/khtml/kpartplugins/khtmlsettingsplugin.rc
+%{_datadir}/apps/khtml/kpartplugins/minitoolsplugin.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_babelfish.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_validators.rc
@@ -379,6 +379,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/.hidden/kimgalleryplugin.desktop
 %{_applnkdir}/.hidden/kuickplugin.desktop
 %{_applnkdir}/.hidden/mediaplayerplugin.desktop
+%{_applnkdir}/.hidden/minitoolsplugin.desktop
 %{_applnkdir}/.hidden/smbmounterplugin.desktop
 %{_applnkdir}/.hidden/uachangerplugin.desktop
 %{_applnkdir}/.hidden/validatorsplugin.desktop
@@ -443,7 +444,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/noatunwavecapture.la
 %attr(755,root,root) %{_libdir}/kde3/noatunwavecapture.so
 # it is supposed to be hidden.
-#%%{_datadir}/apps/konqueror/servicemenus/noatunhayessetcurrent.desktop
+%{_datadir}/apps/konqueror/servicemenus/noatunhayessetcurrent.desktop
 #
 %{_datadir}/apps/noatun/[!i]*
 %{_datadir}/apps/noatun/icons/*
