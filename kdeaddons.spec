@@ -220,7 +220,8 @@ Requires:	kdebase-core >= 9:%{version}
 A kpart allowing KDE apps to embedd vim as an editor.
 
 %description kvim -l pl
-TODO.
+KPart umo¿liwiaj±cy aplikacj± KDE wykorzystywanie 
+vim'a jako zagnie¿d¿onego edytora.
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
