@@ -9,7 +9,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -266,7 +266,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
 %setup -q
-#%patch100 -p1
+%patch100 -p1
 
 echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 
@@ -296,7 +296,11 @@ export LDFLAGS="%{rpmldflags} -lpthread"
 	--%{?debug:en}%{!?debug:dis}able-debug \
 	--disable-rpath \
 	--enable-final \
-	--with-qt-libraries=%{_libdir}
+	--with-qt-libraries=%{_libdir} \
+%if "%{_lib}" == "lib64"
+	--enable-libsuffix=64 \
+%endif
+	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full}
 
 %{__make}
 
@@ -482,7 +486,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqlistview/kpartplugins/smbmounterplugin.rc
 %{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop
 #%{_datadir}/apps/konqsidebartng/entries/mplayer.desktop
-%{_datadir}/apps/konqsidebartng/kicker_entries/mplayer.desktop
+#%{_datadir}/apps/konqsidebartng/kicker_entries/mplayer.desktop
 %{_datadir}/apps/konqueror/servicemenus/imageconverter.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
 %{_datadir}/config/translaterc
@@ -574,6 +578,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
 %{_datadir}/mimelnk/application/x-win-lnk.desktop
 %{_datadir}/services/kfile_lnk.desktop
+%{_mandir}/man1//lnkforward.1*
 
 %files noatun
 %defattr(644,root,root,755)
