@@ -22,11 +22,11 @@ Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
 #Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
-BuildRequires:	kdenetwork-rss-devel  >= 10:%{version}
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 9:%{version}
-BuildRequires:	kdemultimedia-devel >= 9:%{version}
 BuildRequires:  kdegames-devel >= 8:%{version}
+BuildRequires:	kdemultimedia-devel >= 9:%{version}
+BuildRequires:	kdenetwork-rss-devel >= 10:%{version}
 BuildRequires:  kdepim-devel >= 3:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
