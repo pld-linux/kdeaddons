@@ -11,7 +11,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -23,10 +23,10 @@ Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.pat
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 3.1
-BuildRequires:	kdebase-libkate >= 3.1
-BuildRequires:	kdemultimedia-devel >= 3.1
-BuildRequires:	kdegames-devel >= 3.1
+BuildRequires:	kdebase-devel >= %{version}
+BuildRequires:	kdebase-libkate >= %{version}
+BuildRequires:	kdemultimedia-devel >= %{version}
+BuildRequires:	kdegames-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	nas-devel
@@ -36,7 +36,6 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_htmldir	/usr/share/doc/kde/HTML
-
 %define		no_install_post_chrpath	1
 
 %description
