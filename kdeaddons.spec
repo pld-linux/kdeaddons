@@ -4,7 +4,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.0.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
@@ -13,6 +13,7 @@ Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kicker-applets-no-version.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
+BuildRequires:	awk
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 3.0
 BuildRequires:	kdemultimedia-devel >= 3.0
@@ -159,7 +160,7 @@ CXXFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE
+install -d $RPM_BUILD_ROOT{%{_applnkdir}/Settings/KDE,%{_mandir}/man1}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -171,6 +172,13 @@ mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/FileBrowsing \
 	$RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/
 
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+
+install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+
+for f in `find $RPM_BUILD_ROOT%{_applnkdir} -name '.directory' -o -name '*.desktop'` ; do
+	awk -v F=$f '/^Icon=/ && !/\.xpm$/ && !/\.png$/ { $0 = $0 ".png";} { print $0; } END { if(F == ".directory") print "Type=Directory"; }' < $f > $f.tmp
+	mv -f $f{.tmp,}
+done
 
 > kate.lang
 programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
@@ -253,3 +261,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/noatun*.??
 %{_datadir}/apps/noatun/*
 %attr(755,root,root) %{_bindir}/noatun*
+%{_mandir}/man1/noatun*
