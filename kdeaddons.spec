@@ -1,4 +1,3 @@
-#
 # TODO:
 # Splitting konqueror subpackage
 
@@ -11,7 +10,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1.91
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -23,14 +22,14 @@ Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.pat
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 3.1
-BuildRequires:	kdemultimedia-devel >= 3.1
-BuildRequires:  kdegames-devel >= 3.1
+BuildRequires:	kdebase-devel >= %{version}
+BuildRequires:	kdemultimedia-devel >= %{version}
+BuildRequires:  kdegames-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	nas-devel
-BuildRequires:	zlib-devel
 BuildRequires:	perl
+BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -200,27 +199,29 @@ rm -rf $RPM_BUILD_ROOT
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 > kate.lang
-programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
+programs="katehelloworld katehtmltools kateinsertcommand kateopenheader \
+	kateprojectmanager katetextfilter katexmltools kate-plugins"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> kate.lang
 done
 
 > konqueror.lang
-programs="babelfish dirfilterplugin domtreeviewer dub imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer kuick_plugin uachangerplugin validatorsplugin webarchiver"
+programs="babelfish dirfilterplugin domtreeviewer dub \
+	imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer \
+	kuick_plugin uachangerplugin validatorsplugin webarchiver \
+	konq-plugins"
 for i in $programs; do
 	%find_lang $i --with-kde
 	cat $i.lang >> konqueror.lang
 done
 
-%find_lang	atlantikdesigner --with-kde
-%find_lang	kate-plugins	--with-kde
-%find_lang	kicker-applets	--with-kde
-%find_lang	konq-plugins	--with-kde
-%find_lang	kolourpicker --with-kde
-%find_lang	ktimemon --with-kde
-cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
-cat konq-plugins.lang >> konqueror.lang
+%find_lang kicker-applets	--with-kde
+%find_lang kolourpicker		--with-kde
+%find_lang ktimemon		--with-kde
+cat {kicker-applets,kolourpicker,ktimemon}.lang > kicker.lang
+
+%find_lang atlantikdesigner	--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -232,8 +233,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/atlantikdesigner
 %{_applnkdir}/Games/Board/*
 
-#%files kate -f kate.lang
-%files kate -f kate-plugins.lang
+%files kate -f kate.lang
 %defattr(644,root,root,755)
 #%attr(755,root,root) %{_bindir}/dcop_kate
 #%attr(755,root,root) %{_bindir}/testor
@@ -244,8 +244,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kate*
 %{_applnkdir}/Editors/katefll.desktop
 
-#%files kicker -f kicker.lang
-%files kicker -f kicker-applets.lang
+%files kicker -f kicker.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/*_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/*_panelapplet.so
@@ -258,7 +257,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/knewsticker/scripts/*
 
 %files konqueror -f konqueror.lang
-#%files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/kfile*.la
 %attr(755,root,root) %{_libdir}/kde3/kfile*.so
