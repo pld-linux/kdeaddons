@@ -1,15 +1,19 @@
+
+%define		_state		unstable
+%define		_kdever		kde-3.1-rc2
+
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.0.4
+Version:	3.0.98
 Release:	1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
-Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kicker-applets-no-version.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
@@ -46,6 +50,7 @@ Summary(es):	Plugins para kdebase-kate
 Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
+Requires:	kate
 
 %description kate
 %{name}-kate contains plugins extending the functionality of the Kate
@@ -71,6 +76,7 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
+Requires:	kdebase
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
@@ -88,6 +94,7 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 Summary:	Scripts extending the functionality of KNewsTicker
 Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
+Requires:	kdenetwork-knewsticker
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
@@ -101,6 +108,7 @@ Summary(es):	Plugins para konqueror
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
+Requires:	konqueror
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -125,6 +133,7 @@ Summary(es):	Plugins para kdemultimedia-noatun
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
+Requires:	kdemultimedia-noatun
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
@@ -159,7 +168,6 @@ CXXFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -167,45 +175,47 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE
 %{__make} -C noatun-plugins install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/FileBrowsing \
-	$RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/
 
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
-> kate.lang
-programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> kate.lang
-done
+#> kate.lang
+#programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
+#for i in $programs; do
+#	%find_lang $i --with-kde
+#	cat $i.lang >> kate.lang
+#done
 
-> konqueror.lang
-programs="babelfish dirfilterplugin domtreeviewer dub imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer kuick_plugin uachangerplugin validatorsplugin webarchiver"
-for i in $programs; do
-	%find_lang $i --with-kde
-	cat $i.lang >> konqueror.lang
-done
+#> konqueror.lang
+#programs="babelfish dirfilterplugin domtreeviewer dub imgalleryplugin kcmkuick khtmlsettingsplugin konqsidebar_mediaplayer kuick_plugin uachangerplugin validatorsplugin webarchiver"
+#for i in $programs; do
+#	%find_lang $i --with-kde
+#	cat $i.lang >> konqueror.lang
+#done
+#
+%find_lang	kate-plugins	--with-kde
+%find_lang	kicker-applets	--with-kde
+%find_lang	konq-plugins	--with-kde
+#%find_lang kolourpicker --with-kde
+#%find_lang ktimemon --with-kde
+#cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
+#cat konq-plugins.lang >> konqueror.lang
 
-%find_lang kicker-applets --with-kde
-%find_lang konq-plugins --with-kde
-%find_lang kolourpicker --with-kde
-%find_lang ktimemon --with-kde
-cat kicker-applets.lang kolourpicker.lang ktimemon.lang > kicker.lang
-cat konq-plugins.lang >> konqueror.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files kate -f kate.lang
+#%files kate -f kate.lang
+%files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/dcop_kate
-%attr(755,root,root) %{_bindir}/testor
+#%attr(755,root,root) %{_bindir}/dcop_kate
+#%attr(755,root,root) %{_bindir}/testor
 %{_libdir}/kde3/kate*.??
-%dir %{_datadir}/apps/kate/plugins
-%{_datadir}/apps/kate/plugins/*
+%{_datadir}/apps/kate/plugins
 %{_datadir}/apps/katexmltools
-/usr/share/doc/kde/HTML/en/kate-plugins/*
+%{_datadir}/services/kate*
+%{_applnkdir}/Editors/katefll.desktop
 
-%files kicker -f kicker.lang
+#%files kicker -f kicker.lang
+%files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
 %{_libdir}/kde3/*_panelapplet.??
 %{_pixmapsdir}/*/*/*/ktimemon.png
@@ -216,8 +226,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/apps/knewsticker/scripts
 %{_datadir}/apps/knewsticker/scripts/*
 
-%files konqueror -f konqueror.lang
+#%files konqueror -f konqueror.lang
+%files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
+%{_libdir}/kde3/kfile_*.??
 %{_libdir}/kde3/konq*.??
 %{_libdir}/kde3/libkhtml*
 %{_libdir}/kde3/libkimg*
@@ -229,12 +241,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/*webarchive*
 %{_libdir}/kde3/libkcm_*.??
 %{_libdir}/kde3/libkuickplugin.??
-%dir %{_datadir}/apps/khtml/kpartplugins
+%{_libdir}/kde3/mediacontrol_panelapplet.*
+%{_datadir}/apps/dub
 %{_datadir}/apps/khtml/kpartplugins/*
 %{_datadir}/apps/konqiconview/kpartplugins/*
 %{_datadir}/apps/konqlistview/kpartplugins/*
 %{_datadir}/apps/konqsidebartng/add/*
 %{_datadir}/apps/konqsidebartng/entries/*
+%{_datadir}/apps/mediacontrol
+%{_datadir}/mimelnk/application/*webarchive*
+%{_datadir}/services/kfile_*
+%{_datadir}/services/kuick_plugin.desktop
+%{_datadir}/services/webarchive*
 %{_pixmapsdir}/*/*/*/babelfish*
 %{_pixmapsdir}/*/*/*/cssvalidator*
 %{_pixmapsdir}/*/*/*/domtreeviewer*
@@ -243,13 +261,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_pixmapsdir}/*/*/*/konqsidebar_mediaplayer*
 %{_pixmapsdir}/*/*/*/validators*
 %{_pixmapsdir}/*/*/*/webarchiver*
-%{_datadir}/mimelnk/application/*webarchive*
-%{_datadir}/services/webarchive*
-%{_datadir}/services/kuickplugin*
-%{_applnkdir}/Settings/KDE/FileBrowsing/kcmkuick.desktop
+%{_applnkdir}/.hidden/*
 
 %files noatun
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/noatun*
 %{_libdir}/kde3/noatun*.??
 %{_datadir}/apps/noatun/*
-%attr(755,root,root) %{_bindir}/noatun*
