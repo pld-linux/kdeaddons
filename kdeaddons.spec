@@ -3,7 +3,7 @@
 # Splitting konqueror subpackage
 
 %define		_state		stable
-%define		_ver		3.1.2
+%define		_ver		3.1.3
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -15,7 +15,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	9a16c3df67c7096cc25e5d2acb557912
+# Source0-md5:	d1835674847b1c94c16b508fedc2d85c
 # generated from kde-i18n
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
