@@ -1,20 +1,27 @@
+
 %bcond_without  kdegames        # no kdegames dep
-%define		_state		stable
-%define		_ver		3.3.2
+
+%define		_state		unstable
+%define		_ver		3.3.92
+%define		_snap		050217
+
+%define		_minlibsevr	9:3.3.92.050217
+%define		_minbaseevr	9:3.3.92.050217
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	%{_ver}
+Version:	%{_ver}.%{_snap}
+#Version:	%{_ver}
 Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	d1ad11def2ac30965642144ef29d738a
-#Patch100:	%{name}-branch.diff
+Source0:        http://ftp.pld-linux.org/software/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
+#%% Source0-md5:	d1ad11def2ac30965642144ef29d738a
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
@@ -189,21 +196,6 @@ poprawno¶ci HTML-a, ogl±dania drzewa DOM stron WWW.
 %description konqueror -l pt_BR
 Este pacote fornece plugins KDE para kdebase-konqueror.
 
-#%package kontact
-#Summary:	Plugins extending the functionality of Kontact
-#Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
-#Group:		X11/Applications
-#Requires:	kdepim >= 3:%{_ver}
-#Requires:	kdenetwork-knewsticker >= 10:%{_ver}
-#
-#%description kontact
-#Plugins extending the functionality of Kontact. This includes an rss
-#feeds module.
-#
-#%description kontact -l pl
-#Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera modu³
-#wy¶wietlaj±cy ¼ród³a rss.
-
 %package ksig
 Summary:	A signature creator and manager
 Summary(pl):	Program tworz±cy i zarz±dzaj±cy podpisami
@@ -264,10 +256,8 @@ multimedialnych noatun.
 Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
-%setup -q
-#%%patch100 -p1
-
-echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
+%setup -q -n %{name}-%{_snap}
+#%setup -q
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	vimpart/kcmvim/kcmvim.desktop
@@ -285,11 +275,9 @@ done
 %build
 cp -f %{_datadir}/automake/config.sub admin
 
-export UNSERMAKE=%{_datadir}/unsermake/unsermake
+#export UNSERMAKE=%{_datadir}/unsermake/unsermake
 
 %{__make} -f admin/Makefile.common cvs
-
-export LDFLAGS="%{rpmldflags} -lpthread"
 
 %configure \
 	--disable-rpath \
@@ -351,8 +339,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libfsviewpart.so
 %{_datadir}/apps/fsview
 %{_datadir}/services/fsview_part.desktop
-#%{_applnkdir}/.hidden/fsview.desktop
-#%{_desktopdir}/kde/fsview.desktop
 %{_iconsdir}/*/*/apps/fsview.png
 %{_mandir}/man1/fsview.1*
 
@@ -360,8 +346,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/kde3/libkaddrbk_geo_xxport.la
 %attr(755,root,root) %{_libdir}/kde3/libkaddrbk_geo_xxport.so
+%{_libdir}/kde3/libkaddrbk_gmx_xxport.la
+%attr(755,root,root) %{_libdir}/kde3/libkaddrbk_gmx_xxport.so
 %{_datadir}/apps/kaddressbook/geo_xxportui.rc
+%{_datadir}/apps/kaddressbook/gmx_xxportui.rc
 %{_datadir}/services/kaddressbook/geo_xxport.desktop
+%{_datadir}/services/kaddressbook/gmx_xxport.desktop
 
 %files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
@@ -371,6 +361,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libkatetabbarextensionplugin.so
 %{_datadir}/apps/kate/plugins/*
 %{_datadir}/apps/kate/scripts/html-tidy.desktop
+%{_datadir}/apps/katepart/syntax/katetemplate.xml
 %attr(755,root,root) %{_datadir}/apps/kate/scripts/html-tidy.sh
 %{_datadir}/apps/katexmltools
 %{_datadir}/services/kate*
@@ -416,16 +407,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/exif.py
 %attr(755,root,root) %{_bindir}/jpegorient
 %attr(755,root,root) %{_bindir}/orient.py
+%{_libdir}/kde3/kfile_cert.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_cert.so
 %{_libdir}/kde3/kfile_desktop.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_desktop.so
 %{_libdir}/kde3/kfile_folder.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_folder.so
 %{_libdir}/kde3/kfile_html.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_html.so
+%{_libdir}/kde3/kfile_mhtml.la
+%attr(755,root,root) %{_libdir}/kde3/kfile_mhtml.so
 %{_libdir}/kde3/kfile_txt.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_txt.so
-%{_libdir}/kde3/konq_smbmounterplugin.la
-%attr(755,root,root) %{_libdir}/kde3/konq_smbmounterplugin.so
 %{_libdir}/kde3/konqsidebar_mediaplayer.la
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_mediaplayer.so
 %{_libdir}/kde3/libautorefresh.la
@@ -462,56 +455,54 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libwebarchiverplugin.so
 %{_libdir}/kde3/webarchivethumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/webarchivethumbnail.so
+%{_datadir}/apps/domtreeviewer
+%{_datadir}/apps/khtml/kpartplugins/autorefresh.desktop
 %{_datadir}/apps/khtml/kpartplugins/autorefresh.rc
+%{_datadir}/apps/khtml/kpartplugins/babelfishplugin.desktop
+%{_datadir}/apps/khtml/kpartplugins/crashesplugin.desktop
 %{_datadir}/apps/khtml/kpartplugins/crashesplugin.rc
+%{_datadir}/apps/khtml/kpartplugins/domtreeviewerplugin.desktop
+%{_datadir}/apps/khtml/kpartplugins/khtmlsettingsplugin.desktop
 %{_datadir}/apps/khtml/kpartplugins/khtmlsettingsplugin.rc
+%{_datadir}/apps/khtml/kpartplugins/minitoolsplugin.desktop
 %{_datadir}/apps/khtml/kpartplugins/minitoolsplugin.rc
+%{_datadir}/apps/khtml/kpartplugins/plugin_babelfish.desktop
 %{_datadir}/apps/khtml/kpartplugins/plugin_babelfish.rc
+%{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.desktop
 %{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.rc
+%{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.desktop
+%{_datadir}/apps/khtml/kpartplugins/plugin_validators.desktop
 %{_datadir}/apps/khtml/kpartplugins/plugin_validators.rc
+%{_datadir}/apps/khtml/kpartplugins/plugin_webarchiver.desktop
 %{_datadir}/apps/khtml/kpartplugins/plugin_webarchiver.rc
-# What's up??!!
-%dir %{_datadir}/apps/konqueror
-%dir %{_datadir}/apps/konqueror/kpartplugins
-%{_datadir}/apps/konqueror/kpartplugins/searchbar.rc
-#
+%{_datadir}/apps/khtml/kpartplugins/uachangerplugin.desktop
 %{_datadir}/apps/khtml/kpartplugins/uachangerplugin.rc
+%{_datadir}/apps/khtml/kpartplugins/validatorsplugin.desktop
+%{_datadir}/apps/khtml/kpartplugins/webarchiverplugin.desktop
 %{_datadir}/apps/konqiconview/kpartplugins/dirfilterplugin.rc
 %{_datadir}/apps/konqiconview/kpartplugins/kimgalleryplugin.rc
-%{_datadir}/apps/konqiconview/kpartplugins/smbmounterplugin.rc
 %{_datadir}/apps/konqlistview/kpartplugins/dirfilterplugin.rc
 %{_datadir}/apps/konqlistview/kpartplugins/kimgalleryplugin.rc
-%{_datadir}/apps/konqlistview/kpartplugins/smbmounterplugin.rc
 %{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop
-#%{_datadir}/apps/konqsidebartng/entries/mplayer.desktop
-#%{_datadir}/apps/konqsidebartng/kicker_entries/mplayer.desktop
+%{_datadir}/apps/konqueror/kpartplugins
 %{_datadir}/apps/konqueror/servicemenus/imageconverter.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
 %{_datadir}/config/translaterc
-%{_datadir}/mimelnk/application/x-webarchive.desktop
+%{_datadir}/services/dirfilterplugin.desktop
+%{_datadir}/services/kfile_cert.desktop
 %{_datadir}/services/kfile_desktop.desktop
 %{_datadir}/services/kfile_folder.desktop
 %{_datadir}/services/kfile_html.desktop
+%{_datadir}/services/kfile_mhtml.desktop
 %{_datadir}/services/kfile_txt.desktop
 %{_datadir}/services/kuick_plugin.desktop
 %{_datadir}/services/renaudiodlg.desktop
 %{_datadir}/services/renimagedlg.desktop
 %{_datadir}/services/webarchivethumbnail.desktop
-%{_datadir}/applnk/.hidden/babelfishplugin.desktop
-%{_datadir}/applnk/.hidden/crashesplugin.desktop
-%{_datadir}/applnk/.hidden/dirfilterplugin.desktop
-%{_datadir}/applnk/.hidden/domtreeviewerplugin.desktop
 %{_datadir}/applnk/.hidden/kcmkuick.desktop
-%{_datadir}/applnk/.hidden/khtmlsettingsplugin.desktop
 %{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
 %{_datadir}/applnk/.hidden/kuickplugin.desktop
 %{_datadir}/applnk/.hidden/mediaplayerplugin.desktop
-%{_datadir}/applnk/.hidden/minitoolsplugin.desktop
-%{_datadir}/applnk/.hidden/smbmounterplugin.desktop
-%{_datadir}/applnk/.hidden/uachangerplugin.desktop
-%{_datadir}/applnk/.hidden/validatorsplugin.desktop
-%{_datadir}/applnk/.hidden/webarchiverplugin.desktop
-%{_datadir}/applnk/.hidden/searchbarplugin.desktop
 %{_iconsdir}/crystalsvg/*/actions/babelfish.png
 %{_iconsdir}/crystalsvg/*/actions/cssvalidator.png
 %{_iconsdir}/crystalsvg/*/actions/domtreeviewer.png
@@ -527,19 +518,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/konq_sidebarnews.la
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
 %{_datadir}/apps/konqsidebartng/add/news_add.desktop
-#%{_datadir}/apps/konqsidebartng/entries/news.desktop
 %{_datadir}/apps/konqueror/icons/crystalsvg/16x16/actions/google.png
 %{_datadir}/config.kcfg/konq_sidebarnews.kcfg
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_news.png
-
-#%files kontact
-#%defattr(644,root,root,755)
-#%{_libdir}/kde3/kcm_kontactknt.la
-#%attr(755,root,root) %{_libdir}/kde3/kcm_kontactknt.so
-#%{_libdir}/kde3/libkontact_newstickerplugin.la
-#%attr(755,root,root) %{_libdir}/kde3/libkontact_newstickerplugin.so
-#%{_datadir}/services/kcmkontactknt.desktop
-#%{_datadir}/services/kontact/newstickerplugin.desktop
+# TODO - requires kdepim (akregator)
+%{_libdir}/kde3/libakregatorkonqfeedicon.la
+%attr(755,root,root) %{_libdir}/kde3/libakregatorkonqfeedicon.so
+%{_libdir}/kde3/libakregatorkonqplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libakregatorkonqplugin.so
+%{_datadir}/apps/akregator/pics/rss.png
+%{_datadir}/apps/khtml/kpartplugins/akregator_konqfeedicon.desktop
+%{_datadir}/apps/khtml/kpartplugins/akregator_konqfeedicon.rc
+%{_datadir}/services/akregator_konqplugin.desktop
 
 %files ksig
 %defattr(644,root,root,755)
@@ -552,9 +542,7 @@ rm -rf $RPM_BUILD_ROOT
 %files kvim
 %defattr(644,root,root,755)
 %{_libdir}/libxvim.la
-# What to do wit it?
 %attr(755,root,root) %{_libdir}/libxvim.so
-#
 %attr(755,root,root) %{_libdir}/libxvim.so.*.*.*
 %{_libdir}/kde3/kcm_vim.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_vim.so
@@ -572,11 +560,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kfile_lnk.so
 %{_libdir}/kde3/librellinksplugin.la
 %attr(755,root,root) %{_libdir}/kde3/librellinksplugin.so
-%{_desktopdir}/kde/lnkforward.desktop
+%{_datadir}/applnk/.hidden/lnkforward.desktop
 %{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
 %{_datadir}/mimelnk/application/x-win-lnk.desktop
 %{_datadir}/services/kfile_lnk.desktop
-%{_mandir}/man1//lnkforward.1*
 
 %files noatun
 %defattr(644,root,root,755)
