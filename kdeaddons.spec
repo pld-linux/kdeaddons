@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.90
-%define		_snap		030620
+%define		_snap		030623
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -17,12 +17,14 @@ Epoch:		1
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
-#Source0:	http://www.kernwl.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	a2e3733c8db83e59307275418d7fbf67
+Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
+#Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	0d37ed5bae4ff501f1cd8c1fa4f06f3e
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
+Patch1:		%{name}-db4.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
+BuildRequires:	kdenetwork-rss-devel  >= %{version}
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 3.1
 BuildRequires:	kdemultimedia-devel >= 3.1
@@ -145,6 +147,21 @@ Scripts extending the functionality of KNewsTicker.
 %description knewsticker -l pl
 Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera.
 
+%package kontact
+Summary:	Plugins extending the functionality of Kontact
+Summary(pl):    Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact
+Group:          X11/Applications
+Requires:       kdepim-kontact >= %{version}
+Requires:	kdenetwork-rss >= %{version}
+
+%description kontact
+Plugins extending the functionality of Kontact. This includes an 
+rss feeds module.
+
+%description kontact -l pl
+Wtyczki rozszerzaj±ce funkcjonalno¶æ Kontact. Pakiet zawiera
+modu³ wy¶wietlaj±cy ¼ród³a rss.
+
 %package konqueror
 Summary:	Plugins extending the functionality of Konqueror
 Summary(es):	Plugins para konqueror
@@ -205,9 +222,10 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %prep
 %setup -q -n %{name}-%{_snap}
 %patch0 -p1
+%patch1 -p0
 
 %build
-
+%{__make} -f Makefile.cvs
 for plik in `find ./ -name *.desktop` ; do
 	echo $plik	
 	sed -i -e 's/\[nb\]/\[no\]/g' $plik
@@ -250,10 +268,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/atlantikdesigner.desktop
 %{_icondir}/*/*/*/atlantikdesigner.png
 
-#%files kaddressbook-plugins
-#%defattr(644,root,root,755)
-#%{_datadir}/apps/kaddressbook/geo_xxportui.rc
-#%{_datadir}/services/kaddressbook/geo_xxport.desktop
+%files kaddressbook-plugins
+%defattr(644,root,root,755)
+%{_datadir}/apps/kaddressbook/geo_xxportui.rc
+%{_libdir}/kde3/libkaddrbk_geo_xxport.la
+%attr(755,root,root) %{_libdir}/kde3/libkaddrbk_geo_xxport.so
+%{_datadir}/services/kaddressbook/geo_xxport.desktop
 
 %files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
@@ -270,11 +290,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kolourpicker_panelapplet.so
 %{_libdir}/kde3/ktimemon_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/ktimemon_panelapplet.so
+%{_libdir}/kde3/kbinaryclock_panelapplet.la
+%attr(755,root,root) %{_libdir}/kde3/kbinaryclock_panelapplet.so
 %{_libdir}/kde3/mediacontrol_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/mediacontrol_panelapplet.so
 %{_datadir}/apps/kicker/applets/kolourpicker.desktop
 %{_datadir}/apps/kicker/applets/ktimemon.desktop
 %{_datadir}/apps/kicker/applets/mediacontrol.desktop
+%{_datadir}/apps/kicker/applets/kbinaryclock.desktop
 %{_icondir}/crystalsvg/*/apps/ktimemon.png
 
 %files knewsticker
@@ -369,6 +392,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_icondir}/crystalsvg/*/actions/webarchiver.png
 %{_icondir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
 
+%files kontact
+%defattr(644,root,root,755)
+%{_libdir}/kde3/libkpnewstickerplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libkpnewstickerplugin.so
+%{_datadir}/services/kpnewstickerplugin.desktop
+
 %files ksig
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksig
@@ -391,6 +420,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/noatunblurscope.so
 %{_libdir}/kde3/noatuncharlatan.la
 %attr(755,root,root) %{_libdir}/kde3/noatuncharlatan.so
+%{_libdir}/kde3/noatun_oblique.la
+%attr(755,root,root) %{_libdir}/kde3/noatun_oblique.so
 %{_libdir}/kde3/noatundub.la
 %attr(755,root,root) %{_libdir}/kde3/noatundub.so
 %{_libdir}/kde3/noatunluckytag.la
@@ -411,9 +442,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/noatunwakeup.so
 %{_libdir}/kde3/noatunwavecapture.la
 %attr(755,root,root) %{_libdir}/kde3/noatunwavecapture.so
-# hidden at this moment
-#%{_datadir}/apps/konqueror/servicemenus/noatunhayessetcurrent.desktop
+# it is supposed to be hidden.
+#%%{_datadir}/apps/konqueror/servicemenus/noatunhayessetcurrent.desktop
 #
 %{_datadir}/apps/noatun/[!i]*
 %{_datadir}/apps/noatun/icons/*
+%{_icondir}/crystalsvg/*/apps/synaescope.png
 %{_datadir}/services/noatunhayessetcurrent.desktop
