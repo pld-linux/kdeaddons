@@ -70,7 +70,7 @@ Summary(es):	Plugins para kdebase-kate
 Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
-Requires:	kdebase-kate >= %{version}
+Requires:	kdebase-kate >= 8:%{version}
 
 %description kate
 %{name}-kate contains plugins extending the functionality of the Kate
@@ -96,7 +96,7 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
-Requires:	kdebase-kicker >= %{version}
+Requires:	kdebase-kicker >= 8:%{version}
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
@@ -128,7 +128,7 @@ Summary(es):	Plugins para konqueror
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
-Requires:	konqueror >= %{version}
+Requires:	konqueror >= 8:%{version}
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -197,7 +197,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 #> kate.lang
 #programs="katehelloworld katehtmltools kateinsertcommand kateopenheader kateprojectmanager katetextfilter katexmltools"
