@@ -3,8 +3,8 @@
 # Splitting konqueror subpackage
 
 %define		_state		snapshots
-%define		_ver		3.1.93
-%define		_snap		031114
+%define		_ver		3.1.94
+%define		_snap		031204
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -18,7 +18,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	2f5c31f5347e3838136c0859a80e1bf4
+# Source0-md5:	835fdb4d623819915d15235d3f0a80f0
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
 BuildRequires:	db-cxx-devel
@@ -259,7 +259,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	kde_appsdir=%{_applnkdir} \
 	kde_htmldir=%{_kdedocdir}
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
@@ -289,12 +288,12 @@ rm -rf $RPM_BUILD_ROOT
 #%{_desktopdir}/kde/fsview.desktop
 %{_iconsdir}/*/*/apps/fsview.png
 
-#%files kaddressbook-plugins
-#%defattr(644,root,root,755)
-#%{_datadir}/apps/kaddressbook/geo_xxportui.rc
-#%{_libdir}/kde3/libkaddrbk_geo_xxport.la
-#%attr(755,root,root) %{_libdir}/kde3/libkaddrbk_geo_xxport.so
-#%{_datadir}/services/kaddressbook/geo_xxport.desktop
+%files kaddressbook-plugins
+%defattr(644,root,root,755)
+%{_libdir}/kde3/libkaddrbk_geo_xxport.la
+%attr(755,root,root) %{_libdir}/kde3/libkaddrbk_geo_xxport.so
+%{_datadir}/apps/kaddressbook/geo_xxportui.rc
+%{_datadir}/services/kaddressbook/geo_xxport.desktop
 
 %files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
@@ -305,7 +304,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/apps/kate/scripts/html-tidy.sh
 %{_datadir}/apps/katexmltools
 %{_datadir}/services/kate*
-%{_applnkdir}/.hidden/katefll.desktop
+%{_datadir}/applnk/.hidden/katefll.desktop
 
 %files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
@@ -321,6 +320,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kicker/applets/ktimemon.desktop
 %{_datadir}/apps/kicker/applets/mediacontrol.desktop
 %{_datadir}/apps/kicker/applets/kbinaryclock.desktop
+%{_datadir}/config.kcfg/kbinaryclock.kcfg
 %{_iconsdir}/crystalsvg/*/apps/ktimemon.png
 %{_iconsdir}/hicolor/*/apps/autorefresh.png
 
@@ -416,20 +416,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/renaudiodlg.desktop
 %{_datadir}/services/renimagedlg.desktop
 %{_datadir}/services/webarchivethumbnail.desktop
-%{_applnkdir}/.hidden/babelfishplugin.desktop
-%{_applnkdir}/.hidden/crashesplugin.desktop
-%{_applnkdir}/.hidden/dirfilterplugin.desktop
-%{_applnkdir}/.hidden/domtreeviewerplugin.desktop
-%{_applnkdir}/.hidden/kcmkuick.desktop
-%{_applnkdir}/.hidden/khtmlsettingsplugin.desktop
-%{_applnkdir}/.hidden/kimgalleryplugin.desktop
-%{_applnkdir}/.hidden/kuickplugin.desktop
-%{_applnkdir}/.hidden/mediaplayerplugin.desktop
-%{_applnkdir}/.hidden/minitoolsplugin.desktop
-%{_applnkdir}/.hidden/smbmounterplugin.desktop
-%{_applnkdir}/.hidden/uachangerplugin.desktop
-%{_applnkdir}/.hidden/validatorsplugin.desktop
-%{_applnkdir}/.hidden/webarchiverplugin.desktop
+%{_datadir}/applnk/.hidden/babelfishplugin.desktop
+%{_datadir}/applnk/.hidden/crashesplugin.desktop
+%{_datadir}/applnk/.hidden/dirfilterplugin.desktop
+%{_datadir}/applnk/.hidden/domtreeviewerplugin.desktop
+%{_datadir}/applnk/.hidden/kcmkuick.desktop
+%{_datadir}/applnk/.hidden/khtmlsettingsplugin.desktop
+%{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
+%{_datadir}/applnk/.hidden/kuickplugin.desktop
+%{_datadir}/applnk/.hidden/mediaplayerplugin.desktop
+%{_datadir}/applnk/.hidden/minitoolsplugin.desktop
+%{_datadir}/applnk/.hidden/smbmounterplugin.desktop
+%{_datadir}/applnk/.hidden/uachangerplugin.desktop
+%{_datadir}/applnk/.hidden/validatorsplugin.desktop
+%{_datadir}/applnk/.hidden/webarchiverplugin.desktop
 %{_iconsdir}/crystalsvg/*/actions/babelfish.png
 %{_iconsdir}/crystalsvg/*/actions/cssvalidator.png
 %{_iconsdir}/crystalsvg/*/actions/domtreeviewer.png
