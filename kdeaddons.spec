@@ -8,7 +8,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.1
-Release:	3
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
