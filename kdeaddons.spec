@@ -241,7 +241,7 @@ A konqueror extension that makes windows .lnk files work under linux.
 
 %description lnkforward -l pl
 Rozszerzenie do konquerora sprawiaj±ce, ¿e windowsowe skróty .lnk
-dzia³aj± pod linuksem.
+dzia³aj± pod Linuksem.
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
