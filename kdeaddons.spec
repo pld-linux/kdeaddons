@@ -1,7 +1,6 @@
 %bcond_without  kdegames        # no kdegames dep
 %define		_state		stable
-%define		_ver		3.3.1
-
+%define		_ver		3.3.2
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -14,8 +13,8 @@ Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	69ec1deff7ae2d0c3602bb141ed4c546
-Patch100:	%{name}-branch.diff
+# Source0-md5:	d1ad11def2ac30965642144ef29d738a
+#Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
@@ -266,7 +265,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
 %setup -q
-%patch100 -p1
+#%%patch100 -p1
 
 echo "KDE_OPTIONS = nofinal" >> noatun-plugins/luckytag/Makefile.am
 
