@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		0.7
+%define		_rel		1
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -29,6 +29,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	gettext-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
+BuildRequires:	nas-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -176,7 +177,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE
 %{__make} -C noatun-plugins install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/* \
+mv $RPM_BUILD_ROOT%{_applnkdir}/Settings/FileBrowsing \
 	$RPM_BUILD_ROOT%{_applnkdir}/Settings/KDE/
 
 #bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
