@@ -172,8 +172,6 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %setup -q
 
 %build
-#CXXFLAGS="%{rpmcflags} -DNDEBUG -DNO_DEBUG -fno-check-new" CFLAGS="%{rpmcflags} -DNDEBUG -DNO_DEBUG" \
-#./configure --prefix=%{_prefix} --includedir=%{_includedir}/kde --enable-final
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
@@ -198,12 +196,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C noatun-plugins install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# Make symlinks relative
-#cd $RPM_BUILD_ROOT%{_datadir}/doc/HTML/en
-#for i in *; do
-#	[ -d $i -a -L $i/common ] && rm -f $i/common && ln -sf ../common $i/common
-#done
-
 %find_lang kate-plugins --with-kde
 %find_lang kicker-applets --with-kde
 
@@ -217,7 +209,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde2/libkate*
 %dir %{_datadir}/apps/kate/plugins
 %{_datadir}/apps/kate/plugins/*
-#%doc %{_datadir}/doc/HTML/en/kate-plugins/*
 
 %files kicker
 %defattr(644,root,root,755)
@@ -225,7 +216,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libkolourpicker*
 %{_pixmapsdir}/*/*/*/ktimemon.png
 %{_datadir}/apps/kicker/applets/*
-#%doc %{_datadir}/doc/HTML/en/kicker-applets/*
 
 %files knewsticker
 %defattr(644,root,root,755)
