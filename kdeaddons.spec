@@ -205,7 +205,16 @@ install -d $RPM_BUILD_ROOT%{_mandir}/man1
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}/atlantikdesigner.png
 #install %{SOURCE3} $RPM_BUILD_ROOT%{_pixmapsdir}/editcopy.png
 
+for i in `find $RPM_BUILD_ROOT%{_applnkdir} -type f`; do
+	if grep '^Icon=.[^.]*$' $i >/dev/null; then
+		echo -e ',s/\(^Icon=.*$\)/\\1.png/\n,w' | ed $i
+	fi
+done
+
 bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+for f in $RPM_BUILD_ROOT%{_datadir}/locale/*/LC_MESSAGES/*.mo; do
+	[ "`file $f | sed -e 's/.*,//' -e 's/message.*//'`" -le 1 ] && rm -f $f
+done
 
 > kate.lang
 programs=" \
