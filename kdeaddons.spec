@@ -1,6 +1,6 @@
 %define		_ver		3.0.2
 #define		_sub_ver
-%define		_rel		0.5
+%define		_rel		0.6
 
 %{?_sub_ver:	%define	_version	%{_ver}%{_sub_ver}}
 %{!?_sub_ver:	%define	_version	%{_ver}}
@@ -20,7 +20,7 @@ License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_ftpdir}/%{version}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
-Source1:	kde-i18n-%{name}-%{version}.tar.bz2
+#Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 BuildRequires:	arts-kde-devel
 BuildRequires:	kdebase-devel >= 3.0
 BuildRequires:	kdemultimedia-devel >= 3.0
@@ -178,7 +178,7 @@ install -d $RPM_BUILD_ROOT%{_applnkdir}/KDE
 
 mv $RPM_BUILD_ROOT%{_applnkdir}{,/KDE}/Settings
 
-bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
+#bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
 %find_lang kate-plugins --with-kde
 %find_lang kicker-applets --with-kde
