@@ -11,7 +11,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
@@ -27,7 +27,7 @@ BuildRequires:	arts-kde-devel
 BuildRequires:	ed
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= %{version}
-BuildRequires:	kdebase-libkate >= %{version}
+#BuildRequires:	kdebase-libkate >= %{version}
 BuildRequires:	kdemultimedia-devel >= %{version}
 BuildRequires:	kdegames-devel >= %{version}
 BuildRequires:	libjpeg-devel
