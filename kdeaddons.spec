@@ -30,8 +30,7 @@ BuildRequires:	kdegames-devel >= %{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	nas-devel
-BuildRequires:	perl
-BuildRequires:	sed
+BuildRequires:	perl-base
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
