@@ -8,18 +8,20 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.0.99
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
 Patch0:		%{name}-kicker-applets-no-version.patch
+
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= 3.0
 BuildRequires:	kdemultimedia-devel >= 3.0
+BuildRequires:  kdegames-atlantik >= 3.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	nas-devel
@@ -43,6 +45,18 @@ plików multimedialnych), Kate (edytora tekstu).
 %description -l pt_BR
 kdeaddons contem plugins e scripts adicionais para alguma aplicações
 KDE.
+
+%package atlantikdesigner
+Summary:        Atlantik board designer
+Summary(pl):	Program do tworzenia plansz dla gry Atlantik
+Group:          X11/Applications/Games
+Requires:       kdegames-atlantik
+
+%description atlantikdesigner
+Atlantik board designer
+
+%description atlantikdesigner -l pl
+Program do tworzenia plansz dla gry Atlantik
 
 %package kate
 Summary:	Plugins for the Kate text editor
@@ -152,12 +166,14 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %setup -q
 %patch0 -p1
 
+
 %build
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags}"
+%{__make} -f Makefile.cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
@@ -165,6 +181,7 @@ CXXFLAGS="%{rpmcflags}"
 
 %{__make}
 %{__make} -C noatun-plugins
+%{__make} -C atlantikdesigner
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -175,6 +192,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C noatun-plugins install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__make} -C atlantikdesigner install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 #bzip2 -dc %{SOURCE1} | tar xf - -C $RPM_BUILD_ROOT
 
@@ -192,6 +211,7 @@ rm -rf $RPM_BUILD_ROOT
 #	cat $i.lang >> konqueror.lang
 #done
 #
+#%find_lang	atlantikdesigner --with-kde
 %find_lang	kate-plugins	--with-kde
 %find_lang	kicker-applets	--with-kde
 %find_lang	konq-plugins	--with-kde
@@ -202,6 +222,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+#%files  atlantikdesigner -f atlantikdesigner.lang
+%files  atlantikdesigner
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/atlantikdesigner
+%{_pixmapsdir}/*/*/*/atlantikdesigner.png
+%{_datadir}/apps/atlantikdesigner
+%{_applnkdir}/Games/Board/
 
 #%files kate -f kate.lang
 %files kate -f kate-plugins.lang
