@@ -1,6 +1,6 @@
 
 %define		_state		unstable
-%define		_kdever		kde-3.1-rc5
+%define		_kdever		kde-3.1-rc7
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -8,13 +8,12 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{version}.tar.bz2
 # generated from kde-i18n
 #Source1:	kde-i18n-%{name}-%{version}.tar.bz2
-Patch0:		%{name}-kicker-applets-no-version.patch
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
@@ -27,8 +26,6 @@ BuildRequires:	nas-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 %define		_htmldir	/usr/share/doc/kde/HTML
 
 %define		no_install_post_chrpath	1
@@ -165,16 +162,14 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
 %setup -q
-%patch0 -p1
-
 
 %build
+kde_appsdir="%{_applnkdir}"; export kde_appsdir
 kde_htmldir="%{_htmldir}"; export kde_htmldir
 kde_icondir="%{_pixmapsdir}"; export kde_icondir
 
 CFLAGS="%{rpmcflags}"
 CXXFLAGS="%{rpmcflags}"
-#%{__make} -f Makefile.cvs
 
 %configure \
 	--%{?debug:en}%{!?debug:dis}able-debug \
