@@ -220,8 +220,8 @@ Requires:	kdebase-core >= 9:%{version}
 A kpart allowing KDE apps to embedd vim as an editor.
 
 %description kvim -l pl
-KPart umo¿liwiaj±cy aplikacj± KDE wykorzystywanie 
-vim'a jako zagnie¿d¿onego edytora.
+KPart umo¿liwiaj±cy aplikacjom KDE wykorzystywanie vima jako
+osadzonego edytora.
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
@@ -247,20 +247,19 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %package i18n
 Summary:	Common internationalization and localization files for kdeaddons
 Summary(pl):	Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdeaddons
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	kdelibs-i18n >= 9:%{version}
 
 %description i18n
 Common internationalization and localization files for kdeaddons.
 
-%description -l pl i18n
+%description i18n -l pl
 Wspó³dzielone pliki umiêdzynarodawiaj±ce dla kdeaddons.
-
 
 %package atlantikdesigner-i18n
 Summary:	Internationalization and localization files for atlantikdesigner
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla atlantikdesigner
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-atlantikdesigner = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	kdegames-atlantik-i18n >= 9:%{version}
@@ -268,13 +267,13 @@ Requires:	kdegames-atlantik-i18n >= 9:%{version}
 %description atlantikdesigner-i18n
 Internationalization and localization files for atlantikdesigner.
 
-%description -l pl atlantikdesigner-i18n
+%description atlantikdesigner-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla atlantikdesigner.
 
 %package kontact-i18n
 Summary:	Internationalization and localization files for kontact
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kontact
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kontact = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	kdepim-kontact-i18n >= 9:%{version}
@@ -283,13 +282,13 @@ Requires:	kdenetwork-knewsticker-i18n >= 9:%{version}
 %description kontact-i18n
 Internationalization and localization files for kontact.
 
-%description -l pl kontact-i18n
+%description kontact-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kontact.
 
 %package ksig-i18n
 Summary:	Internationalization and localization files for ksig
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla ksig
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-ksig = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core-i18n >= 9:%{version}
@@ -297,13 +296,13 @@ Requires:	kdebase-core-i18n >= 9:%{version}
 %description ksig-i18n
 Internationalization and localization files for ksig.
 
-%description -l pl ksig-i18n
+%description ksig-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla ksig.
 
 %package kaddressbook-i18n
 Summary:	Internationalization and localization files for kaddressbook
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kaddressbook
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kaddressbook = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	kdepim-kaddressbook-i18n >= 9:%{version}
@@ -311,13 +310,13 @@ Requires:	kdepim-kaddressbook-i18n >= 9:%{version}
 %description kaddressbook-i18n
 Internationalization and localization files for kaddressbook.
 
-%description -l pl kaddressbook-i18n
+%description kaddressbook-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kaddressbook.
 
 %package kate-i18n
 Summary:	Internationalization and localization files for kate
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kate
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kate = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	kdebase-kate-i18n >= 9:%{version}
@@ -325,13 +324,13 @@ Requires:	kdebase-kate-i18n >= 9:%{version}
 %description kate-i18n
 Internationalization and localization files for kate.
 
-%description -l pl kate-i18n
+%description kate-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kate.
 
 %package fsview-i18n
 Summary:	Internationalization and localization files for fsview
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla fsview
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-fsview = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	konqueror-i18n >= 9:%{version}
@@ -339,13 +338,13 @@ Requires:	konqueror-i18n >= 9:%{version}
 %description fsview-i18n
 Internationalization and localization files for fsview.
 
-%description -l pl fsview-i18n
+%description fsview-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla fsview.
 
 %package noatun-i18n
 Summary:	Internationalization and localization files for noatun
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla noatun
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-noatun = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	kdemultimedia-noatun-i18n >= 9:%{version}
@@ -353,13 +352,13 @@ Requires:	kdemultimedia-noatun-i18n >= 9:%{version}
 %description noatun-i18n
 Internationalization and localization files for noatun.
 
-%description -l pl noatun-i18n
+%description noatun-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla noatun.
 
 %package kvim-i18n
 Summary:	Internationalization and localization files for kvim
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kvim
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kvim = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	kdebase-core-i18n >= 9:%{version}
@@ -367,13 +366,13 @@ Requires:	kdebase-core-i18n >= 9:%{version}
 %description kvim-i18n
 Internationalization and localization files for kvim.
 
-%description -l pl kvim-i18n
+%description kvim-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kvim.
 
 %package kicker-i18n
 Summary:	Internationalization and localization files for kicker
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla kicker
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-kicker = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	kdebase-kicker-i18n >= 9:%{version}
@@ -381,14 +380,14 @@ Requires:	kdebase-kicker-i18n >= 9:%{version}
 %description kicker-i18n
 Internationalization and localization files for kicker.
 
-%description -l pl kicker-i18n
+%description kicker-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla kicker.
 
 
 %package konqueror-i18n
 Summary:	Internationalization and localization files for konqueror
 Summary(pl):	Pliki umiêdzynarodawiaj±ce dla konqueror
-Group:	X11/Applications
+Group:		X11/Applications
 Requires:	%{name}-konqueror = %{epoch}:%{version}-%{release}
 Requires:	%{name}-i18n = %{epoch}:%{version}-%{release}
 Requires:	konqueror-i18n >= 9:%{version}
@@ -396,7 +395,7 @@ Requires:	konqueror-i18n >= 9:%{version}
 %description konqueror-i18n
 Internationalization and localization files for konqueror.
 
-%description -l pl konqueror-i18n
+%description konqueror-i18n -l pl
 Pliki umiêdzynarodawiaj±ce dla konqueror.
 
 %prep
@@ -460,8 +459,6 @@ do
 	%find_lang $i	--with-kde
 	cat $i.lang >> kicker-applets.lang
 done
-
-
 
 vim="kcmvim \
 vimpart"
