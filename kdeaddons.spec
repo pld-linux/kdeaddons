@@ -11,7 +11,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -129,7 +129,7 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
-Requires:	kdebase-kicker >= 9:%{version}
+Requires:	kdebase-desktop >= 9:%{version}
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
