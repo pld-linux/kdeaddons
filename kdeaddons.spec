@@ -7,7 +7,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040217
+%define		_snap		040225
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -405,7 +405,7 @@ Pliki umiêdzynarodawiaj±ce dla konquerora.
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1
+#%patch0 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
@@ -769,6 +769,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/exif.py.1*
 %{_mandir}/man1/jpegorient.1*
 %{_mandir}/man1/orient.py.1*
+# TODO
+%{_libdir}/kde3/konq_sidebarnews.la
+%attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
+%{_datadir}/apps/konqsidebartng/add/news_add.desktop
+%{_datadir}/apps/konqsidebartng/entries/news.desktop
+%{_datadir}/config.kcfg/konq_sidebarnews.kcfg
+%{_iconsdir}/crystalsvg/*/apps/konqsidebar_news.png
 
 %files kontact
 %defattr(644,root,root,755)
