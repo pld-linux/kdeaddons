@@ -1,11 +1,17 @@
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
+Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
+Version:	2.2.1
+Release:	1
 License:	GPL
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 Source0:	ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{version}%{version}%{name}-%{version}.tar.bz2
 BuildRequires:	kdebase-devel >= 2.2
 BuildRequires:	kdemultimedia-devel >= 2.2
@@ -23,6 +29,11 @@ Kate (text editor).
 kdeaddons contains additional plugins and scripts for some KDE
 applications.
 
+%description -l pl
+Wtyczki dla niektórych aplikacji KDE, rozszerzaj±ce funkcjonalno¶æ
+Konquerora (przegl±darki WWW i menad¿era plików), noatun (odtwarzacza
+plików multimedialnych), Kate (edytora tekstu).
+
 %description -l pt_BR
 kdeaddons contem plugins e scripts adicionais para alguma aplicações
 KDE.
@@ -30,10 +41,14 @@ KDE.
 %package kate
 Summary:	Plugins for the Kate text editor
 Summary(es):	Plugins para kdebase-kate
+Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 
 %description kate
 %{name}-kate contains plugins extending the functionality of the Kate
@@ -41,45 +56,69 @@ Group(pl):	X11/Aplikacje
 things, DCOP support, project management and text filtering
 capabilities.
 
-%description -l es kate
+%description kate -l es
 Este paquete prove plugins de KDE para kdebase-kate.
 
-%description -l pt_BR kate
+%description kate -l pl
+Ten pakiet zawiera wtyczki rozszerzaj±ce funkcjonalno¶æ Kate (KDE
+Advanced Text Editor - Zaawansowanego Edytora Tekstów KDE). Dodaje
+m.in. obs³ugê DCOP, mo¿liwo¶æ zarz±dzania projektami i filtrowania
+tekstu.
+
+%description kate -l pt_BR
 Este pacote fornece plugins KDE para kdebase-kate.
 
 %package kicker
 Summary:	Plugins and additional applets for Kicker (the KDE panel)
 Summary(es):	Plugins para kdebase-kicker
+Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 
 %description kicker
-Plugins and additional applets for Kicker (the KDE panel)
+Plugins and additional applets for Kicker (the KDE panel).
 
-%description -l es kicker
+%description kicker -l es
 Este paquete prove plugins de KDE para kdebase-kicker.
 
-%description -l pt_BR kicker
+%description kicker -l pl
+Wtyczki i dodatkowe aplety dla Kickera (panelu KDE).
+
+%description kicker -l pt_BR
 Este pacote fornece plugins KDE para kdebase-kicker.
 
 %package knewsticker
 Summary:	Scripts extending the functionality of KNewsTicker
+Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
 
+%description knewsticker -l pl
+Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera.
+
 %package konqueror
 Summary:	Plugins extending the functionality of Konqueror
 Summary(es):	Plugins para konqueror
+Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -87,27 +126,40 @@ contains, among other things, plugins for translating web pages,
 checking web pages for valid HTML code, and viewing the DOM tree of
 web pages.
 
-%description -l es konqueror
+%description konqueror -l es
 Este paquete prove plugins de KDE para kdebase-konqueror.
 
-%description -l pt_BR konqueror
+%description konqueror -l pl
+Pakiet zawiera wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora.
+Zawiera m.in. wtyczki do t³umaczenia stron WWW, sprawdzania
+poprawno¶ci HTML, ogl±dania drzewa DOM dokumentów.
+
+%description konqueror -l pt_BR
 Este pacote fornece plugins KDE para kdebase-konqueror.
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
 Summary(es):	Plugins para kdemultimedia-noatun
+Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
 
-%description -l es noatun
+%description noatun -l es
 Este paquete prove plugins de KDE para kdemultimedia-noatun.
 
-%description -l pt_BR noatun
+%description noatun -l pl
+Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza plików
+multimedialnych noatun.
+
+%description noatun -l pt_BR
 Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
