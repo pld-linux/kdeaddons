@@ -7,7 +7,7 @@
 #
 %define		_state		snapshots
 %define		_ver		3.2.90
-%define		_snap		040225
+%define		_snap		040407
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -20,11 +20,12 @@ Epoch:		1
 License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_ver}/src/%{name}-%{version}.tar.bz2
-Source0:	http://ep09.pld-linux.org/~adgor/kde/%{name}.tar.bz2
-##%% Source0-md5:	e61991c52aa6b76dec0790e76eb889bd
+Source0:	http://ep09.pld-linux.org/~djurban/kde/%{name}-%{_snap}.tar.bz2
+# Source0-md5:	cc7af97fa4a58c23a1d3b3180f254cf0
 #Source1:        http://ep09.pld-linux.org/~djurban/kde/i18n/kde-i18n-%{name}-%{version}.tar.bz2
 ##%% Source1-md5:	464451c674acd4bb27e0e34a48d737e2
-Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
+#Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
+Patch1:		%{name}-gcc34.patch
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	db-cxx-devel
@@ -405,12 +406,14 @@ Pliki umiêdzynarodawiaj±ce dla konquerora.
 
 %prep
 %setup -q -n %{name}
-#%patch0 -p1
+%patch1 -p1
 
 %build
 cp -f /usr/share/automake/config.sub admin
 
 export UNSERMAKE=/usr/share/unsermake/unsermake
+
+echo KDE_OPTIONS=nofinal >> noatun-plugins/luckytag/Makefile.am
 
 %{__make} -f admin/Makefile.common cvs
 
@@ -692,6 +695,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libdirfilterplugin.so
 %{_libdir}/kde3/libdomtreeviewerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libdomtreeviewerplugin.so
+%{_libdir}/kde3/libsearchbarplugin.la
+%attr(755,root,root) %{_libdir}/kde3/libsearchbarplugin.so
 %{_libdir}/kde3/kcm_kuick.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_kuick.so
 %{_libdir}/kde3/libkhtmlsettingsplugin.la
@@ -758,6 +763,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applnk/.hidden/uachangerplugin.desktop
 %{_datadir}/applnk/.hidden/validatorsplugin.desktop
 %{_datadir}/applnk/.hidden/webarchiverplugin.desktop
+%{_datadir}/applnk/.hidden/searchbarplugin.desktop
 %{_iconsdir}/crystalsvg/*/actions/babelfish.png
 %{_iconsdir}/crystalsvg/*/actions/cssvalidator.png
 %{_iconsdir}/crystalsvg/*/actions/domtreeviewer.png
@@ -774,6 +780,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
 %{_datadir}/apps/konqsidebartng/add/news_add.desktop
 %{_datadir}/apps/konqsidebartng/entries/news.desktop
+%{_datadir}/apps/konqueror/icons/crystalsvg/16x16/actions/google.png
 %{_datadir}/config.kcfg/konq_sidebarnews.kcfg
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_news.png
 
