@@ -23,10 +23,10 @@ Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.pat
 BuildRequires:	SDL-devel
 BuildRequires:	arts-kde-devel
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= %{version}
-BuildRequires:	kdebase-libkate >= %{version}
-BuildRequires:	kdemultimedia-devel >= %{version}
-BuildRequires:	kdegames-devel >= %{version}
+BuildRequires:	kdebase-devel >= 8:%{version}
+BuildRequires:	kdebase-libkate >= 8:%{version}
+BuildRequires:	kdemultimedia-devel >= 8:%{version}
+BuildRequires:	kdegames-devel >= 8:%{version}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 #BuildRequires:	nas-devel
@@ -55,7 +55,7 @@ KDE.
 Summary:	Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
 Group:		X11/Applications/Games
-Requires:	kdegames-atlantik >= %{version}
+Requires:	kdegames-atlantik >= 8:%{version}
 
 %description atlantikdesigner
 Atlantik board designer.
@@ -113,7 +113,7 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 Summary:	Scripts extending the functionality of KNewsTicker
 Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
-Requires:	kdenetwork-knewsticker >= %{version}
+Requires:	kdenetwork-knewsticker >= 9:%{version}
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
@@ -152,7 +152,7 @@ Summary(es):	Plugins para kdemultimedia-noatun
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
-Requires:	kdemultimedia-noatun >= %{version}
+Requires:	kdemultimedia-noatun >= 8:%{version}
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
