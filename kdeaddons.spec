@@ -4,7 +4,7 @@
 
 %define		_state		snapshots
 %define		_ver		3.1.92
-%define		_snap		031006
+%define		_snap		031014
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -18,7 +18,7 @@ License:	GPL
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{name}-%{_snap}.tar.bz2
 Source0:	http://www.kernel.pl/~adgor/kde/%{name}-%{_snap}.tar.bz2
-# Source0-md5:	574d17b33ddd8c616cccaa9f3cafe74c
+# Source0-md5:	4bc09d7bc6f22eb3fbf203a4a62abaed
 #Source0:	http://team.pld.org.pl/~djurban/kde/%{name}-%{_snap}.tar.bz2
 Patch0:		http://rambo.its.tudelft.nl/~ewald/xine/%{name}-3.1.0-sidebar-video.patch
 BuildRequires:	SDL-devel
@@ -246,9 +246,8 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %build
 
-for plik in `find ./ -name *.desktop` ; do
-	echo $plik	
-	sed -i -e 's/\[nb\]/\[no\]/g' $plik
+for f in `find . -name *.desktop` ; do
+	sed -i 's/\[nb\]/\[no\]/g' $f
 done
 
 %{__make} -f admin/Makefile.common cvs
@@ -304,6 +303,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/kate*.la
 %attr(755,root,root) %{_libdir}/kde3/kate*.so
 %{_datadir}/apps/kate/plugins
+%{_datadir}/apps/kate/scripts/html-tidy.desktop
+%attr(755,root,root) %{_datadir}/apps/kate/scripts/html-tidy.sh
 %{_datadir}/apps/katexmltools
 %{_datadir}/services/kate*
 %{_applnkdir}/.hidden/katefll.desktop
