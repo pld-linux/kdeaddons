@@ -1,5 +1,5 @@
 
-%define		_state		unstable
+%define		_state		stable
 %define		_ver		3.1
 
 Summary:	K Desktop Environment - Plugins
