@@ -184,7 +184,7 @@ Requires:	kdepim-kontact >= 3:%{version}
 Requires:	kdenetwork-knewsticker >= 10:%{version}
 
 %description kontact
-Plugins extending the functionality of Kontact. This includes an 
+Plugins extending the functionality of Kontact. This includes an
 rss feeds module.
 
 %description kontact -l pl
