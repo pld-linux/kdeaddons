@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without  kdegames        # no kdegames dep
+%bcond_without	xmms		# no xmms dep
 #
 %define		_state		stable
 %define		_kdever		3.4
@@ -33,9 +34,12 @@ BuildRequires:	kdenetwork-devel >= 10:%{_ver}
 BuildRequires:	kdepim-devel >= 3:%{_ver}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
+BuildRequires:	mDNSResponder-devel
+BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 #BuildRequires:	unsermake >= 040511
+%{?with_xmms:BuildRequires:	xmms-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
