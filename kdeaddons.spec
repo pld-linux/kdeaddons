@@ -4,11 +4,11 @@
 %bcond_without	xmms		# no xmms dep
 #
 %define		_state		stable
-%define		_kdever		3.4
-%define		_ver		3.4.0
+%define		_kdever		3.4.1
+%define		_ver		3.4.1
 
-%define		_minlibsevr	9:3.4.0
-%define		_minbaseevr	9:3.4.0
+%define		_minlibsevr	9:3.4.1
+%define		_minbaseevr	9:3.4.1
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -16,12 +16,12 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	5a0d82ee1bbaeec8dab74b2e5e604f94
+# Source0-md5:	596c3a7f4ef43e2f0bd760196a6b119b
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
@@ -567,6 +567,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
 %{_datadir}/mimelnk/application/x-win-lnk.desktop
 %{_datadir}/services/kfile_lnk.desktop
+%{_mandir}/man1/lnkforward.1*
 
 %files noatun
 %defattr(644,root,root,755)
