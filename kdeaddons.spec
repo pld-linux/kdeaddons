@@ -22,6 +22,7 @@ License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
 # Source0-md5:	af4fc7fa0dde8894b9d9582ecef7df2a
+Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
@@ -261,6 +262,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
 %setup -q
+%patch100 -p0
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	vimpart/kcmvim/kcmvim.desktop
