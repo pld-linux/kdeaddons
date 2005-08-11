@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without  kdegames        # no kdegames dep
+%bcond_without	kdegames        # no kdegames dep
 %bcond_without	xmms		# no xmms dep
 #
 %define		_state		stable
