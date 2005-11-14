@@ -4,11 +4,11 @@
 %bcond_without	xmms		# no xmms dep
 #
 %define		_state		stable
-%define		_kdever		3.4.3
-%define		_ver		3.4.3
+%define		_kdever		3.5
+%define		_ver		3.5.0
 
-%define		_minlibsevr	9:3.4.3
-%define		_minbaseevr	9:3.4.3
+%define		_minlibsevr	9:3.5.0
+%define		_minbaseevr	9:3.5.0
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -16,12 +16,12 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	0.1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	e927d60e94adba69e78f82d82305f4ce
+# Source0-md5:	f66b4e49be1f494dca7d8a7083b85d6d
 Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
 BuildRequires:	automake
@@ -213,19 +213,6 @@ A signature creator and manager.
 %description ksig -l pl
 Program tworz±cy i zarz±dzaj±cy podpisami.
 
-%package kvim
-Summary:	Vim KPart
-Summary(pl):	KPart z vimem
-Group:		X11/Applications
-Requires:	kdebase-core >= 9:%{_ver}
-
-%description kvim
-A kpart allowing KDE apps to embedd vim as an editor.
-
-%description kvim -l pl
-KPart umo¿liwiaj±cy aplikacjom KDE wykorzystywanie vima jako
-osadzonego edytora.
-
 %package lnkforward
 Summary:	Windows link file forwarder
 Summary(pl):	Przekierowywacz skrótów windowsowych
@@ -264,8 +251,6 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %setup -q
 #%patch100 -p0
 
-%{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
-	vimpart/kcmvim/kcmvim.desktop
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	-e 's/Terminal=0/Terminal=false/' \
 	atlantikdesigner/atlantikdesigner.desktop
@@ -316,9 +301,6 @@ mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post	kvim	-p /sbin/ldconfig
-%postun	kvim	-p /sbin/ldconfig
 
 %files ark
 %defattr(644,root,root,755)
@@ -412,6 +394,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/exif.py
 %attr(755,root,root) %{_bindir}/jpegorient
 %attr(755,root,root) %{_bindir}/orient.py
+%attr(755,root,root) %{_bindir}/kio_media_realfolder
 %{_libdir}/kde3/kfile_cert.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_cert.so
 %{_libdir}/kde3/kfile_desktop.la
@@ -426,6 +409,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kfile_txt.so
 %{_libdir}/kde3/konqsidebar_mediaplayer.la
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_mediaplayer.so
+%{_libdir}/kde3/konqsidebar_delicious.la
+%attr(755,root,root) %{_libdir}/kde3/konqsidebar_delicious.so
+%{_libdir}/kde3/konqsidebar_metabar.la
+%attr(755,root,root) %{_libdir}/kde3/konqsidebar_metabar.so
 %{_libdir}/kde3/libautorefresh.la
 %attr(755,root,root) %{_libdir}/kde3/libautorefresh.so
 %{_libdir}/kde3/libbabelfishplugin.la
@@ -448,6 +435,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libkuickplugin.so
 %{_libdir}/kde3/libminitoolsplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libminitoolsplugin.so
+%{_libdir}/kde3/libmfkonqmficon.la
+%attr(755,root,root) %{_libdir}/kde3/libmfkonqmficon.so
 %{_libdir}/kde3/librenaudioplugin.la
 %attr(755,root,root) %{_libdir}/kde3/librenaudioplugin.so
 %{_libdir}/kde3/librenimageplugin.la
@@ -469,6 +458,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/domtreeviewerplugin.desktop
 %{_datadir}/apps/khtml/kpartplugins/khtmlsettingsplugin.desktop
 %{_datadir}/apps/khtml/kpartplugins/khtmlsettingsplugin.rc
+%{_datadir}/apps/khtml/kpartplugins/mf_konqmficon.desktop
+%{_datadir}/apps/khtml/kpartplugins/mf_konqmficon.rc
 %{_datadir}/apps/khtml/kpartplugins/minitoolsplugin.desktop
 %{_datadir}/apps/khtml/kpartplugins/minitoolsplugin.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_babelfish.desktop
@@ -485,15 +476,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/validatorsplugin.desktop
 %{_datadir}/apps/khtml/kpartplugins/webarchiverplugin.desktop
 %{_datadir}/apps/konqiconview/kpartplugins/dirfilterplugin.rc
+%{_datadir}/apps/konqiconview/kpartplugins/dirfilterplugin.desktop
 %{_datadir}/apps/konqiconview/kpartplugins/kimgalleryplugin.rc
+%{_datadir}/apps/konqiconview/kpartplugins/kimgalleryplugin.desktop
 %{_datadir}/apps/konqlistview/kpartplugins/dirfilterplugin.rc
+%{_datadir}/apps/konqlistview/kpartplugins/dirfilterplugin.desktop
 %{_datadir}/apps/konqlistview/kpartplugins/kimgalleryplugin.rc
+%{_datadir}/apps/konqlistview/kpartplugins/kimgalleryplugin.desktop
 %{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop
+%{_datadir}/apps/konqsidebartng/add/delicious_add.desktop
+%{_datadir}/apps/konqsidebartng/add/metabar_add.desktop
+%{_datadir}/apps/konqsidebartng/entries/metabar.desktop
 %{_datadir}/apps/konqueror/kpartplugins
 %{_datadir}/apps/konqueror/servicemenus/imageconverter.desktop
 %{_datadir}/apps/konqueror/servicemenus/jpegorient.desktop
+%{_datadir}/apps/konqueror/servicemenus/media_realfolder.desktop
+%{_datadir}/apps/metabar
+%{_datadir}/apps/microformat
 %{_datadir}/config/translaterc
-%{_datadir}/services/dirfilterplugin.desktop
+#%{_datadir}/services/dirfilterplugin.desktop
 %{_datadir}/services/kfile_cert.desktop
 %{_datadir}/services/kfile_desktop.desktop
 %{_datadir}/services/kfile_folder.desktop
@@ -505,7 +506,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/renimagedlg.desktop
 %{_datadir}/services/webarchivethumbnail.desktop
 %{_datadir}/applnk/.hidden/kcmkuick.desktop
-%{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
+#%{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
 %{_datadir}/applnk/.hidden/kuickplugin.desktop
 %{_datadir}/applnk/.hidden/mediaplayerplugin.desktop
 %{_iconsdir}/crystalsvg/*/actions/babelfish.png
@@ -513,9 +514,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/crystalsvg/*/actions/domtreeviewer.png
 %{_iconsdir}/crystalsvg/*/actions/htmlvalidator.png
 %{_iconsdir}/crystalsvg/*/actions/imagegallery.png
+%{_iconsdir}/crystalsvg/*/actions/minitools.png
 %{_iconsdir}/crystalsvg/*/actions/validators.png
 %{_iconsdir}/crystalsvg/*/actions/webarchiver.png
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
+%{_iconsdir}/crystalsvg/*/apps/konqsidebar_delicious.png
 %{_mandir}/man1/exif.py.1*
 %{_mandir}/man1/jpegorient.1*
 %{_mandir}/man1/orient.py.1*
@@ -543,20 +546,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde/ksig.desktop
 %{_iconsdir}/*/*/apps/ksig.png
 %{_mandir}/man1/ksig.1*
-
-%files kvim
-%defattr(644,root,root,755)
-%{_libdir}/libxvim.la
-%attr(755,root,root) %{_libdir}/libxvim.so
-%attr(755,root,root) %{_libdir}/libxvim.so.*.*.*
-%{_libdir}/kde3/kcm_vim.la
-%attr(755,root,root) %{_libdir}/kde3/kcm_vim.so
-%{_libdir}/kde3/libvimpart.la
-%attr(755,root,root) %{_libdir}/kde3/libvimpart.so*
-%{_datadir}/apps/kcontrol/pics/kvim.png
-%{_datadir}/apps/vimpart
-%{_datadir}/services/vimpart.desktop
-%{_desktopdir}/kde/kcmvim.desktop
 
 %files lnkforward
 %defattr(644,root,root,755)
