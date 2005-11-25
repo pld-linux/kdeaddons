@@ -16,12 +16,12 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	f66b4e49be1f494dca7d8a7083b85d6d
+# Source0-md5:	a61bcb10580208c3abb8c47aed198597
 Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
 BuildRequires:	automake
