@@ -16,7 +16,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	%{_ver}
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -35,7 +35,7 @@ BuildRequires:	kdenetwork-devel >= 10:%{_ver}
 BuildRequires:	kdepim-devel >= 3:%{_ver}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	mDNSResponder-devel
+BuildRequires:	mdns-bonjour-devel
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
