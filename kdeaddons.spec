@@ -1,3 +1,5 @@
+# TODO
+# - locolor icons
 #
 # Conditional build:
 %bcond_without	kdegames        # no kdegames dep
@@ -22,7 +24,7 @@ License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
 # Source0-md5:	affb74174c6e3eda2c0748d6c052c8ff
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
 BuildRequires:	automake
 BuildRequires:	autoconf
@@ -289,9 +291,11 @@ rm -rf *.lang
 	kde_libs_htmldir=%{_kdedocdir} \
 	kde_htmldir=%{_kdedocdir}
 
+%if 0
 # Debian manpages
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+%endif
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
@@ -316,7 +320,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/atlantikdesigner
 %{_desktopdir}/kde/atlantikdesigner.desktop
 %{_iconsdir}/*/*/*/atlantikdesigner.png
-%{_mandir}/man1/atlantikdesigner.1*
+#%{_mandir}/man1/atlantikdesigner.1*
 %endif
 
 %files fsview
@@ -327,7 +331,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/fsview
 %{_datadir}/services/fsview_part.desktop
 %{_iconsdir}/*/*/apps/fsview.png
-%{_mandir}/man1/fsview.1*
+#%{_mandir}/man1/fsview.1*
 
 %files kaddressbook-plugins
 %defattr(644,root,root,755)
@@ -519,9 +523,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/crystalsvg/*/actions/webarchiver.png
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_delicious.png
-%{_mandir}/man1/exif.py.1*
-%{_mandir}/man1/jpegorient.1*
-%{_mandir}/man1/orient.py.1*
+%{_iconsdir}/*/*/apps/metabar.png
+%{_iconsdir}/*/*/apps/metabar.svgz
+#%{_mandir}/man1/exif.py.1*
+#%{_mandir}/man1/jpegorient.1*
+#%{_mandir}/man1/orient.py.1*
 # TODO - requires kdenetwork-{knewsticker,rss}
 %{_libdir}/kde3/konq_sidebarnews.la
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
@@ -545,7 +551,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksig
 %{_desktopdir}/kde/ksig.desktop
 %{_iconsdir}/*/*/apps/ksig.png
-%{_mandir}/man1/ksig.1*
+#%{_mandir}/man1/ksig.1*
 
 %files lnkforward
 %defattr(644,root,root,755)
@@ -558,7 +564,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
 %{_datadir}/mimelnk/application/x-win-lnk.desktop
 %{_datadir}/services/kfile_lnk.desktop
-%{_mandir}/man1/lnkforward.1*
+#%{_mandir}/man1/lnkforward.1*
 
 %files noatun
 %defattr(644,root,root,755)
@@ -597,6 +603,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/noatunwavecapture.so
 %{_datadir}/apps/noatun/*
 %{_iconsdir}/crystalsvg/*/apps/synaescope.png
-%{_mandir}/man1/noatunsynaescope.bin.1*
-%{_mandir}/man1/noatuntippecanoe.bin.1*
-%{_mandir}/man1/noatuntyler.bin.1*
+#%{_mandir}/man1/noatunsynaescope.bin.1*
+#%{_mandir}/man1/noatuntippecanoe.bin.1*
+#%{_mandir}/man1/noatuntyler.bin.1*
