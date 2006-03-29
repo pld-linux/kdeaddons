@@ -4,11 +4,11 @@
 %bcond_without	xmms		# no xmms dep
 #
 %define		_state		stable
-%define		_kdever		3.5.1
-%define		_ver		3.5.1
+%define		_kdever		3.5.2
+%define		_ver		3.5.2
 
-%define		_minlibsevr	9:3.5.1
-%define		_minbaseevr	9:3.5.1
+%define		_minlibsevr	9:3.5.2
+%define		_minbaseevr	9:3.5.2
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
@@ -21,7 +21,7 @@ Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	cbd2a6f65ae7338736d93b72bfdf5ae3
+# Source0-md5:	affb74174c6e3eda2c0748d6c052c8ff
 Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
 BuildRequires:	automake
