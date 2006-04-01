@@ -1,38 +1,41 @@
+# TODO
+# - locolor icons
 #
 # Conditional build:
 %bcond_without	kdegames        # no kdegames dep
 %bcond_without	xmms		# no xmms dep
 #
 %define		_state		stable
-%define		_kdever		3.5.1
-%define		_ver		3.5.1
-
-%define		_minlibsevr	9:3.5.1
-%define		_minbaseevr	9:3.5.1
+%define		_minlibsevr	9:%{version}
+%define		_minbaseevr	9:%{version}
+%define		_minmultimediaevr	9:%{version}
+%define		_minkdepimevr	9:%{version}
+%define		_minnetworkevr	10:%{version}
+%define		_mingamesevr	8:%{version}
 
 Summary:	K Desktop Environment - Plugins
 Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	%{_ver}
-Release:	2
+Version:	3.5.2
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{_kdever}/src/%{name}-%{_ver}.tar.bz2
-# Source0-md5:	cbd2a6f65ae7338736d93b72bfdf5ae3
-Patch100:	%{name}-branch.diff
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
+# Source0-md5:	affb74174c6e3eda2c0748d6c052c8ff
+#Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
-BuildRequires:	automake
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	db-cxx-devel
 BuildRequires:	gettext-devel
-BuildRequires:	kdebase-devel >= 9:%{_ver}
-%{?with_kdegames:BuildRequires:	kdegames-devel >= 8:%{_ver}}
-BuildRequires:	kdemultimedia-devel >= 9:%{_ver}
-BuildRequires:	kdenetwork-devel >= 10:%{_ver}
-BuildRequires:	kdepim-devel >= 3:%{_ver}
+BuildRequires:	kdebase-devel >= %{_minbaseevr}
+%{?with_kdegames:BuildRequires:	kdegames-devel >= %{_mingamesevr}}
+BuildRequires:	kdemultimedia-devel >= %{_minmultimediaevr}
+BuildRequires:	kdenetwork-devel >= %{_minnetworkevr}
+BuildRequires:	kdepim-devel >= %{_minpimevr}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	mdns-bonjour-devel
@@ -76,7 +79,7 @@ kompresji/dekompresji archiwów) z zarz±dc± plików.
 Summary:	Atlantik board designer
 Summary(pl):	Program do tworzenia plansz dla gry Atlantik
 Group:		X11/Applications/Games
-Requires:	kdegames-atlantik >= 8:%{_ver}
+Requires:	kdegames-atlantik >= %{_mingamesevr}
 
 %description atlantikdesigner
 Atlantik board designer.
@@ -88,7 +91,7 @@ Program do tworzenia plansz dla gry Atlantik.
 Summary:	FSView - a tool for showing disc utilization in a graphical form
 Summary(pl):	FSview - narzêdzie do graficznego przedstawiania wolnego miejsca na dysku
 Group:		X11/Applications
-Requires:	konqueror >= 9:%{_ver}
+Requires:	konqueror >= %{_minbaseevr}
 
 %description fsview
 FSView is a tool for showing disc utilization in a graphical form,
@@ -104,7 +107,7 @@ Summary(es):	Plugins para kaddressbook
 Summary(pl):	Wtyczki do kaddressbook
 Summary(pt_BR):	Plugins para kaddressbook
 Group:		X11/Applications
-Requires:	kdepim-kaddressbook >= 3:%{_ver}
+Requires:	kdepim-kaddressbook >= %{_minkdepimevr}
 
 %description kaddressbook-plugins
 Plugins for kaddressbook.
@@ -124,7 +127,7 @@ Summary(es):	Plugins para kdebase-kate
 Summary(pl):	Wtyczki do edytora tekstu Kate
 Summary(pt_BR):	Plugins para kdebase-kate
 Group:		X11/Applications
-Requires:	kdebase-kate >= 9:%{_ver}
+Requires:	kdebase-kate >= %{_minbaseevr}
 
 %description kate
 kdeaddons-kate contains plugins extending the functionality of the
@@ -150,7 +153,7 @@ Summary(es):	Plugins para kdebase-kicker
 Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
 Summary(pt_BR):	Plugins para kdebase-kicker
 Group:		X11/Applications
-Requires:	kdebase-desktop >= 9:%{_ver}
+Requires:	kdebase-desktop >= %{_minbaseevr}
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
@@ -168,7 +171,7 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 Summary:	Scripts extending the functionality of KNewsTicker
 Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
 Group:		X11/Applications
-Requires:	kdenetwork-knewsticker >= 10:%{_ver}
+Requires:	kdenetwork-knewsticker >= %{_minnetworkevr}
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
@@ -182,7 +185,7 @@ Summary(es):	Plugins para konqueror
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
 Summary(pt_BR):	Plugins para konqueror
 Group:		X11/Applications
-Requires:	konqueror >= 9:%{_ver}
+Requires:	konqueror >= %{_minbaseevr}
 
 %description konqueror
 Plugins extending the functionality of Konqueror. %{name}-konqueror
@@ -205,7 +208,7 @@ Este pacote fornece plugins KDE para kdebase-konqueror.
 Summary:	A signature creator and manager
 Summary(pl):	Program tworz±cy i zarz±dzaj±cy podpisami
 Group:		X11/Applications
-Requires:	kdebase-core >= 9:%{_ver}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description ksig
 A signature creator and manager.
@@ -217,7 +220,7 @@ Program tworz±cy i zarz±dzaj±cy podpisami.
 Summary:	Windows link file forwarder
 Summary(pl):	Przekierowywacz skrótów windowsowych
 Group:		X11/Applications
-Requires:	kdebase-core >= 9:%{_ver}
+Requires:	kdebase-core >= %{_minbaseevr}
 
 %description lnkforward
 A konqueror extension that makes windows .lnk files work under Linux.
@@ -232,7 +235,7 @@ Summary(es):	Plugins para kdemultimedia-noatun
 Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
 Summary(pt_BR):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
-Requires:	kdemultimedia-noatun >= 9:%{_ver}
+Requires:	kdemultimedia-noatun >= %{_minmultimediaevr}
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
@@ -289,9 +292,11 @@ rm -rf *.lang
 	kde_libs_htmldir=%{_kdedocdir} \
 	kde_htmldir=%{_kdedocdir}
 
+%if 0
 # Debian manpages
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+%endif
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
@@ -316,7 +321,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/atlantikdesigner
 %{_desktopdir}/kde/atlantikdesigner.desktop
 %{_iconsdir}/*/*/*/atlantikdesigner.png
-%{_mandir}/man1/atlantikdesigner.1*
+#%{_mandir}/man1/atlantikdesigner.1*
 %endif
 
 %files fsview
@@ -327,7 +332,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/fsview
 %{_datadir}/services/fsview_part.desktop
 %{_iconsdir}/*/*/apps/fsview.png
-%{_mandir}/man1/fsview.1*
+#%{_mandir}/man1/fsview.1*
 
 %files kaddressbook-plugins
 %defattr(644,root,root,755)
@@ -519,9 +524,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/crystalsvg/*/actions/webarchiver.png
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_delicious.png
-%{_mandir}/man1/exif.py.1*
-%{_mandir}/man1/jpegorient.1*
-%{_mandir}/man1/orient.py.1*
+%{_iconsdir}/*/*/apps/metabar.png
+%{_iconsdir}/*/*/apps/metabar.svgz
+#%{_mandir}/man1/exif.py.1*
+#%{_mandir}/man1/jpegorient.1*
+#%{_mandir}/man1/orient.py.1*
 # TODO - requires kdenetwork-{knewsticker,rss}
 %{_libdir}/kde3/konq_sidebarnews.la
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
@@ -545,7 +552,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/ksig
 %{_desktopdir}/kde/ksig.desktop
 %{_iconsdir}/*/*/apps/ksig.png
-%{_mandir}/man1/ksig.1*
+#%{_mandir}/man1/ksig.1*
 
 %files lnkforward
 %defattr(644,root,root,755)
@@ -558,7 +565,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
 %{_datadir}/mimelnk/application/x-win-lnk.desktop
 %{_datadir}/services/kfile_lnk.desktop
-%{_mandir}/man1/lnkforward.1*
+#%{_mandir}/man1/lnkforward.1*
 
 %files noatun
 %defattr(644,root,root,755)
@@ -597,6 +604,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/noatunwavecapture.so
 %{_datadir}/apps/noatun/*
 %{_iconsdir}/crystalsvg/*/apps/synaescope.png
-%{_mandir}/man1/noatunsynaescope.bin.1*
-%{_mandir}/man1/noatuntippecanoe.bin.1*
-%{_mandir}/man1/noatuntyler.bin.1*
+#%{_mandir}/man1/noatunsynaescope.bin.1*
+#%{_mandir}/man1/noatuntippecanoe.bin.1*
+#%{_mandir}/man1/noatuntyler.bin.1*
