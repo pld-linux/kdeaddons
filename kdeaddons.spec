@@ -9,7 +9,7 @@
 %define		_minlibsevr	9:%{version}
 %define		_minbaseevr	9:%{version}
 %define		_minmultimediaevr	9:%{version}
-%define		_minkdepimevr	3:%{version}
+%define		_minkdepimevr	9:%{version}
 %define		_minnetworkevr	10:%{version}
 %define		_mingamesevr	8:%{version}
 
