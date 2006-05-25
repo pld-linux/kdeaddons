@@ -1,6 +1,3 @@
-# TODO
-# - locolor icons
-#
 # Conditional build:
 %bcond_without	kdegames        # no kdegames dep
 %bcond_without	xmms		# no xmms dep
@@ -299,6 +296,9 @@ install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %endif
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
+
+# unsupported
+rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
 %find_lang kate-plugins		--with-kde
 %find_lang kicker-applets	--with-kde
