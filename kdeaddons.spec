@@ -1,6 +1,3 @@
-# TODO
-# - locolor icons
-#
 # Conditional build:
 %bcond_without	kdegames        # no kdegames dep
 %bcond_without	xmms		# no xmms dep
@@ -18,17 +15,17 @@ Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.5.2
+Version:	3.5.3
 Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	affb74174c6e3eda2c0748d6c052c8ff
+# Source0-md5:	ea25326c6a775bbfa40d0efabed34c0d
 #Patch100:	%{name}-branch.diff
 BuildRequires:	SDL-devel
-BuildRequires:	automake
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	db-cxx-devel
 BuildRequires:	gettext-devel
 BuildRequires:	kdebase-devel >= %{_minbaseevr}
@@ -299,6 +296,9 @@ install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %endif
 
 mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
+
+# unsupported
+rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
 %find_lang kate-plugins		--with-kde
 %find_lang kicker-applets	--with-kde
