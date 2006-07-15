@@ -428,6 +428,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libdirfilterplugin.so
 %{_libdir}/kde3/libdomtreeviewerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libdomtreeviewerplugin.so
+%{_libdir}/kde3/librellinksplugin.la
+%attr(755,root,root) %{_libdir}/kde3/librellinksplugin.so
 %{_libdir}/kde3/libsearchbarplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libsearchbarplugin.so
 %{_libdir}/kde3/kcm_kuick.la
@@ -472,6 +474,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.desktop
 %{_datadir}/apps/khtml/kpartplugins/plugin_domtreeviewer.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.desktop
+%{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_validators.desktop
 %{_datadir}/apps/khtml/kpartplugins/plugin_validators.rc
 %{_datadir}/apps/khtml/kpartplugins/plugin_webarchiver.desktop
@@ -559,10 +562,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/lnkforward
 %{_libdir}/kde3/kfile_lnk.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_lnk.so
-%{_libdir}/kde3/librellinksplugin.la
-%attr(755,root,root) %{_libdir}/kde3/librellinksplugin.so
 %{_datadir}/applnk/.hidden/lnkforward.desktop
-%{_datadir}/apps/khtml/kpartplugins/plugin_rellinks.rc
 %{_datadir}/mimelnk/application/x-win-lnk.desktop
 %{_datadir}/services/kfile_lnk.desktop
 #%{_mandir}/man1/lnkforward.1*
