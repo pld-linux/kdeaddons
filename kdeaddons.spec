@@ -396,9 +396,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
-#%attr(755,root,root) %{_bindir}/exif.py
 %attr(755,root,root) %{_bindir}/jpegorient
-#%attr(755,root,root) %{_bindir}/orient.py
 %attr(755,root,root) %{_bindir}/kio_media_realfolder
 %{_libdir}/kde3/kfile_cert.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_cert.so
@@ -548,6 +546,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/khtml/kpartplugins/akregator_konqfeedicon.desktop
 %{_datadir}/apps/khtml/kpartplugins/akregator_konqfeedicon.rc
 %{_datadir}/services/akregator_konqplugin.desktop
+%dir %{_datadir}/apps/imagerotation
+%attr(755,root,root) %{_datadir}/apps/imagerotation/orient.py
+%attr(755,root,root) %{_datadir}/apps/imagerotation/exif.py
 
 %files ksig
 %defattr(644,root,root,755)
