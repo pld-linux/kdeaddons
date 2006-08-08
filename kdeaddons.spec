@@ -16,7 +16,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.5.4
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -396,9 +396,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/exif.py
+#%attr(755,root,root) %{_bindir}/exif.py
 %attr(755,root,root) %{_bindir}/jpegorient
-%attr(755,root,root) %{_bindir}/orient.py
+#%attr(755,root,root) %{_bindir}/orient.py
 %attr(755,root,root) %{_bindir}/kio_media_realfolder
 %{_libdir}/kde3/kfile_cert.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_cert.so
