@@ -23,6 +23,7 @@ Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
 # Source0-md5:	840d18fbcadec9f94bb70563876b4dcd
 #Patch100:	%{name}-branch.diff
+Patch0:		kde-ac260-lt.patch
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -250,6 +251,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %prep
 %setup -q
 #%patch100 -p0
+%patch0 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	-e 's/Terminal=0/Terminal=false/' \
