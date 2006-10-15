@@ -15,14 +15,16 @@ Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.5.4
-Release:	2
+Version:	3.5.5
+Release:	0.1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	840d18fbcadec9f94bb70563876b4dcd
+# Source0-md5:	71c0a690abf8ad0f43135fa887d0b40c
 #Patch100:	%{name}-branch.diff
+Patch0:		kde-common-PLD.patch
+Patch1:		kde-ac260-lt.patch
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -250,6 +252,8 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %prep
 %setup -q
 #%patch100 -p0
+%patch0 -p1
+%patch1 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	-e 's/Terminal=0/Terminal=false/' \
@@ -264,11 +268,7 @@ done
 
 %build
 cp -f /usr/share/automake/config.sub admin
-
-#export UNSERMAKE=/usr/share/unsermake/unsermake
-
 %{__make} -f admin/Makefile.common cvs
-
 %configure \
 	--disable-rpath \
 	--disable-final \
