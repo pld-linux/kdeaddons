@@ -46,6 +46,8 @@ BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define         _noautoreq      libtool(.*)
+
 %description
 Plugins for some KDE applications: %{name} extends the functionality
 of Konqueror (web browser and file manager), noatun (media player) and
