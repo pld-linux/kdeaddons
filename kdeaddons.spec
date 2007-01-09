@@ -16,7 +16,7 @@ Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.5.5
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -25,6 +25,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
+Patch2:		kde-am.patch
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -45,8 +46,6 @@ BuildRequires:	sed >= 4.0
 %{?with_xmms:BuildRequires:	xmms-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define         _noautoreq      libtool(.*)
 
 %description
 Plugins for some KDE applications: %{name} extends the functionality
@@ -256,6 +255,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 #%patch100 -p0
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	-e 's/Terminal=0/Terminal=false/' \
@@ -302,6 +302,8 @@ mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 # unsupported
 rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
 %find_lang kate-plugins		--with-kde
 %find_lang kicker-applets	--with-kde
 %find_lang konq-plugins		--with-kde
@@ -311,7 +313,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files ark
 %defattr(644,root,root,755)
-%{_libdir}/kde3/libarkplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libarkplugin.so
 %{_datadir}/applnk/.hidden/arkplugin.desktop
 %{_datadir}/services/ark_plugin.desktop
@@ -329,7 +330,6 @@ rm -rf $RPM_BUILD_ROOT
 %files fsview
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/fsview
-%{_libdir}/kde3/libfsviewpart.la
 %attr(755,root,root) %{_libdir}/kde3/libfsviewpart.so
 %{_datadir}/apps/fsview
 %{_datadir}/services/fsview_part.desktop
@@ -338,9 +338,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kaddressbook-plugins
 %defattr(644,root,root,755)
-%{_libdir}/kde3/libkaddrbk_geo_xxport.la
 %attr(755,root,root) %{_libdir}/kde3/libkaddrbk_geo_xxport.so
-%{_libdir}/kde3/libkaddrbk_gmx_xxport.la
 %attr(755,root,root) %{_libdir}/kde3/libkaddrbk_gmx_xxport.so
 %{_datadir}/apps/kaddressbook/geo_xxportui.rc
 %{_datadir}/apps/kaddressbook/gmx_xxportui.rc
@@ -349,9 +347,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kate -f kate-plugins.lang
 %defattr(644,root,root,755)
-%{_libdir}/kde3/kate*.la
 %attr(755,root,root) %{_libdir}/kde3/kate*.so
-%{_libdir}/kde3/libkatetabbarextensionplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libkatetabbarextensionplugin.so
 %{_datadir}/apps/kate/plugins/*
 %{_datadir}/apps/kate/scripts/html-tidy.desktop
@@ -363,15 +359,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files kicker -f kicker-applets.lang
 %defattr(644,root,root,755)
-%{_libdir}/kde3/kbinaryclock_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/kbinaryclock_panelapplet.so
-%{_libdir}/kde3/kolourpicker_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/kolourpicker_panelapplet.so
-%{_libdir}/kde3/ktimemon_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/ktimemon_panelapplet.so
-%{_libdir}/kde3/math_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/math_panelapplet.so
-%{_libdir}/kde3/mediacontrol_panelapplet.la
 %attr(755,root,root) %{_libdir}/kde3/mediacontrol_panelapplet.so
 %{_datadir}/apps/kicker/applets/kbinaryclock.desktop
 %{_datadir}/apps/kicker/applets/kolourpicker.desktop
@@ -400,61 +391,33 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/jpegorient
 %attr(755,root,root) %{_bindir}/kio_media_realfolder
-%{_libdir}/kde3/kfile_cert.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_cert.so
-%{_libdir}/kde3/kfile_desktop.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_desktop.so
-%{_libdir}/kde3/kfile_folder.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_folder.so
-%{_libdir}/kde3/kfile_html.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_html.so
-%{_libdir}/kde3/kfile_mhtml.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_mhtml.so
-%{_libdir}/kde3/kfile_txt.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_txt.so
-%{_libdir}/kde3/konqsidebar_mediaplayer.la
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_mediaplayer.so
-%{_libdir}/kde3/konqsidebar_delicious.la
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_delicious.so
-%{_libdir}/kde3/konqsidebar_metabar.la
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_metabar.so
-%{_libdir}/kde3/libautorefresh.la
 %attr(755,root,root) %{_libdir}/kde3/libautorefresh.so
-%{_libdir}/kde3/libbabelfishplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libbabelfishplugin.so
-%{_libdir}/kde3/libcrashesplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libcrashesplugin.so
-%{_libdir}/kde3/libdirfilterplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libdirfilterplugin.so
-%{_libdir}/kde3/libdomtreeviewerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libdomtreeviewerplugin.so
-%{_libdir}/kde3/librellinksplugin.la
 %attr(755,root,root) %{_libdir}/kde3/librellinksplugin.so
-%{_libdir}/kde3/libsearchbarplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libsearchbarplugin.so
-%{_libdir}/kde3/kcm_kuick.la
 %attr(755,root,root) %{_libdir}/kde3/kcm_kuick.so
-%{_libdir}/kde3/libkhtmlsettingsplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libkhtmlsettingsplugin.so
-%{_libdir}/kde3/libkimgallery.la
 %attr(755,root,root) %{_libdir}/kde3/libkimgallery.so
-%{_libdir}/kde3/libkuickplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libkuickplugin.so
-%{_libdir}/kde3/libminitoolsplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libminitoolsplugin.so
-%{_libdir}/kde3/libmfkonqmficon.la
 %attr(755,root,root) %{_libdir}/kde3/libmfkonqmficon.so
-%{_libdir}/kde3/librenaudioplugin.la
 %attr(755,root,root) %{_libdir}/kde3/librenaudioplugin.so
-%{_libdir}/kde3/librenimageplugin.la
 %attr(755,root,root) %{_libdir}/kde3/librenimageplugin.so
-%{_libdir}/kde3/libuachangerplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libuachangerplugin.so
-%{_libdir}/kde3/libvalidatorsplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libvalidatorsplugin.so
-%{_libdir}/kde3/libwebarchiverplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libwebarchiverplugin.so
-%{_libdir}/kde3/webarchivethumbnail.la
 %attr(755,root,root) %{_libdir}/kde3/webarchivethumbnail.so
 %{_datadir}/apps/domtreeviewer
 %{_datadir}/apps/khtml/kpartplugins/autorefresh.desktop
@@ -533,16 +496,13 @@ rm -rf $RPM_BUILD_ROOT
 #%{_mandir}/man1/jpegorient.1*
 #%{_mandir}/man1/orient.py.1*
 # TODO - requires kdenetwork-{knewsticker,rss}
-%{_libdir}/kde3/konq_sidebarnews.la
 %attr(755,root,root) %{_libdir}/kde3/konq_sidebarnews.so
 %{_datadir}/apps/konqsidebartng/add/news_add.desktop
 %{_datadir}/apps/konqueror/icons/crystalsvg/16x16/actions/google.png
 %{_datadir}/config.kcfg/konq_sidebarnews.kcfg
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_news.png
 # TODO - requires kdepim (akregator)
-%{_libdir}/kde3/libakregatorkonqfeedicon.la
 %attr(755,root,root) %{_libdir}/kde3/libakregatorkonqfeedicon.so
-%{_libdir}/kde3/libakregatorkonqplugin.la
 %attr(755,root,root) %{_libdir}/kde3/libakregatorkonqplugin.so
 %{_datadir}/apps/akregator/pics/rss.png
 %{_datadir}/apps/khtml/kpartplugins/akregator_konqfeedicon.desktop
@@ -563,7 +523,6 @@ rm -rf $RPM_BUILD_ROOT
 %files lnkforward
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/lnkforward
-%{_libdir}/kde3/kfile_lnk.la
 %attr(755,root,root) %{_libdir}/kde3/kfile_lnk.so
 %{_datadir}/applnk/.hidden/lnkforward.desktop
 %{_datadir}/mimelnk/application/x-win-lnk.desktop
@@ -575,35 +534,20 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/noatunsynaescope.bin
 %attr(755,root,root) %{_bindir}/noatuntippecanoe.bin
 %attr(755,root,root) %{_bindir}/noatuntyler.bin
-%{_libdir}/kde3/noatun_ffrs.la
 %attr(755,root,root) %{_libdir}/kde3/noatun_ffrs.so
-%{_libdir}/kde3/noatunalsaplayer.la
 %attr(755,root,root) %{_libdir}/kde3/noatunalsaplayer.so
-%{_libdir}/kde3/noatunblurscope.la
 %attr(755,root,root) %{_libdir}/kde3/noatunblurscope.so
-%{_libdir}/kde3/noatuncharlatan.la
 %attr(755,root,root) %{_libdir}/kde3/noatuncharlatan.so
-%{_libdir}/kde3/noatun_oblique.la
 %attr(755,root,root) %{_libdir}/kde3/noatun_oblique.so
-%{_libdir}/kde3/noatundub.la
 %attr(755,root,root) %{_libdir}/kde3/noatundub.so
-%{_libdir}/kde3/noatunluckytag.la
 %attr(755,root,root) %{_libdir}/kde3/noatunluckytag.so
-%{_libdir}/kde3/noatunlyrics.la
 %attr(755,root,root) %{_libdir}/kde3/noatunlyrics.so
-%{_libdir}/kde3/noatunmadness.la
 %attr(755,root,root) %{_libdir}/kde3/noatunmadness.so
-%{_libdir}/kde3/noatunpitchablespeed.la
 %attr(755,root,root) %{_libdir}/kde3/noatunpitchablespeed.so
-%{_libdir}/kde3/noatunsynaescope.la
 %attr(755,root,root) %{_libdir}/kde3/noatunsynaescope.so
-%{_libdir}/kde3/noatuntippecanoe.la
 %attr(755,root,root) %{_libdir}/kde3/noatuntippecanoe.so
-%{_libdir}/kde3/noatuntyler.la
 %attr(755,root,root) %{_libdir}/kde3/noatuntyler.so
-%{_libdir}/kde3/noatunwakeup.la
 %attr(755,root,root) %{_libdir}/kde3/noatunwakeup.so
-%{_libdir}/kde3/noatunwavecapture.la
 %attr(755,root,root) %{_libdir}/kde3/noatunwavecapture.so
 %{_datadir}/apps/noatun/*
 %{_iconsdir}/crystalsvg/*/apps/synaescope.png
