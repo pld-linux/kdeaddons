@@ -6,7 +6,7 @@
 %define		_minlibsevr	9:%{version}
 %define		_minbaseevr	9:%{version}
 %define		_minmultimediaevr	9:%{version}
-%define		_minkdepimevr	9:%{version}
+%define		_minpimevr	9:%{version}
 %define		_minnetworkevr	10:%{version}
 %define		_mingamesevr	8:%{version}
 
@@ -15,17 +15,16 @@ Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.5.5
+Version:	3.5.6
 Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	71c0a690abf8ad0f43135fa887d0b40c
+# Source0-md5:	96d6d2a76da2a5232b3b46318456a5bc
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
-Patch2:		kde-am.patch
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -107,7 +106,7 @@ Summary(es):	Plugins para kaddressbook
 Summary(pl):	Wtyczki do kaddressbook
 Summary(pt_BR):	Plugins para kaddressbook
 Group:		X11/Applications
-Requires:	kdepim-kaddressbook >= %{_minkdepimevr}
+Requires:	kdepim-kaddressbook >= %{_minpimevr}
 
 %description kaddressbook-plugins
 Plugins for kaddressbook.
@@ -255,7 +254,6 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 #%patch100 -p0
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	-e 's/Terminal=0/Terminal=false/' \
