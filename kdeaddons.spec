@@ -15,13 +15,13 @@ Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.5.5
-Release:	0.1
+Version:	3.5.6
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	71c0a690abf8ad0f43135fa887d0b40c
+# Source0-md5:	96d6d2a76da2a5232b3b46318456a5bc
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
@@ -37,7 +37,7 @@ BuildRequires:	kdenetwork-devel >= %{_minnetworkevr}
 BuildRequires:	kdepim-devel >= %{_minpimevr}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	mdns-bonjour-devel
+BuildRequires:	mDNSResponder-devel
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
