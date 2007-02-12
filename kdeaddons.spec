@@ -11,9 +11,9 @@
 %define		_minbaseevr	9:3.4.89.050625
 
 Summary:	K Desktop Environment - Plugins
-Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
-Summary(pl):	Wtyczki do aplikacji KDE
-Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
+Summary(es.UTF-8):   K Desktop Environment - Plugins e Scripts para aplicativos KDE
+Summary(pl.UTF-8):   Wtyczki do aplikacji KDE
+Summary(pt_BR.UTF-8):   K Desktop Environment - Plugins e Scripts para aplicaÃ§Ãµes KDE
 Name:		kdeaddons
 Version:	%{_ver}.%{_snap}
 Release:	1
@@ -49,18 +49,18 @@ Plugins for some KDE applications: %{name} extends the functionality
 of Konqueror (web browser and file manager), noatun (media player) and
 Kate (text editor).
 
-%description -l pl
-Wtyczki dla niektórych aplikacji KDE, rozszerzaj±ce funkcjonalno¶æ
-Konquerora (przegl±darki WWW i zarz±dcy plików), noatun (odtwarzacza
-plików multimedialnych), Kate (edytora tekstu).
+%description -l pl.UTF-8
+Wtyczki dla niektÃ³rych aplikacji KDE, rozszerzajÄ…ce funkcjonalnoÅ›Ä‡
+Konquerora (przeglÄ…darki WWW i zarzÄ…dcy plikÃ³w), noatun (odtwarzacza
+plikÃ³w multimedialnych), Kate (edytora tekstu).
 
-%description -l pt_BR
-kdeaddons contem plugins e scripts adicionais para alguma aplicações
+%description -l pt_BR.UTF-8
+kdeaddons contem plugins e scripts adicionais para alguma aplicaÃ§Ãµes
 KDE.
 
 %package ark
 Summary:	Konqueror ark integration plugin
-Summary(pl):	Wtyczka pozwalaj±ca na integracjê konquerora z ark
+Summary(pl.UTF-8):   Wtyczka pozwalajÄ…ca na integracjÄ™ konquerora z ark
 Group:		X11/Applications
 Requires:	kdeutils-ark
 
@@ -68,25 +68,25 @@ Requires:	kdeutils-ark
 Konqueror plugin for integrating ark (a compression/decompression
 program) with the filemanager.
 
-%description ark -l pl
-Wtyczka do konquerora integruj±ca ark (program do
-kompresji/dekompresji archiwów) z zarz±dc± plików.
+%description ark -l pl.UTF-8
+Wtyczka do konquerora integrujÄ…ca ark (program do
+kompresji/dekompresji archiwÃ³w) z zarzÄ…dcÄ… plikÃ³w.
 
 %package atlantikdesigner
 Summary:	Atlantik board designer
-Summary(pl):	Program do tworzenia plansz dla gry Atlantik
+Summary(pl.UTF-8):   Program do tworzenia plansz dla gry Atlantik
 Group:		X11/Applications/Games
 Requires:	kdegames-atlantik >= 8:%{_ver}
 
 %description atlantikdesigner
 Atlantik board designer.
 
-%description atlantikdesigner -l pl
+%description atlantikdesigner -l pl.UTF-8
 Program do tworzenia plansz dla gry Atlantik.
 
 %package fsview
 Summary:	FSView - a tool for showing disc utilization in a graphical form
-Summary(pl):	FSview - narzêdzie do graficznego przedstawiania wolnego miejsca na dysku
+Summary(pl.UTF-8):   FSview - narzÄ™dzie do graficznego przedstawiania wolnego miejsca na dysku
 Group:		X11/Applications
 Requires:	konqueror >= 9:%{_ver}
 
@@ -94,35 +94,35 @@ Requires:	konqueror >= 9:%{_ver}
 FSView is a tool for showing disc utilization in a graphical form,
 much like the UNIX command 'du'.
 
-%description fsview -l pl
-FSview s³u¿y do graficznego przedstawiania wolnego miejsca na dysku,
-dzia³a podobnie do polecenia 'du'.
+%description fsview -l pl.UTF-8
+FSview sÅ‚uÅ¼y do graficznego przedstawiania wolnego miejsca na dysku,
+dziaÅ‚a podobnie do polecenia 'du'.
 
 %package kaddressbook-plugins
 Summary:	Plugins for kaddressbook
-Summary(es):	Plugins para kaddressbook
-Summary(pl):	Wtyczki do kaddressbook
-Summary(pt_BR):	Plugins para kaddressbook
+Summary(es.UTF-8):   Plugins para kaddressbook
+Summary(pl.UTF-8):   Wtyczki do kaddressbook
+Summary(pt_BR.UTF-8):   Plugins para kaddressbook
 Group:		X11/Applications
 Requires:	kdepim-kaddressbook >= 3:%{_ver}
 
 %description kaddressbook-plugins
 Plugins for kaddressbook.
 
-%description kaddressbook-plugins -l es
+%description kaddressbook-plugins -l es.UTF-8
 Este paquete prove plugins de KDE para kaddressbook.
 
-%description kaddressbook-plugins -l pl
+%description kaddressbook-plugins -l pl.UTF-8
 Wtyczki do kaddressbook.
 
-%description kaddressbook-plugins -l pt_BR
+%description kaddressbook-plugins -l pt_BR.UTF-8
 Este pacote fornece plugins KDE para kaddressbook.
 
 %package kate
 Summary:	Plugins for the Kate text editor
-Summary(es):	Plugins para kdebase-kate
-Summary(pl):	Wtyczki do edytora tekstu Kate
-Summary(pt_BR):	Plugins para kdebase-kate
+Summary(es.UTF-8):   Plugins para kdebase-kate
+Summary(pl.UTF-8):   Wtyczki do edytora tekstu Kate
+Summary(pt_BR.UTF-8):   Plugins para kdebase-kate
 Group:		X11/Applications
 Requires:	kdebase-kate >= 9:%{_ver}
 
@@ -132,55 +132,55 @@ Kate (KDE Advanced Text Editor) editor. kdeaddons-kate adds, among
 other things, DCOP support, project management and text filtering
 capabilities.
 
-%description kate -l es
+%description kate -l es.UTF-8
 Este paquete prove plugins de KDE para kdebase-kate.
 
-%description kate -l pl
-Ten pakiet zawiera wtyczki rozszerzaj±ce funkcjonalno¶æ Kate (KDE
-Advanced Text Editor - Zaawansowanego Edytora Tekstów KDE). Dodaje
-m.in. obs³ugê DCOP, mo¿liwo¶æ zarz±dzania projektami i filtrowania
+%description kate -l pl.UTF-8
+Ten pakiet zawiera wtyczki rozszerzajÄ…ce funkcjonalnoÅ›Ä‡ Kate (KDE
+Advanced Text Editor - Zaawansowanego Edytora TekstÃ³w KDE). Dodaje
+m.in. obsÅ‚ugÄ™ DCOP, moÅ¼liwoÅ›Ä‡ zarzÄ…dzania projektami i filtrowania
 tekstu.
 
-%description kate -l pt_BR
+%description kate -l pt_BR.UTF-8
 Este pacote fornece plugins KDE para kdebase-kate.
 
 %package kicker
 Summary:	Plugins and additional applets for Kicker (the KDE panel)
-Summary(es):	Plugins para kdebase-kicker
-Summary(pl):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
-Summary(pt_BR):	Plugins para kdebase-kicker
+Summary(es.UTF-8):   Plugins para kdebase-kicker
+Summary(pl.UTF-8):   Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
+Summary(pt_BR.UTF-8):   Plugins para kdebase-kicker
 Group:		X11/Applications
 Requires:	kdebase-desktop >= 9:%{_ver}
 
 %description kicker
 Plugins and additional applets for Kicker (the KDE panel).
 
-%description kicker -l es
+%description kicker -l es.UTF-8
 Este paquete prove plugins de KDE para kdebase-kicker.
 
-%description kicker -l pl
+%description kicker -l pl.UTF-8
 Wtyczki i dodatkowe aplety dla Kickera (panelu KDE).
 
-%description kicker -l pt_BR
+%description kicker -l pt_BR.UTF-8
 Este pacote fornece plugins KDE para kdebase-kicker.
 
 %package knewsticker
 Summary:	Scripts extending the functionality of KNewsTicker
-Summary(pl):	Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera
+Summary(pl.UTF-8):   Skrypty rozszerzajÄ…ce funkcjonalnoÅ›Ä‡ KNewsTickera
 Group:		X11/Applications
 Requires:	kdenetwork-knewsticker >= 10:%{_ver}
 
 %description knewsticker
 Scripts extending the functionality of KNewsTicker.
 
-%description knewsticker -l pl
-Skrypty rozszerzaj±ce funkcjonalno¶æ KNewsTickera.
+%description knewsticker -l pl.UTF-8
+Skrypty rozszerzajÄ…ce funkcjonalnoÅ›Ä‡ KNewsTickera.
 
 %package konqueror
 Summary:	Plugins extending the functionality of Konqueror
-Summary(es):	Plugins para konqueror
-Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora
-Summary(pt_BR):	Plugins para konqueror
+Summary(es.UTF-8):   Plugins para konqueror
+Summary(pl.UTF-8):   Wtyczki rozszerzajÄ…ce funkcjonalnoÅ›Ä‡ Konquerora
+Summary(pt_BR.UTF-8):   Plugins para konqueror
 Group:		X11/Applications
 Requires:	konqueror >= 9:%{_ver}
 
@@ -190,74 +190,74 @@ contains, among other things, plugins for translating web pages,
 checking web pages for valid HTML code, and viewing the DOM tree of
 web pages.
 
-%description konqueror -l es
+%description konqueror -l es.UTF-8
 Este paquete prove plugins de KDE para kdebase-konqueror.
 
-%description konqueror -l pl
-Pakiet zawiera wtyczki rozszerzaj±ce funkcjonalno¶æ Konquerora.
-Zawiera m.in. wtyczki do t³umaczenia stron WWW, sprawdzania
-poprawno¶ci HTML-a, ogl±dania drzewa DOM stron WWW.
+%description konqueror -l pl.UTF-8
+Pakiet zawiera wtyczki rozszerzajÄ…ce funkcjonalnoÅ›Ä‡ Konquerora.
+Zawiera m.in. wtyczki do tÅ‚umaczenia stron WWW, sprawdzania
+poprawnoÅ›ci HTML-a, oglÄ…dania drzewa DOM stron WWW.
 
-%description konqueror -l pt_BR
+%description konqueror -l pt_BR.UTF-8
 Este pacote fornece plugins KDE para kdebase-konqueror.
 
 %package ksig
 Summary:	A signature creator and manager
-Summary(pl):	Program tworz±cy i zarz±dzaj±cy podpisami
+Summary(pl.UTF-8):   Program tworzÄ…cy i zarzÄ…dzajÄ…cy podpisami
 Group:		X11/Applications
 Requires:	kdebase-core >= 9:%{_ver}
 
 %description ksig
 A signature creator and manager.
 
-%description ksig -l pl
-Program tworz±cy i zarz±dzaj±cy podpisami.
+%description ksig -l pl.UTF-8
+Program tworzÄ…cy i zarzÄ…dzajÄ…cy podpisami.
 
 %package kvim
 Summary:	Vim KPart
-Summary(pl):	KPart z vimem
+Summary(pl.UTF-8):   KPart z vimem
 Group:		X11/Applications
 Requires:	kdebase-core >= 9:%{_ver}
 
 %description kvim
 A kpart allowing KDE apps to embedd vim as an editor.
 
-%description kvim -l pl
-KPart umo¿liwiaj±cy aplikacjom KDE wykorzystywanie vima jako
+%description kvim -l pl.UTF-8
+KPart umoÅ¼liwiajÄ…cy aplikacjom KDE wykorzystywanie vima jako
 osadzonego edytora.
 
 %package lnkforward
 Summary:	Windows link file forwarder
-Summary(pl):	Przekierowywacz skrótów windowsowych
+Summary(pl.UTF-8):   Przekierowywacz skrÃ³tÃ³w windowsowych
 Group:		X11/Applications
 Requires:	kdebase-core >= 9:%{_ver}
 
 %description lnkforward
 A konqueror extension that makes windows .lnk files work under Linux.
 
-%description lnkforward -l pl
-Rozszerzenie do konquerora sprawiaj±ce, ¿e windowsowe skróty .lnk
-dzia³aj± pod Linuksem.
+%description lnkforward -l pl.UTF-8
+Rozszerzenie do konquerora sprawiajÄ…ce, Å¼e windowsowe skrÃ³ty .lnk
+dziaÅ‚ajÄ… pod Linuksem.
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
-Summary(es):	Plugins para kdemultimedia-noatun
-Summary(pl):	Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza noatun
-Summary(pt_BR):	Plugins para kdemultimedia-noatun
+Summary(es.UTF-8):   Plugins para kdemultimedia-noatun
+Summary(pl.UTF-8):   Wtyczki rozszerzajÄ…ce funkcjonalnoÅ›Ä‡ odtwarzacza noatun
+Summary(pt_BR.UTF-8):   Plugins para kdemultimedia-noatun
 Group:		X11/Applications
 Requires:	kdemultimedia-noatun >= 9:%{_ver}
 
 %description noatun
 Plugins extending the functionality of the noatun media player.
 
-%description noatun -l es
+%description noatun -l es.UTF-8
 Este paquete prove plugins de KDE para kdemultimedia-noatun.
 
-%description noatun -l pl
-Wtyczki rozszerzaj±ce funkcjonalno¶æ odtwarzacza plików
+%description noatun -l pl.UTF-8
+Wtyczki rozszerzajÄ…ce funkcjonalnoÅ›Ä‡ odtwarzacza plikÃ³w
 multimedialnych noatun.
 
-%description noatun -l pt_BR
+%description noatun -l pt_BR.UTF-8
 Este pacote fornece plugins KDE para kdemultimedia-noatun.
 
 %prep
