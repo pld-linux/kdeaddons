@@ -11,9 +11,9 @@
 %define		_mingamesevr	8:%{version}
 
 Summary:	K Desktop Environment - Plugins
-Summary(es.UTF-8):   K Desktop Environment - Plugins e Scripts para aplicativos KDE
-Summary(pl.UTF-8):   Wtyczki do aplikacji KDE
-Summary(pt_BR.UTF-8):   K Desktop Environment - Plugins e Scripts para aplicações KDE
+Summary(es.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
+Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
+Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.5.6
 Release:	2
@@ -62,7 +62,7 @@ KDE.
 
 %package ark
 Summary:	Konqueror ark integration plugin
-Summary(pl.UTF-8):   Wtyczka pozwalająca na integrację konquerora z ark
+Summary(pl.UTF-8):	Wtyczka pozwalająca na integrację konquerora z ark
 Group:		X11/Applications
 Requires:	kdeutils-ark
 
@@ -76,7 +76,7 @@ kompresji/dekompresji archiwów) z zarządcą plików.
 
 %package atlantikdesigner
 Summary:	Atlantik board designer
-Summary(pl.UTF-8):   Program do tworzenia plansz dla gry Atlantik
+Summary(pl.UTF-8):	Program do tworzenia plansz dla gry Atlantik
 Group:		X11/Applications/Games
 Requires:	kdegames-atlantik >= %{_mingamesevr}
 
@@ -88,7 +88,7 @@ Program do tworzenia plansz dla gry Atlantik.
 
 %package fsview
 Summary:	FSView - a tool for showing disc utilization in a graphical form
-Summary(pl.UTF-8):   FSview - narzędzie do graficznego przedstawiania wolnego miejsca na dysku
+Summary(pl.UTF-8):	FSview - narzędzie do graficznego przedstawiania wolnego miejsca na dysku
 Group:		X11/Applications
 Requires:	konqueror >= %{_minbaseevr}
 
@@ -102,9 +102,9 @@ działa podobnie do polecenia 'du'.
 
 %package kaddressbook-plugins
 Summary:	Plugins for kaddressbook
-Summary(es.UTF-8):   Plugins para kaddressbook
-Summary(pl.UTF-8):   Wtyczki do kaddressbook
-Summary(pt_BR.UTF-8):   Plugins para kaddressbook
+Summary(es.UTF-8):	Plugins para kaddressbook
+Summary(pl.UTF-8):	Wtyczki do kaddressbook
+Summary(pt_BR.UTF-8):	Plugins para kaddressbook
 Group:		X11/Applications
 Requires:	kdepim-kaddressbook >= %{_minpimevr}
 
@@ -122,9 +122,9 @@ Este pacote fornece plugins KDE para kaddressbook.
 
 %package kate
 Summary:	Plugins for the Kate text editor
-Summary(es.UTF-8):   Plugins para kdebase-kate
-Summary(pl.UTF-8):   Wtyczki do edytora tekstu Kate
-Summary(pt_BR.UTF-8):   Plugins para kdebase-kate
+Summary(es.UTF-8):	Plugins para kdebase-kate
+Summary(pl.UTF-8):	Wtyczki do edytora tekstu Kate
+Summary(pt_BR.UTF-8):	Plugins para kdebase-kate
 Group:		X11/Applications
 Requires:	kdebase-kate >= %{_minbaseevr}
 
@@ -148,9 +148,9 @@ Este pacote fornece plugins KDE para kdebase-kate.
 
 %package kicker
 Summary:	Plugins and additional applets for Kicker (the KDE panel)
-Summary(es.UTF-8):   Plugins para kdebase-kicker
-Summary(pl.UTF-8):   Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
-Summary(pt_BR.UTF-8):   Plugins para kdebase-kicker
+Summary(es.UTF-8):	Plugins para kdebase-kicker
+Summary(pl.UTF-8):	Wtyczki i dodatkowe aplety do Kickera (panelu KDE)
+Summary(pt_BR.UTF-8):	Plugins para kdebase-kicker
 Group:		X11/Applications
 Requires:	kdebase-desktop >= %{_minbaseevr}
 
@@ -168,7 +168,7 @@ Este pacote fornece plugins KDE para kdebase-kicker.
 
 %package knewsticker
 Summary:	Scripts extending the functionality of KNewsTicker
-Summary(pl.UTF-8):   Skrypty rozszerzające funkcjonalność KNewsTickera
+Summary(pl.UTF-8):	Skrypty rozszerzające funkcjonalność KNewsTickera
 Group:		X11/Applications
 Requires:	kdenetwork-knewsticker >= %{_minnetworkevr}
 
@@ -180,9 +180,9 @@ Skrypty rozszerzające funkcjonalność KNewsTickera.
 
 %package konqueror
 Summary:	Plugins extending the functionality of Konqueror
-Summary(es.UTF-8):   Plugins para konqueror
-Summary(pl.UTF-8):   Wtyczki rozszerzające funkcjonalność Konquerora
-Summary(pt_BR.UTF-8):   Plugins para konqueror
+Summary(es.UTF-8):	Plugins para konqueror
+Summary(pl.UTF-8):	Wtyczki rozszerzające funkcjonalność Konquerora
+Summary(pt_BR.UTF-8):	Plugins para konqueror
 Group:		X11/Applications
 Requires:	konqueror >= %{_minbaseevr}
 
@@ -205,7 +205,7 @@ Este pacote fornece plugins KDE para kdebase-konqueror.
 
 %package ksig
 Summary:	A signature creator and manager
-Summary(pl.UTF-8):   Program tworzący i zarządzający podpisami
+Summary(pl.UTF-8):	Program tworzący i zarządzający podpisami
 Group:		X11/Applications
 Requires:	kdebase-core >= %{_minbaseevr}
 
@@ -217,7 +217,7 @@ Program tworzący i zarządzający podpisami.
 
 %package lnkforward
 Summary:	Windows link file forwarder
-Summary(pl.UTF-8):   Przekierowywacz skrótów windowsowych
+Summary(pl.UTF-8):	Przekierowywacz skrótów windowsowych
 Group:		X11/Applications
 Requires:	kdebase-core >= %{_minbaseevr}
 
@@ -230,9 +230,9 @@ działają pod Linuksem.
 
 %package noatun
 Summary:	Plugins extending the functionality of the noatun media player
-Summary(es.UTF-8):   Plugins para kdemultimedia-noatun
-Summary(pl.UTF-8):   Wtyczki rozszerzające funkcjonalność odtwarzacza noatun
-Summary(pt_BR.UTF-8):   Plugins para kdemultimedia-noatun
+Summary(es.UTF-8):	Plugins para kdemultimedia-noatun
+Summary(pl.UTF-8):	Wtyczki rozszerzające funkcjonalność odtwarzacza noatun
+Summary(pt_BR.UTF-8):	Plugins para kdemultimedia-noatun
 Group:		X11/Applications
 Requires:	kdemultimedia-noatun >= %{_minmultimediaevr}
 
