@@ -15,13 +15,13 @@ Summary(es.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicativos KD
 Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
 Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.5.7
-Release:	2
+Version:	3.5.8
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	7b50fa8e103bd722dfcdfc329126ff28
+# Source0-md5:	4a338f14210ad920bb54624cd330dd89
 Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
