@@ -6,7 +6,7 @@
 %define		_minlibsevr	9:%{version}
 %define		_minbaseevr	9:%{version}
 %define		_minmultimediaevr	9:%{version}
-%define		_minkdepimevr	9:%{version}
+%define		_minpimevr	9:%{version}
 %define		_minnetworkevr	10:%{version}
 %define		_mingamesevr	8:%{version}
 
@@ -15,14 +15,16 @@ Summary(es):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl):	Wtyczki do aplikacji KDE
 Summary(pt_BR):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.5.4
-Release:	2
+Version:	3.5.8
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	840d18fbcadec9f94bb70563876b4dcd
+# Source0-md5:	4a338f14210ad920bb54624cd330dd89
 #Patch100:	%{name}-branch.diff
+Patch0:		kde-common-PLD.patch
+Patch1:		kde-ac260-lt.patch
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -250,6 +252,8 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %prep
 %setup -q
 #%patch100 -p0
+%patch0 -p1
+%patch1 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	-e 's/Terminal=0/Terminal=false/' \
@@ -264,11 +268,7 @@ done
 
 %build
 cp -f /usr/share/automake/config.sub admin
-
-#export UNSERMAKE=/usr/share/unsermake/unsermake
-
 %{__make} -f admin/Makefile.common cvs
-
 %configure \
 	--disable-rpath \
 	--disable-final \
@@ -282,7 +282,7 @@ cp -f /usr/share/automake/config.sub admin
 
 %install
 rm -rf $RPM_BUILD_ROOT
-rm -rf *.lang
+rm -f *.lang
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -303,6 +303,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 %find_lang kate-plugins		--with-kde
 %find_lang kicker-applets	--with-kde
 %find_lang konq-plugins		--with-kde
+%find_lang ksig		--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -330,6 +331,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/kde3/libfsviewpart.la
 %attr(755,root,root) %{_libdir}/kde3/libfsviewpart.so
 %{_datadir}/apps/fsview
+%{_datadir}/applnk/.hidden/fsview.desktop
 %{_datadir}/services/fsview_part.desktop
 %{_iconsdir}/*/*/apps/fsview.png
 #%{_mandir}/man1/fsview.1*
@@ -396,6 +398,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files konqueror -f konq-plugins.lang
 %defattr(644,root,root,755)
+%{_datadir}/applnk/.hidden/crashesplugin.desktop
+%{_datadir}/applnk/.hidden/dirfilterplugin.desktop
+%{_datadir}/applnk/.hidden/khtmlsettingsplugin.desktop
+%{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
+%{_datadir}/applnk/.hidden/plugin_babelfish.desktop
+%{_datadir}/applnk/.hidden/plugin_domtreeviewer.desktop
+%{_datadir}/applnk/.hidden/plugin_validators.desktop
+%{_datadir}/applnk/.hidden/plugin_webarchiver.desktop
+%{_datadir}/applnk/.hidden/uachangerplugin.desktop
 %attr(755,root,root) %{_bindir}/jpegorient
 %attr(755,root,root) %{_bindir}/kio_media_realfolder
 %{_libdir}/kde3/kfile_cert.la
@@ -550,7 +561,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/apps/imagerotation/orient.py
 %attr(755,root,root) %{_datadir}/apps/imagerotation/exif.py
 
-%files ksig
+%files ksig -f ksig.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksig
 %{_datadir}/apps/ksig
