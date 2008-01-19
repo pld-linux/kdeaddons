@@ -1,5 +1,6 @@
+#
 # Conditional build:
-%bcond_without	kdegames        # no kdegames dep
+%bcond_without	kdegames	# no kdegames dep
 %bcond_without	xmms		# no xmms dep
 #
 %define		_state		stable
@@ -25,6 +26,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
+URL:		http://www.kde.org/
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
