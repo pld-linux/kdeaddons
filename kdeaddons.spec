@@ -1,7 +1,8 @@
 #
 # Conditional build:
 %bcond_without	kdegames	# no kdegames dep
-%bcond_without	xmms		# no xmms dep
+# off because we don't want gtk1 deps (gtk1 is slowly being obsoleted on HEAD)
+%bcond_with	xmms		# xmms dep
 #
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
@@ -17,7 +18,7 @@ Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
 Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.5.8
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
