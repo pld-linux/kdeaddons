@@ -1,3 +1,15 @@
+# TODO
+# - unpackaged:
+#   /usr/share/applnk/.hidden/crashesplugin.desktop
+#   /usr/share/applnk/.hidden/dirfilterplugin.desktop
+#   /usr/share/applnk/.hidden/fsview.desktop
+#   /usr/share/applnk/.hidden/khtmlsettingsplugin.desktop
+#   /usr/share/applnk/.hidden/kimgalleryplugin.desktop
+#   /usr/share/applnk/.hidden/plugin_babelfish.desktop
+#   /usr/share/applnk/.hidden/plugin_domtreeviewer.desktop
+#   /usr/share/applnk/.hidden/plugin_validators.desktop
+#   /usr/share/applnk/.hidden/plugin_webarchiver.desktop
+#   /usr/share/applnk/.hidden/uachangerplugin.desktop
 #
 # Conditional build:
 %bcond_without	kdegames	# no kdegames dep
@@ -16,13 +28,13 @@ Summary(es.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicativos KD
 Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
 Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.5.8
-Release:	1
+Version:	3.5.9
+Release:	0.1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	4a338f14210ad920bb54624cd330dd89
+# Source0-md5:	eaa3832a25b483d1a9613f75991c3d7b
 #Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
@@ -43,7 +55,6 @@ BuildRequires:	mdns-bonjour-devel
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
-#BuildRequires:	unsermake >= 040511
 %{?with_xmms:BuildRequires:	xmms-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
