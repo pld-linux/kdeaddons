@@ -1,15 +1,3 @@
-# TODO
-# - unpackaged:
-#   /usr/share/applnk/.hidden/crashesplugin.desktop
-#   /usr/share/applnk/.hidden/dirfilterplugin.desktop
-#   /usr/share/applnk/.hidden/fsview.desktop
-#   /usr/share/applnk/.hidden/khtmlsettingsplugin.desktop
-#   /usr/share/applnk/.hidden/kimgalleryplugin.desktop
-#   /usr/share/applnk/.hidden/plugin_babelfish.desktop
-#   /usr/share/applnk/.hidden/plugin_domtreeviewer.desktop
-#   /usr/share/applnk/.hidden/plugin_validators.desktop
-#   /usr/share/applnk/.hidden/plugin_webarchiver.desktop
-#   /usr/share/applnk/.hidden/uachangerplugin.desktop
 #
 # Conditional build:
 %bcond_without	kdegames	# no kdegames dep
@@ -29,7 +17,7 @@ Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
 Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.5.9
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -294,27 +282,39 @@ cp -f /usr/share/automake/config.sub admin
 %{__make}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
+
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_libs_htmldir=%{_kdedocdir} \
+		kde_htmldir=%{_kdedocdir}
+
+	touch makeinstall.stamp
+fi
+
+if [ ! -f installed.stamp ]; then
+	touch makeinstall.stamp
+fi
+
+if [ ! -f installed.stamp ]; then
+	%if 0
+	# Debian manpages
+	install -d $RPM_BUILD_ROOT%{_mandir}/man1
+	install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+	%endif
+
+	mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
+
+	# unsupported
+	rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
+
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
+	touch installed.stamp
+fi
+
 rm -f *.lang
-
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_libs_htmldir=%{_kdedocdir} \
-	kde_htmldir=%{_kdedocdir}
-
-%if 0
-# Debian manpages
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
-%endif
-
-mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
-
-# unsupported
-rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
-
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
-
 %find_lang kate-plugins		--with-kde
 %find_lang kicker-applets	--with-kde
 %find_lang konq-plugins		--with-kde
@@ -345,6 +345,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libfsviewpart.so
 %{_datadir}/apps/fsview
 %{_datadir}/services/fsview_part.desktop
+%{_datadir}/applnk/.hidden/fsview.desktop
 %{_iconsdir}/*/*/apps/fsview.png
 #%{_mandir}/man1/fsview.1*
 
@@ -477,7 +478,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/metabar
 %{_datadir}/apps/microformat
 %{_datadir}/config/translaterc
-#%{_datadir}/services/dirfilterplugin.desktop
 %{_datadir}/services/kfile_cert.desktop
 %{_datadir}/services/kfile_desktop.desktop
 %{_datadir}/services/kfile_folder.desktop
@@ -488,10 +488,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/renaudiodlg.desktop
 %{_datadir}/services/renimagedlg.desktop
 %{_datadir}/services/webarchivethumbnail.desktop
+%{_datadir}/applnk/.hidden/crashesplugin.desktop
+%{_datadir}/applnk/.hidden/dirfilterplugin.desktop
 %{_datadir}/applnk/.hidden/kcmkuick.desktop
-#%{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
+%{_datadir}/applnk/.hidden/khtmlsettingsplugin.desktop
+%{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
 %{_datadir}/applnk/.hidden/kuickplugin.desktop
 %{_datadir}/applnk/.hidden/mediaplayerplugin.desktop
+%{_datadir}/applnk/.hidden/plugin_babelfish.desktop
+%{_datadir}/applnk/.hidden/plugin_domtreeviewer.desktop
+%{_datadir}/applnk/.hidden/plugin_validators.desktop
+%{_datadir}/applnk/.hidden/plugin_webarchiver.desktop
+%{_datadir}/applnk/.hidden/uachangerplugin.desktop
 %{_iconsdir}/crystalsvg/*/actions/babelfish.png
 %{_iconsdir}/crystalsvg/*/actions/cssvalidator.png
 %{_iconsdir}/crystalsvg/*/actions/domtreeviewer.png
