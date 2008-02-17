@@ -17,14 +17,14 @@ Summary(es.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicativos KD
 Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
 Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
-Version:	3.5.8
-Release:	3
+Version:	3.5.9
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.tar.bz2
-# Source0-md5:	4a338f14210ad920bb54624cd330dd89
-Patch100:	%{name}-branch.diff
+# Source0-md5:	eaa3832a25b483d1a9613f75991c3d7b
+#Patch100:	%{name}-branch.diff
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 URL:		http://www.kde.org/
@@ -44,7 +44,6 @@ BuildRequires:	mdns-bonjour-devel
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
-#BuildRequires:	unsermake >= 040511
 %{?with_xmms:BuildRequires:	xmms-devel}
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -284,30 +283,43 @@ cp -f /usr/share/automake/config.sub admin
 %{__make}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-rm -rf *.lang
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	kde_libs_htmldir=%{_kdedocdir} \
-	kde_htmldir=%{_kdedocdir}
+	%{__make} install \
+		DESTDIR=$RPM_BUILD_ROOT \
+		kde_libs_htmldir=%{_kdedocdir} \
+		kde_htmldir=%{_kdedocdir}
 
-%if 0
-# Debian manpages
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
-%endif
+	touch makeinstall.stamp
+fi
 
-mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
+if [ ! -f installed.stamp ]; then
+	touch makeinstall.stamp
+fi
 
-# unsupported
-rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
+if [ ! -f installed.stamp ]; then
+	%if 0
+	# Debian manpages
+	install -d $RPM_BUILD_ROOT%{_mandir}/man1
+	install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
+	%endif
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+	mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
+	# unsupported
+	rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
+
+	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
+	touch installed.stamp
+fi
+
+rm -f *.lang
 %find_lang kate-plugins		--with-kde
 %find_lang kicker-applets	--with-kde
 %find_lang konq-plugins		--with-kde
+%find_lang ksig		--with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -334,6 +346,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/libfsviewpart.so
 %{_datadir}/apps/fsview
 %{_datadir}/services/fsview_part.desktop
+%{_datadir}/applnk/.hidden/fsview.desktop
 %{_iconsdir}/*/*/apps/fsview.png
 #%{_mandir}/man1/fsview.1*
 
@@ -466,7 +479,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/metabar
 %{_datadir}/apps/microformat
 %{_datadir}/config/translaterc
-#%{_datadir}/services/dirfilterplugin.desktop
 %{_datadir}/services/kfile_cert.desktop
 %{_datadir}/services/kfile_desktop.desktop
 %{_datadir}/services/kfile_folder.desktop
@@ -477,10 +489,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/renaudiodlg.desktop
 %{_datadir}/services/renimagedlg.desktop
 %{_datadir}/services/webarchivethumbnail.desktop
+%{_datadir}/applnk/.hidden/crashesplugin.desktop
+%{_datadir}/applnk/.hidden/dirfilterplugin.desktop
 %{_datadir}/applnk/.hidden/kcmkuick.desktop
-#%{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
+%{_datadir}/applnk/.hidden/khtmlsettingsplugin.desktop
+%{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
 %{_datadir}/applnk/.hidden/kuickplugin.desktop
 %{_datadir}/applnk/.hidden/mediaplayerplugin.desktop
+%{_datadir}/applnk/.hidden/plugin_babelfish.desktop
+%{_datadir}/applnk/.hidden/plugin_domtreeviewer.desktop
+%{_datadir}/applnk/.hidden/plugin_validators.desktop
+%{_datadir}/applnk/.hidden/plugin_webarchiver.desktop
+%{_datadir}/applnk/.hidden/uachangerplugin.desktop
 %{_iconsdir}/crystalsvg/*/actions/babelfish.png
 %{_iconsdir}/crystalsvg/*/actions/cssvalidator.png
 %{_iconsdir}/crystalsvg/*/actions/domtreeviewer.png
@@ -513,7 +533,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/apps/imagerotation/orient.py
 %attr(755,root,root) %{_datadir}/apps/imagerotation/exif.py
 
-%files ksig
+%files ksig -f ksig.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/ksig
 %{_datadir}/apps/ksig
