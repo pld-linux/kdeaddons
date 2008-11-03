@@ -10,7 +10,7 @@
 +
 +    QStringList parts = QStringList::split('_', sender()->name(), false);
 +    if (parts.count() == 2) {
-+      query += "sl=" + parts[0] + "&tl=" + parts[1];
++      query += "&sl=" + parts[0] + "&tl=" + parts[1];
 +    }
 +
 +    if ( part->hasSelection() )
