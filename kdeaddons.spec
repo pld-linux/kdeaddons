@@ -1,9 +1,13 @@
 #
 # Conditional build:
 %bcond_without	kdegames	# no kdegames dep
+%if "%{pld_release}" == "ac"
+%bcond_without	xmms		# xmms dep
+%else
 # off because we don't want gtk1 deps (gtk1 is slowly being obsoleted on HEAD)
 %bcond_with	xmms		# xmms dep
-#
+%endif
+
 %define		_state		stable
 %define		_minlibsevr	9:%{version}
 %define		_minbaseevr	9:%{version}
@@ -11,7 +15,6 @@
 %define		_minpimevr	9:%{version}
 %define		_minnetworkevr	10:%{version}
 %define		_mingamesevr	8:%{version}
-
 Summary:	K Desktop Environment - Plugins
 Summary(es.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicativos KDE
 Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
@@ -42,6 +45,7 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	mdns-bonjour-devel
 BuildRequires:	openssl-devel >= 0.9.7d
+BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	sed >= 4.0
 %{?with_xmms:BuildRequires:	xmms-devel}
