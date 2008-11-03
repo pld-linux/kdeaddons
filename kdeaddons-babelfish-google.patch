@@ -1,0 +1,31 @@
+--- kdeaddons-3.5.10/konq-plugins/babelfish/plugin_babelfish.cpp~	2008-08-19 21:10:36.000000000 +0300
++++ kdeaddons-3.5.10/konq-plugins/babelfish/plugin_babelfish.cpp	2008-11-03 18:33:45.532681324 +0200
+@@ -355,6 +355,20 @@
+     else
+       query += "&systran_url=";
+     query += totrans;
++  } else if( engine == "google" ) {
++    result = KURL( "http://translate.google.com/translate" );
++    query = "ie=UTF-8";
++
++    QStringList parts = QStringList::split('_', sender()->name(), false);
++    if (parts.count() == 2) {
++      query += "sl=" + parts[0] + "&tl=" + parts[1];
++    }
++
++    if ( part->hasSelection() )
++      query += "&text=";
++    else
++      query += "&u=";
++    query += totrans;
+   } else {
+     // Using the altavista babelfish engine
+     result = KURL( "http://babelfish.altavista.com/babelfish/tr" );
+--- kdeaddons-3.5.10/konq-plugins/babelfish/translaterc~	2008-11-03 21:24:42.000000000 +0200
++++ kdeaddons-3.5.10/konq-plugins/babelfish/translaterc	2008-11-03 21:24:58.343026403 +0200
+@@ -12,4 +12,5 @@
+ nl_en=freetranslation
+ nl_fr=voila
+ pt_fr=voila
++ru_en=google
+ zhTW_en=tsail
