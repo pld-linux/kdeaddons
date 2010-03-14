@@ -31,6 +31,7 @@ Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{name}-%{version}.t
 Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-babelfish-google.patch
+Patch3:		kde-am.patch
 URL:		http://www.kde.org/
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
@@ -262,6 +263,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	-e 's/Terminal=0/Terminal=false/' \
