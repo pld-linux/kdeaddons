@@ -287,6 +287,7 @@ cp -f /usr/share/automake/config.sub admin
 	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full}
 
 %{__make}
+rm -f makeinstall.stamp
 
 %install
 if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
@@ -301,16 +302,6 @@ if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
 fi
 
 if [ ! -f installed.stamp ]; then
-	touch makeinstall.stamp
-fi
-
-if [ ! -f installed.stamp ]; then
-	%if 0
-	# Debian manpages
-	install -d $RPM_BUILD_ROOT%{_mandir}/man1
-	install debian/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
-	%endif
-
 	mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
 	# unsupported
