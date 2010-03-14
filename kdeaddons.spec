@@ -21,7 +21,7 @@ Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
 Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.5.10
-Release:	4
+Release:	5
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -304,10 +304,13 @@ fi
 if [ ! -f installed.stamp ]; then
 	mv $RPM_BUILD_ROOT%{_iconsdir}/{lo,hi}color/16x16/apps/autorefresh.png
 
-	# unsupported
-	rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
-
 	rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+	# kio (KService*): WARNING: The desktop entry file .hidden/dirfilterplugin.desktop has Type=Service but is located under "apps" instead of "services"
+	# kio (KService*): WARNING: Invalid Service : .hidden/dirfilterplugin.desktop
+	mv $RPM_BUILD_ROOT%{_datadir}/{applnk/.hidden,services}/dirfilterplugin.desktop
+
+	# locolor unsupported
+	rm -rf $RPM_BUILD_ROOT%{_datadir}/icons/locolor
 
 	touch installed.stamp
 fi
@@ -486,8 +489,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/renaudiodlg.desktop
 %{_datadir}/services/renimagedlg.desktop
 %{_datadir}/services/webarchivethumbnail.desktop
+%{_datadir}/services/dirfilterplugin.desktop
 %{_datadir}/applnk/.hidden/crashesplugin.desktop
-%{_datadir}/applnk/.hidden/dirfilterplugin.desktop
 %{_datadir}/applnk/.hidden/kcmkuick.desktop
 %{_datadir}/applnk/.hidden/khtmlsettingsplugin.desktop
 %{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
