@@ -1,0 +1,11 @@
+--- /home/glen/BUILD/kdeaddons-3.5.10/kate/tabbarextension/plugin_katetabbarextension.h~	2010-05-25 01:31:19.773976643 +0300
++++ /home/glen/BUILD/kdeaddons-3.5.10/kate/tabbarextension/plugin_katetabbarextension.h	2010-05-25 01:31:21.644272725 +0300
+@@ -53,7 +53,7 @@
+ class MyPtrList : public QPtrList <KateTabBarButton>
+ {
+   public:
+-  MyPtrList() { QPtrList<KateTabBarButton>::QPtrList(); }
++  MyPtrList() { QPtrList(); }
+ 
+   virtual int compareItems ( QPtrCollection::Item item1_, QPtrCollection::Item item2_ );
+ };
