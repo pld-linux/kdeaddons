@@ -1,5 +1,6 @@
 #
 # Conditional build:
+%bcond_with	arts			# build with aRts support
 %bcond_without	kdegames	# no kdegames dep
 %if "%{pld_release}" == "ac"
 %bcond_without	xmms		# xmms dep
@@ -21,7 +22,7 @@ Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
 Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.5.10
-Release:	5
+Release:	6
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -289,6 +290,7 @@ cp -f /usr/share/automake/config.sub admin
 %if "%{_lib}" == "lib64"
 	--enable-libsuffix=64 \
 %endif
+	--with%{!?with_arts:out}-arts \
 	--%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full}
 
 %{__make}
@@ -416,7 +418,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde3/kfile_html.so
 %attr(755,root,root) %{_libdir}/kde3/kfile_mhtml.so
 %attr(755,root,root) %{_libdir}/kde3/kfile_txt.so
-%attr(755,root,root) %{_libdir}/kde3/konqsidebar_mediaplayer.so
+%{?with_arts:%attr(755,root,root) %{_libdir}/kde3/konqsidebar_mediaplayer.so}
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_delicious.so
 %attr(755,root,root) %{_libdir}/kde3/konqsidebar_metabar.so
 %attr(755,root,root) %{_libdir}/kde3/libautorefresh.so
@@ -473,7 +475,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/konqlistview/kpartplugins/dirfilterplugin.desktop
 %{_datadir}/apps/konqlistview/kpartplugins/kimgalleryplugin.rc
 %{_datadir}/apps/konqlistview/kpartplugins/kimgalleryplugin.desktop
-%{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop
+%{?with_arts:%{_datadir}/apps/konqsidebartng/add/mplayer_add.desktop}
 %{_datadir}/apps/konqsidebartng/add/delicious_add.desktop
 %{_datadir}/apps/konqsidebartng/add/metabar_add.desktop
 %{_datadir}/apps/konqsidebartng/entries/metabar.desktop
@@ -500,7 +502,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applnk/.hidden/khtmlsettingsplugin.desktop
 %{_datadir}/applnk/.hidden/kimgalleryplugin.desktop
 %{_datadir}/applnk/.hidden/kuickplugin.desktop
-%{_datadir}/applnk/.hidden/mediaplayerplugin.desktop
+%{?with_arts:%{_datadir}/applnk/.hidden/mediaplayerplugin.desktop}
 %{_datadir}/applnk/.hidden/plugin_babelfish.desktop
 %{_datadir}/applnk/.hidden/plugin_domtreeviewer.desktop
 %{_datadir}/applnk/.hidden/plugin_validators.desktop
@@ -514,7 +516,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/crystalsvg/*/actions/minitools.png
 %{_iconsdir}/crystalsvg/*/actions/validators.png
 %{_iconsdir}/crystalsvg/*/actions/webarchiver.png
-%{_iconsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png
+%{?with_arts:%{_iconsdir}/crystalsvg/*/apps/konqsidebar_mediaplayer.png}
 %{_iconsdir}/crystalsvg/*/apps/konqsidebar_delicious.png
 %{_iconsdir}/*/*/apps/metabar.png
 %{_iconsdir}/*/*/apps/metabar.svgz
@@ -555,6 +557,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/services/kfile_lnk.desktop
 #%{_mandir}/man1/lnkforward.1*
 
+%if %{with arts}
 %files noatun
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/noatunsynaescope.bin
@@ -580,3 +583,4 @@ rm -rf $RPM_BUILD_ROOT
 #%{_mandir}/man1/noatunsynaescope.bin.1*
 #%{_mandir}/man1/noatuntippecanoe.bin.1*
 #%{_mandir}/man1/noatuntyler.bin.1*
+%endif
