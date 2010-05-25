@@ -5,7 +5,7 @@
  {
    public:
 -  MyPtrList() { QPtrList<KateTabBarButton>::QPtrList(); }
-+  MyPtrList(): QPtrList() {}
++  MyPtrList(): QPtrList<KateTabBarButton>::QPtrList() {};
  
    virtual int compareItems ( QPtrCollection::Item item1_, QPtrCollection::Item item2_ );
  };
