@@ -22,7 +22,7 @@ Summary(pl.UTF-8):	Wtyczki do aplikacji KDE
 Summary(pt_BR.UTF-8):	K Desktop Environment - Plugins e Scripts para aplicações KDE
 Name:		kdeaddons
 Version:	3.5.10
-Release:	6
+Release:	7
 Epoch:		1
 License:	GPL
 Group:		X11/Applications
@@ -33,6 +33,7 @@ Patch0:		kde-common-PLD.patch
 Patch1:		kde-ac260-lt.patch
 Patch2:		%{name}-babelfish-google.patch
 Patch3:		kde-am.patch
+Patch4:		gcc45.patch
 URL:		http://www.kde.org/
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
@@ -268,6 +269,7 @@ Este pacote fornece plugins KDE para kdemultimedia-noatun.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %{__sed} -i -e '/\[Desktop Entry\]/aEncoding=UTF-8' \
 	-e 's/Terminal=0/Terminal=false/' \
