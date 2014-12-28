@@ -39,7 +39,7 @@ BuildRequires:	SDL-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	db-cxx-devel
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	kdebase-devel >= %{_minbaseevr}
 %{?with_kdegames:BuildRequires:	kdegames-devel >= %{_mingamesevr}}
 BuildRequires:	kdemultimedia-devel >= %{_minmultimediaevr}
